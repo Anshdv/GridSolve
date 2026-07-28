@@ -266,7 +266,7 @@ function Problem() {
           real.
         </Reveal>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-[1fr_1fr] md:items-center">
+        <div className="mt-12 grid gap-12 lg:grid-cols-[1fr_1fr] lg:items-center">
           <RevealGroup
             stagger={0.12}
             className="space-y-5 text-[15.5px] leading-relaxed text-neutral-400"
@@ -311,34 +311,59 @@ function WithdrawalBar() {
   return (
     <Reveal className="rounded-xl border border-white/10 bg-white/[0.02] p-6">
       <div ref={ref}>
-        <div className="mb-3 flex items-baseline justify-between font-tele text-[11px] uppercase tracking-[0.14em] text-neutral-500">
+        <div className="flex items-baseline justify-between font-tele text-[11px] uppercase tracking-[0.14em] text-neutral-500">
           <span>Queued capacity, this dataset</span>
           <span>100%</span>
         </div>
-        <div className="flex h-14 w-full overflow-hidden rounded-md bg-[#0a0c10]">
+
+        <div className="mt-5 grid grid-cols-2 gap-3">
+          <div className="rounded-lg border border-[var(--withdraw)]/15 bg-[var(--withdraw)]/[0.04] px-4 py-3.5">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-[2px] bg-[var(--withdraw)]" />
+              <span className="font-tele text-[11px] text-neutral-500">
+                Withdraws
+              </span>
+            </div>
+            <div className="mt-1.5 font-tele text-xl text-[var(--withdraw)]">
+              {withdrawalPct}%
+            </div>
+            <p className="mt-1 text-[11px] text-neutral-600">
+              Likely to drop from the queue
+            </p>
+          </div>
+          <div className="rounded-lg border border-[var(--accent)]/20 bg-[var(--accent)]/[0.05] px-4 py-3.5">
+            <div className="flex items-center gap-2">
+              <span className="h-1.5 w-1.5 rounded-[2px] bg-[var(--accent-bright)]" />
+              <span className="font-tele text-[11px] text-neutral-500">
+                Deliverable
+              </span>
+            </div>
+            <div className="mt-1.5 font-tele text-xl text-[var(--accent-bright)]">
+              {survivePct}%
+            </div>
+            <p className="mt-1 text-[11px] text-neutral-600">
+              Realistically available power
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-4 flex h-1.5 w-full overflow-hidden rounded-full bg-white/[0.04]">
           <motion.div
-            className="flex items-center justify-center bg-[var(--withdraw)]/25"
+            className="h-full bg-[var(--withdraw)]/50"
             initial={canAnimate ? { width: "0%" } : false}
             animate={{ width: fill ? `${withdrawalPct}%` : "0%" }}
-            transition={{ duration: canAnimate ? 1.1 : 0, ease: EASE, delay: canAnimate ? 0.15 : 0 }}
-          >
-            <span className="whitespace-nowrap px-2 font-tele text-xs font-medium text-[var(--withdraw)]">
-              {withdrawalPct}% withdraws
-            </span>
-          </motion.div>
+            transition={{ duration: canAnimate ? 1 : 0, ease: EASE, delay: canAnimate ? 0.15 : 0 }}
+          />
           <motion.div
-            className="flex items-center justify-center bg-[var(--accent)]/30"
+            className="h-full bg-[var(--accent)]/60"
             initial={canAnimate ? { width: "0%" } : false}
             animate={{ width: fill ? `${survivePct}%` : "0%" }}
-            transition={{ duration: canAnimate ? 1.1 : 0, ease: EASE, delay: canAnimate ? 0.4 : 0 }}
-          >
-            <span className="whitespace-nowrap px-1 font-tele text-xs font-medium text-[var(--accent-bright)]">
-              {survivePct}%
-            </span>
-          </motion.div>
+            transition={{ duration: canAnimate ? 1 : 0, ease: EASE, delay: canAnimate ? 0.35 : 0 }}
+          />
         </div>
-        <p className="mt-3 font-tele text-[11px] text-neutral-500">
-          Only the right-hand sliver is realistically deliverable power.
+
+        <p className="mt-4 text-[11px] leading-relaxed text-neutral-600">
+          Only the deliverable share is power you can actually count on.
         </p>
       </div>
     </Reveal>
