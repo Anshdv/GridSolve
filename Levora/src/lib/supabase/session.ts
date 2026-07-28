@@ -1,4 +1,4 @@
-// Session refresh + route protection, run from src/proxy.ts on every request.
+// Session refresh + route protection, run from src/middleware.ts on every request.
 // Keeps the Supabase auth cookie fresh (required for Server Components to see
 // the session) and gates protected routes.
 import { createServerClient } from "@supabase/ssr";

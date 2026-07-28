@@ -16,7 +16,7 @@ export async function createClient() {
         },
         setAll(cookiesToSet) {
           // In a Server Component render, cookies() is read-only and this
-          // throws — safe to ignore, since the proxy refreshes the session
+          // throws — safe to ignore, since middleware refreshes the session
           // session cookie on every request.
           try {
             cookiesToSet.forEach(({ name, value, options }) =>

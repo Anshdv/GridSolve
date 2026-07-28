@@ -16,3 +16,13 @@ build/
 # Model script (local / generated)
 levora_model.py
 levoramodel.py
+
+# OpenNext
+.open-next
+
+# wrangler files
+.wrangler
+.dev.vars*
+!.dev.vars.example
+
+!.env.example
