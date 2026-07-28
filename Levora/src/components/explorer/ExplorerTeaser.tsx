@@ -1,34 +1,34 @@
 "use client";
 
-// Shown to signed-in users who don't yet have full explorer access. Instead of
-// hiding everything behind a contact wall, we give a genuine taste: the top few
-// substations by Levora Site Score — real scores, real numbers — then a prompt
-// to contact us to unlock the rest.
+// The preview list shown to signed-in users without full explorer access: a
+// small, hand-varied set of substations (2 strong / 2 middling / 2 weak,
+// coast to coast) with their real Levora Site Scores. Selecting one opens its
+// full detail panel (rendered by the explorer page), and the contact prompt
+// (TeaserContact) sits below. Rows mirror the full SubstationList styling.
 import { scoreColor, type ScoredSubstation } from "@/lib/siteScore";
-import { getExplorerAccessEmail } from "@/lib/explorerAccess";
 
 const mw = (n: number) => `${Math.round(n).toLocaleString()} MW`;
 
 export default function ExplorerTeaser({
   items,
   terciles,
-  total,
   selectedName,
   onSelect,
 }: {
   items: ScoredSubstation[];
   terciles: [number, number];
-  total: number;
   selectedName: string | null;
   onSelect: (s: ScoredSubstation) => void;
 }) {
-  const email = getExplorerAccessEmail();
-
   return (
-    <div className="flex flex-1 flex-col overflow-y-auto">
-      <div className="border-b border-white/5 bg-[var(--accent)]/[0.05] px-5 py-2.5">
+    <div>
+      <div className="sticky top-0 z-10 border-b border-white/5 bg-[#0a0a0b]/90 px-5 py-2.5 backdrop-blur">
         <p className="font-tele text-[11px] uppercase tracking-[0.14em] text-[var(--accent-bright)]">
-          Preview · top-scored sites
+          Preview · a varied sample, coast to coast
+        </p>
+        <p className="mt-1 text-[11px] leading-relaxed text-neutral-500">
+          Select any site to see its full breakdown — score, queue, phantom, and
+          more.
         </p>
       </div>
 
@@ -94,30 +94,6 @@ export default function ExplorerTeaser({
           </button>
         );
       })}
-
-      {/* Contact-to-unlock prompt, directly below the teaser rows. */}
-      <div className="border-t border-white/10 bg-white/[0.02] px-5 py-7 text-center">
-        <h3 className="font-display text-base font-semibold tracking-tight text-white [text-wrap:balance]">
-          This is just a taste of Levora.
-        </h3>
-        <p className="mx-auto mt-2 max-w-sm text-sm leading-relaxed text-neutral-400">
-          You&apos;re previewing {items.length} of{" "}
-          <span className="text-neutral-200">{total.toLocaleString()}</span>{" "}
-          scored substations. Unlock the full list, filters, side-by-side
-          comparison, and per-site detail panels.
-        </p>
-        <a
-          href={`mailto:${email}?subject=Levora%20explorer%20access%20request`}
-          className="mt-6 inline-flex items-center gap-2 rounded-full border border-[var(--accent)]/40 bg-[var(--accent)]/10 px-5 py-2.5 text-sm font-medium text-[var(--accent-bright)] transition-colors hover:border-[var(--accent)]/60 hover:bg-[var(--accent)]/15"
-        >
-          Contact {email} to access all of them
-          <span aria-hidden>→</span>
-        </a>
-        <p className="mx-auto mt-4 max-w-xs text-[11px] leading-relaxed text-neutral-600">
-          Include the email you signed up with so we can grant access to the
-          right account.
-        </p>
-      </div>
     </div>
   );
 }

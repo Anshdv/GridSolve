@@ -225,8 +225,8 @@
       "hist_withdraw_rate": 0.43,
       "median_network_cost_per_kw": 0.0,
       "n_projects_with_cost": 3,
-      "lat": 30.577,
-      "lng": -83.228,
+      "lat": 34.318533,
+      "lng": -109.166003,
       "coord_precision": "verified",
       "model_tier": "marginal",
       "region_concordance": 0.617
@@ -4719,8 +4719,8 @@
       "hist_withdraw_rate": 0.0,
       "median_network_cost_per_kw": 174.3,
       "n_projects_with_cost": 1,
-      "lat": 39.0925,
-      "lng": -111.1327,
+      "lat": 33.6473359,
+      "lng": -88.3140115,
       "coord_precision": "verified",
       "model_tier": "usable",
       "region_concordance": 0.657
@@ -5811,8 +5811,8 @@
       "hist_withdraw_rate": 0.0,
       "median_network_cost_per_kw": 128.3,
       "n_projects_with_cost": 1,
-      "lat": null,
-      "lng": null,
+      "lat": 30.258129,
+      "lng": -91.168231,
       "coord_precision": null,
       "model_tier": "unvalidated",
       "region_concordance": null
@@ -14869,7 +14869,7 @@
       "region_concordance": 0.514
     },
     {
-      "name": "Red Bluff Substation 230kV",
+      "name": "Red Bluff 230kV Substation",
       "state": "CA",
       "region": "CAISO",
       "county": "Riverside",
@@ -14883,8 +14883,8 @@
       "hist_withdraw_rate": 0.4,
       "median_network_cost_per_kw": 0.0,
       "n_projects_with_cost": 4,
-      "lat": 41.68315,
-      "lng": -109.68855,
+      "lat": 33.73892,
+      "lng": -115.47796,
       "coord_precision": "verified",
       "model_tier": "not_predictive",
       "region_concordance": 0.514
@@ -25026,9 +25026,9 @@
       "hist_withdraw_rate": 0.0,
       "median_network_cost_per_kw": null,
       "n_projects_with_cost": 0,
-      "lat": null,
-      "lng": null,
-      "coord_precision": null,
+      "lat": 36.525248,
+      "lng": -100.949877,
+      "coord_precision": "verified",
       "model_tier": "unvalidated",
       "region_concordance": null
     },
@@ -62371,7 +62371,7 @@
       "region_concordance": 0.718
     },
     {
-      "name": "Sigurd substation",
+      "name": "Sigurd 345kV Substation",
       "state": "UT",
       "region": "West",
       "county": "Sevier",
@@ -62385,8 +62385,8 @@
       "hist_withdraw_rate": 0.75,
       "median_network_cost_per_kw": 1124.0,
       "n_projects_with_cost": 6,
-      "lat": 38.8444,
-      "lng": -111.993,
+      "lat": 38.843278,
+      "lng": -111.994083,
       "coord_precision": "verified",
       "model_tier": "validated",
       "region_concordance": 0.718
@@ -77547,8 +77547,8 @@
       "hist_withdraw_rate": 0.0,
       "median_network_cost_per_kw": 359.6,
       "n_projects_with_cost": 1,
-      "lat": 42.40299,
-      "lng": -121.04611,
+      "lat": 42.6839,
+      "lng": -72.9495,
       "coord_precision": "verified",
       "model_tier": "usable",
       "region_concordance": 0.651
@@ -87298,7 +87298,7 @@
       "region_concordance": 0.597
     },
     {
-      "name": "Yellowtail substation",
+      "name": "Yellowtail 115 kV Substation",
       "state": "MT",
       "region": "West",
       "county": "Bighorn",
@@ -87312,8 +87312,8 @@
       "hist_withdraw_rate": 0.86,
       "median_network_cost_per_kw": 12947.4,
       "n_projects_with_cost": 1,
-      "lat": 45.32107,
-      "lng": -107.9466,
+      "lat": 45.3074,
+      "lng": -107.9575,
       "coord_precision": "verified",
       "model_tier": "marginal",
       "region_concordance": 0.617

@@ -45,6 +45,7 @@ import SubstationList from "@/components/explorer/SubstationList";
 import DetailPanel from "@/components/explorer/DetailPanel";
 import CompareView from "@/components/explorer/CompareView";
 import ExplorerTeaser from "@/components/explorer/ExplorerTeaser";
+import TeaserContact from "@/components/explorer/TeaserContact";
 import UserMenu from "@/components/auth/UserMenu";
 import { useExplorerAccess } from "@/hooks/useExplorerAccess";
 
@@ -78,9 +79,100 @@ const INITIAL_BOUNDS = (() => {
 // refine. Keeps the DOM light without a virtualization dependency.
 const LIST_RENDER_LIMIT = 250;
 
-// How many top-scored substations to show as a free preview to users who don't
-// have full explorer access — enough to demonstrate Levora, not the whole set.
-const TEASER_COUNT = 5;
+// National tercile cut points over all scored substations — the reference for
+// the curated preview below (so "good/medium/bad" means the same thing here as
+// the color banding a full-access user sees on the national view).
+const NATIONAL_TERCILES = scoreTerciles(
+  SCORED.map((s) => s.scoreResult?.score).filter((n): n is number => n != null)
+);
+
+// The free preview shows a hand-varied set: 2 strong (top third), 2 middling
+// (middle third), 2 weak (bottom third), spread across as many regions as
+// possible so a prospective user sees the range of what Levora scores — good
+// AND bad sites, coast to coast — not just the winners.
+const TEASER_SUBSTATIONS: ScoredSubstation[] = (() => {
+  const [t0, t1] = NATIONAL_TERCILES;
+  const scoreOf = (s: ScoredSubstation) => s.scoreResult?.score ?? -1;
+
+  // Only actual substations, never transmission-line POIs. The dataset mixes
+  // both; lines read like "WEST MEMPHIS EHV - KEO EHV 500.0kV" (an A - B pair),
+  // while substations carry the word "substation". Require that word and
+  // exclude the " - " line pattern so the preview shows real sites.
+  const isRealSubstation = (name: string) =>
+    name.toLowerCase().includes("substation") && !/\s[-–]\s/.test(name);
+
+  // States to keep out of the preview (Kansas was a swapped-out example).
+  const EXCLUDED_STATES = new Set(["KS"]);
+
+  // REQUIRE verified coordinates: the map draws approximate (county/state)
+  // positions faded, so the preview sites must have real lat/lng to render
+  // bright. Prefer sites with full data so the detail panel is rich too.
+  const scored = SCORED.filter(
+    (s) =>
+      s.scoreResult != null &&
+      s.hasExactCoords &&
+      isRealSubstation(s.name) &&
+      !EXCLUDED_STATES.has(s.state)
+  );
+  const rich = scored.filter(
+    (s) => s.medianNetworkCostPerKw != null && s.histWithdrawRate != null
+  );
+  const pool = rich.length >= 18 ? rich : scored;
+
+  const usedRegions = new Set<string>();
+  const chosen: ScoredSubstation[] = [];
+  const take = (
+    candidates: ScoredSubstation[],
+    n: number,
+    diverse = true
+  ) => {
+    let count = 0;
+    // First prefer a not-yet-used region for geographic spread…
+    if (diverse) {
+      for (const s of candidates) {
+        if (count >= n) break;
+        if (chosen.includes(s) || usedRegions.has(s.region)) continue;
+        chosen.push(s);
+        usedRegions.add(s.region);
+        count++;
+      }
+    }
+    // …then fill by the candidate ordering (region diversity relaxed).
+    for (const s of candidates) {
+      if (count >= n) break;
+      if (chosen.includes(s)) continue;
+      chosen.push(s);
+      usedRegions.add(s.region);
+      count++;
+    }
+  };
+
+  const mid = (t0 + t1) / 2;
+  const good = pool.filter((s) => scoreOf(s) > t1).sort((a, b) => scoreOf(b) - scoreOf(a));
+  const bad = pool.filter((s) => scoreOf(s) <= t0).sort((a, b) => scoreOf(a) - scoreOf(b));
+  const medium = pool
+    .filter((s) => scoreOf(s) > t0 && scoreOf(s) <= t1)
+    .sort((a, b) => Math.abs(scoreOf(a) - mid) - Math.abs(scoreOf(b) - mid));
+
+  take(good, 2); // 2 strong sites first (display order: good → bad)
+  take(medium, 2);
+  // The bad slots take the two LOWEST-scored sites outright (genuinely weak,
+  // not just below the tercile line) — geographic diversity relaxed here.
+  take(bad, 2, false);
+
+  // Backfill from the highest-scored remaining pool if a band was too small.
+  if (chosen.length < 6) {
+    const rest = pool
+      .filter((s) => !chosen.includes(s))
+      .sort((a, b) => scoreOf(b) - scoreOf(a));
+    for (const s of rest) {
+      if (chosen.length >= 6) break;
+      chosen.push(s);
+    }
+  }
+  return chosen.slice(0, 6);
+})();
+const TEASER_IDS = new Set(TEASER_SUBSTATIONS.map((s) => s.id));
 
 // The map draws all ~4,700 points, so they're rendered as a GPU circle layer
 // (a maplibre GeoJSON source), not thousands of DOM markers. Per-feature
@@ -246,12 +338,17 @@ export default function Explorer() {
       ),
     [filtered]
   );
-  // GeoJSON for the map's circle layer — every plottable point in the current
-  // filtered view (exact + approximate), with per-feature color/active/approx.
+  // Which substations the map plots: the full filtered set for a full-access
+  // user, or just the curated 6 for a preview user (so the map matches the
+  // teaser list — a small, varied showcase rather than the whole country).
+  const mapSource = hasFullAccess ? sorted : TEASER_SUBSTATIONS;
+
+  // GeoJSON for the map's circle layer — plottable points with per-feature
+  // color/active/approx.
   const geojson = useMemo(
     () => ({
       type: "FeatureCollection" as const,
-      features: sorted
+      features: mapSource
         .filter((s) => s.mapped)
         .map((s) => ({
           type: "Feature" as const,
@@ -269,7 +366,7 @@ export default function Explorer() {
           },
         })),
     }),
-    [sorted, terciles]
+    [mapSource, terciles]
   );
   // Only the top slice is rendered as DOM rows (see LIST_RENDER_LIMIT).
   const visibleRows = useMemo(
@@ -281,6 +378,23 @@ export default function Explorer() {
     () => SCORED.find((s) => s.id === selectedName) ?? null,
     [selectedName]
   );
+  // Preview users may only view details for the curated 6 (never an arbitrary
+  // substation), so their detail panel is keyed off this guarded lookup.
+  const teaserSelected = useMemo(
+    () => TEASER_SUBSTATIONS.find((s) => s.id === selectedName) ?? null,
+    [selectedName]
+  );
+
+  // When a preview user lands, default the selection to the first curated site
+  // so a full detail breakdown is visible immediately (rather than a blank).
+  useEffect(() => {
+    if (authReady && !hasFullAccess && !TEASER_IDS.has(selectedName ?? "")) {
+      setSelectedName(TEASER_SUBSTATIONS[0]?.id ?? null);
+    }
+    // Runs when access resolves; intentionally not re-run on every selection.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authReady, hasFullAccess]);
+
   const compareSet = useMemo(() => new Set(compareNames), [compareNames]);
   const compareItems = useMemo(
     () =>
@@ -499,8 +613,9 @@ export default function Explorer() {
               </>
             ) : (
               <>
-                A free preview of Levora&apos;s top-scored sites. The full list,
-                filters, comparisons, and detail panels are unlocked by request.
+                A free preview — a varied sample of sites across the country,
+                with full scoring. The complete list, filters, and comparisons
+                are unlocked by request.
               </>
             )}
           </p>
@@ -577,13 +692,33 @@ export default function Explorer() {
             )}
           </>
         ) : (
-          <ExplorerTeaser
-            items={sorted.slice(0, TEASER_COUNT)}
-            terciles={terciles}
-            total={substations.length}
-            selectedName={selectedName}
-            onSelect={select}
-          />
+          <>
+            {/* One smooth scroll: the preview rows and the selected site's
+                full detail flow together in a single column (no nested,
+                fighting scroll regions), with the contact bar pinned below. */}
+            <div className="flex-1 overflow-y-auto">
+              <ExplorerTeaser
+                items={TEASER_SUBSTATIONS}
+                terciles={terciles}
+                selectedName={selectedName}
+                onSelect={select}
+              />
+              {teaserSelected && (
+                <DetailPanel
+                  s={teaserSelected}
+                  terciles={terciles}
+                  collapsed={detailCollapsed}
+                  onToggleCollapsed={() => setDetailCollapsed((c) => !c)}
+                  onExport={exportPrint}
+                />
+              )}
+            </div>
+
+            <TeaserContact
+              previewCount={TEASER_SUBSTATIONS.length}
+              total={substations.length}
+            />
+          </>
         )}
       </div>
 
