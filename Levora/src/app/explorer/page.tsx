@@ -44,7 +44,7 @@ import FilterBar, {
 import SubstationList from "@/components/explorer/SubstationList";
 import DetailPanel from "@/components/explorer/DetailPanel";
 import CompareView from "@/components/explorer/CompareView";
-import ContactForAccess from "@/components/explorer/ContactForAccess";
+import ExplorerTeaser from "@/components/explorer/ExplorerTeaser";
 import UserMenu from "@/components/auth/UserMenu";
 import { useExplorerAccess } from "@/hooks/useExplorerAccess";
 
@@ -77,6 +77,10 @@ const INITIAL_BOUNDS = (() => {
 // sort is score-desc, so the most relevant are first) and prompt the user to
 // refine. Keeps the DOM light without a virtualization dependency.
 const LIST_RENDER_LIMIT = 250;
+
+// How many top-scored substations to show as a free preview to users who don't
+// have full explorer access — enough to demonstrate Levora, not the whole set.
+const TEASER_COUNT = 5;
 
 // The map draws all ~4,700 points, so they're rendered as a GPU circle layer
 // (a maplibre GeoJSON source), not thousands of DOM markers. Per-feature
@@ -495,9 +499,8 @@ export default function Explorer() {
               </>
             ) : (
               <>
-                Browse substation locations on the map. Substation scores and
-                detail panels require access — contact us to unlock the full
-                explorer.
+                A free preview of Levora&apos;s top-scored sites. The full list,
+                filters, comparisons, and detail panels are unlocked by request.
               </>
             )}
           </p>
@@ -574,7 +577,13 @@ export default function Explorer() {
             )}
           </>
         ) : (
-          <ContactForAccess />
+          <ExplorerTeaser
+            items={sorted.slice(0, TEASER_COUNT)}
+            terciles={terciles}
+            total={substations.length}
+            selectedName={selectedName}
+            onSelect={select}
+          />
         )}
       </div>
 
