@@ -1,0 +1,547 @@
+filter_level_1,filter_level_2,filter_level_3,variable_name,unit, value ,scenario,year,geo
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 97,803 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 200,500 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 386,229 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 693,913 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 1,069,220 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 1,521,230 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Onshore wind,MW," 2,186,500 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW, 29 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW," 1,026 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW," 4,957 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW," 36,176 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW," 99,902 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW," 227,465 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Offshore wind,MW," 457,951 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 33,317 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 52,523 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 69,448 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 90,809 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 117,114 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 148,351 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Rooftop PV,MW," 185,890 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 35,099 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 150,447 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 361,210 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 725,568 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 1,120,211 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 1,665,399 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Utility-scale PV,MW," 2,454,547 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Hydro,MW," 78,608 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 2,390 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 2,394 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 2,414 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 2,426 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 2,428 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 2,457 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Geothermal,MW," 4,871 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW," 98,501 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW," 94,063 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW," 83,809 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW," 56,742 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW," 41,522 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW," 14,825 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Nuclear,MW, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 334,781 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 312,898 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 343,874 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 346,127 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 273,137 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 203,281 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt & gas steam,MW," 171,091 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, 77 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, 164 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, 233 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, 304 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ccgt w cc,MW, 331 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 146,242 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 137,398 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 142,744 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 165,901 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 204,190 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 319,096 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Ct,MW," 515,962 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 10,003 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 9,140 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 7,854 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 6,156 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 4,735 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 3,409 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass,MW," 2,488 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, 30 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, 55 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, 86 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, 108 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Biomass w cc,MW, 150 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW," 216,076 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW," 60,056 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW, 185 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW, 104 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW, 85 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW, 61 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Coal,MW, 26 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 68,093 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 57,211 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 55,709 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 54,353 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 52,339 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 51,350 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Other,MW," 40,191 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW, 987 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW," 11,630 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW," 42,944 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW," 105,233 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW," 143,960 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Grid battery storage,MW," 186,175 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, 6 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, 3 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, 7 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, 7 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, 7 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed grid battery storage,Installed grid battery storage,hours, 7 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW," 19,418 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW," 19,418 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW," 19,418 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW," 19,418 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW," 19,418 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Installed,Installed - Pumped hydro storage,MW," 19,418 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, 196 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, 309 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, 465 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, 468 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, 604 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Solar,billion $2018, 815 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, 161 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, 319 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, 488 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, 500 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, 562 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Onshore Wind,billion $2018, 787 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, 3 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, 11 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, 81 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, 145 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, 240 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Offshore Wind,billion $2018, 359 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, -   ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, -   ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, -   ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, -   ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Hydro,billion $2018, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, 0 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, 0 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, 0 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, -   ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, 0 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Geothermal,billion $2018, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, -   ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, -   ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, -   ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, -   ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Nuclear,billion $2018, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, 48 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, 31 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, 2 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, -   ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, -   ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT,billion $2018, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, 0 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, 0 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, 0 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, 0 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CCGT w/ CC,billion $2018, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, 3 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, 13 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, 21 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, 62 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - CT,billion $2018, 107 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, 0 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, -   ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, -   ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, -   ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower,billion $2018, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, 0 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, 0 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, 0 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, 0 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Biopower w/ CC,billion $2018, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, -   ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, -   ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, -   ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, -   ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Coal,billion $2018, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, 0 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, 5 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, 12 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, 22 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, 13 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generating capacity,Capital invested,Capital invested - Storage,billion $2018, 13 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh, 413 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh, 816 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh," 1,593 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh," 2,720 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh," 4,109 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh," 5,852 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Onshore wind,TWh," 8,245 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh, 0 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh, 4 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh, 20 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh, 183 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh, 437 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh, 978 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Offshore wind,TWh," 1,833 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 50 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 79 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 101 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 126 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 165 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 208 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Rooftop PV,TWh, 249 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh, 90 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh, 362 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh, 825 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh," 1,615 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh," 2,438 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh," 3,648 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Utility-scale PV,TWh," 5,253 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 300 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 312 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 295 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 294 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 300 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 291 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Hydro,TWh, 291 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 15 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 14 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 14 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 14 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 14 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 14 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Geothermal,TWh, 26 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, 802 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, 766 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, 683 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, 462 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, 338 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, 121 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Nuclear,TWh, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh," 1,489 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh," 1,589 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh," 1,262 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh, 737 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh, 422 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh, 151 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas,TWh, 52 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, 0 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, 0 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, 0 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, 0 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Gas w cc,TWh, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 19 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 18 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 39 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 29 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 21 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 15 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass,TWh, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, 0 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, 0 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, 0 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, 0 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Biomass w cc,TWh, 1 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 981 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 328 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 1 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 0 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 0 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 0 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Generation,NA,Coal,TWh, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 24 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 25 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 25 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 24 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 24 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 24 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Solar,%, 24 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 48 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 46 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 47 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 45 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 44 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 44 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Onshore wind,%, 43 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 36 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 43 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 47 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 58 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 50 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 49 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Offshore wind,%, 46 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 44 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 45 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 43 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 43 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 44 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 42 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Hydro,%, 42 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 69 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 69 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 67 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 67 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 65 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 63 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Geothermal,%, 60 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, 93 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, 93 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, 93 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, 93 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, 93 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, 93 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Nuclear,%, -   ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 49 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 57 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 41 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 24 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 17 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 8 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ccgt & gas steam,%, 2 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, 23 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, 15 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, 15 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, 13 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Gas w cc,%, 8 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 4 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 2 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 1 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 1 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 1 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 1 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Ct,%, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 21 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 22 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 57 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 54 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 52 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 51 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass,%, 0 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, -   ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, 30 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, 21 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, 25 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, 38 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Biomass w cc,%, 42 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 52 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 62 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 40 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 40 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 40 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 40 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Capacity factors,Power generation,Power generation - Coal,%, 40 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, 0 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, 1 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, 1 ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, 2 ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, 4 ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Base,percent of 2020, 4 ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Total HV transmission (for wind and solar),Total HV transmission (for wind and solar) - Constrained,percent of 2020, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km," 94,435 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km," 235,435 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km," 453,382 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km," 759,455 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km," 1,235,646 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base all,GW-km," 1,308,971 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km," 48,659 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km," 114,521 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km," 196,882 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km," 312,730 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km," 492,624 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other intra-state,GW-km," 492,624 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km," 7,837 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km," 19,380 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km," 44,213 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km," 75,714 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km," 119,255 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur intra-state,GW-km," 183,454 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km," 37,475 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km," 100,044 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km," 208,246 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km," 362,379 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km," 609,107 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base other inter-state,GW-km," 609,107 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km, -   ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km, 465 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km," 1,490 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km," 4,040 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km," 8,632 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km," 14,660 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Base spur inter-state,GW-km," 23,785 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained all,GW-km, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other intra-state,GW-km, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur intra-state,GW-km, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained other inter-state,GW-km, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Transmission,Added HV transmission vs. 2020 (for wind and solar),Added HV transmission vs. 2020 (for wind and solar) - Constrained spur inter-state,GW-km, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 1,707 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 4,785 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 10,451 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 21,314 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 32,050 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 45,911 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Base land use assumptions,km2," 71,507 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 1,714 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 4,416 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 9,965 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 19,316 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 28,825 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 40,092 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Solar,Solar - Used - Constrained land use assumptions,km2," 64,359 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 57,452 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 88,054 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 174,291 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 312,015 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 493,011 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 704,851 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Base land use assumptions,km2," 1,003,317 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 57,562 ",E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 89,323 ",E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 180,987 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 327,507 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 489,642 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 657,720 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Onshore wind,Onshore wind - Used - Constrained land use assumptions,km2," 1,015,149 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Base land use assumptions,km2, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2, 14 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2, 266 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2," 1,051 ",E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2," 8,302 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2," 19,665 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2," 42,079 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Base land use assumptions,km2," 64,670 ",E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Candidate Project Area - Constrained land use assumptions,km2, NA ,E+RE+,2050,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2, 15 ,E+RE+,2020,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2, 222 ,E+RE+,2025,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2, 987 ,E+RE+,2030,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2," 8,940 ",E+RE+,2035,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2," 16,044 ",E+RE+,2040,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2," 19,419 ",E+RE+,2045,national
+PILLAR 2: Clean Electricity,Land use,Offshore wind,Offshore wind - Used - Constrained land use assumptions,km2," 64,372 ",E+RE+,2050,national
