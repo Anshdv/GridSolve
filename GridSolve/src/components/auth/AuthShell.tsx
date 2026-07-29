@@ -12,18 +12,20 @@ export function AuthShell({
   subtitle,
   children,
   footer,
+  wide = false,
 }: {
   title: string;
   subtitle?: string;
   children: React.ReactNode;
   footer?: React.ReactNode;
+  wide?: boolean;
 }) {
   return (
     <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#07080a] px-6 py-16 text-neutral-200">
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-50" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-2/3 bg-[radial-gradient(60%_55%_at_50%_0%,rgba(61,123,255,0.12),transparent_65%)]" />
 
-      <div className="relative z-10 w-full max-w-sm">
+      <div className={`relative z-10 w-full ${wide ? "max-w-md" : "max-w-sm"}`}>
         <Link
           href="/"
           className="mb-8 flex items-center justify-center gap-2.5 transition-opacity hover:opacity-80"

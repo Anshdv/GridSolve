@@ -3,10 +3,22 @@
 // the session) and gates protected routes.
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { hasAcceptedTerms } from "@/lib/validation";
 
 // Prefixes that require an authenticated user. Logged-out visitors are sent to
 // /login with a `redirect` back to where they were headed.
 const PROTECTED_PREFIXES = ["/explorer"];
+
+// Authenticated users must accept Terms/Privacy before using protected features.
+const TERMS_EXEMPT_PATHS = [
+  "/accept-terms",
+  "/terms",
+  "/privacy",
+  "/login",
+  "/signup",
+  "/reset-password",
+  "/auth",
+];
 
 export async function updateSession(request: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -58,10 +70,25 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Already signed in and hitting the login page → send them into the app.
-  if (user && path === "/login") {
+  const needsTermsAcceptance =
+    user &&
+    isProtected &&
+    !hasAcceptedTerms(user.user_metadata) &&
+    !TERMS_EXEMPT_PATHS.some((p) => path.startsWith(p));
+
+  if (needsTermsAcceptance) {
+    const termsUrl = request.nextUrl.clone();
+    termsUrl.pathname = "/accept-terms";
+    termsUrl.searchParams.set("redirect", path);
+    return NextResponse.redirect(termsUrl);
+  }
+
+  // Already signed in and hitting auth pages → send them into the app.
+  if (user && (path === "/login" || path === "/signup")) {
     const dest = request.nextUrl.clone();
-    dest.pathname = "/explorer";
+    dest.pathname = hasAcceptedTerms(user.user_metadata)
+      ? "/explorer"
+      : "/accept-terms";
     dest.search = "";
     return NextResponse.redirect(dest);
   }

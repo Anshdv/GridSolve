@@ -1,8 +1,8 @@
 // Canonical site URL and shared metadata. Set NEXT_PUBLIC_SITE_URL in production
-// (e.g. https://gridsolve.example.com). On Vercel, VERCEL_URL is used as a fallback.
+// (e.g. https://levora.example.com). On Vercel, VERCEL_URL is used as a fallback.
 export const siteConfig = {
-  name: "GridSolve",
-  title: "GridSolve — Where data centers can actually get power",
+  name: "Levora",
+  title: "Levora — Where data centers can actually get power",
   description:
     "Withdrawal-adjusted interconnection capacity nationwide, for data center site selection.",
   tagline: "Where data centers can actually get power",
@@ -22,12 +22,16 @@ export function getSiteUrl(): string {
 export const publicRoutes = [
   { path: "/", changeFrequency: "monthly" as const, priority: 1 },
   { path: "/methodology", changeFrequency: "monthly" as const, priority: 0.8 },
+  { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3 },
 ];
 
 /** Routes that require auth or handle credentials — keep out of search indexes. */
 export const privateRoutePrefixes = [
   "/explorer",
   "/login",
+  "/signup",
   "/reset-password",
   "/auth",
+  "/accept-terms",
 ];

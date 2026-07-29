@@ -5,9 +5,11 @@
 // so they're authenticated and can set a new password via updateUser().
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { formatAuthError } from "@/lib/auth-errors";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { AuthShell } from "@/components/auth/AuthShell";
-import { Field, Message, SubmitButton } from "@/components/auth/fields";
+import { Message, SubmitButton } from "@/components/auth/fields";
+import { PasswordField } from "@/components/auth/PasswordField";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -36,11 +38,7 @@ export default function ResetPasswordPage() {
         router.refresh();
       }, 1200);
     } catch (err) {
-      setError(
-        err instanceof Error
-          ? err.message
-          : "Couldn't update your password. The reset link may have expired — request a new one."
-      );
+      setError(formatAuthError(err));
     } finally {
       setLoading(false);
     }
@@ -49,7 +47,7 @@ export default function ResetPasswordPage() {
   return (
     <AuthShell
       title="Set a new password"
-      subtitle="Choose a new password for your GridSolve account."
+      subtitle="Choose a new password for your Levora account."
     >
       {done ? (
         <Message tone="notice">
@@ -57,25 +55,23 @@ export default function ResetPasswordPage() {
         </Message>
       ) : (
         <form onSubmit={onSubmit} className="space-y-4">
-          <Field
+          <PasswordField
             label="New password"
             id="password"
-            type="password"
             autoComplete="new-password"
             required
-            minLength={6}
+            minLength={8}
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading}
           />
-          <Field
+          <PasswordField
             label="Confirm password"
             id="confirm"
-            type="password"
             autoComplete="new-password"
             required
-            minLength={6}
+            minLength={8}
             placeholder="••••••••"
             value={confirm}
             onChange={(e) => setConfirm(e.target.value)}

@@ -46,9 +46,14 @@ export default function UserMenu({ className = "" }: { className?: string }) {
 
   if (!email) {
     return (
-      <Link href="/login" className={`${PILL} ${className}`}>
-        Sign in
-      </Link>
+      <div className={`flex items-center gap-2 ${className}`}>
+        <Link href="/signup" className={PILL}>
+          Sign up
+        </Link>
+        <Link href="/login" className={PILL}>
+          Sign in
+        </Link>
+      </div>
     );
   }
 
