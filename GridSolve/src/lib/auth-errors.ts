@@ -11,7 +11,7 @@ const CODE_MESSAGES: Record<string, string> = {
   signup_disabled: "New sign-ups are currently disabled.",
   email_provider_disabled: "Email sign-up is not available right now.",
   unexpected_failure:
-    "We couldn't send your confirmation email. The address may not be allowed by your email provider yet — try the email on your Resend account, or verify your sending domain.",
+    "We couldn't send your confirmation email. Please try again shortly.",
   invalid_credentials: "Email or password is incorrect.",
   email_not_confirmed:
     "Please confirm your email address before signing in. Check your inbox for the confirmation link.",
