@@ -16,7 +16,6 @@ build/
 # Model script (local / generated)
 gridsolve_model.py
 gridsolvemodel.py
-data/
 
 # OpenNext
 .open-next
