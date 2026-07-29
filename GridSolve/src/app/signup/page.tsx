@@ -24,7 +24,7 @@ function SignUpForm() {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
+  const [pendingEmail, setPendingEmail] = useState<string | null>(null);
 
   const signupReady =
     fullName.trim().length > 0 &&
@@ -63,13 +63,14 @@ function SignUpForm() {
 
     setLoading(true);
     setError("");
-    setNotice("");
+
+    const submittedEmail = email.trim();
 
     try {
       const supabase = createClient();
       const tosAcceptedAt = new Date().toISOString();
       const { data, error: signUpError } = await supabase.auth.signUp({
-        email: email.trim(),
+        email: submittedEmail,
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(
@@ -90,14 +91,58 @@ function SignUpForm() {
         return;
       }
 
-      setNotice(
-        `Almost there — we sent a confirmation link to ${email.trim()}. Click it to activate your account, then sign in.`
-      );
+      setPendingEmail(submittedEmail);
     } catch (err) {
       setError(formatAuthError(err));
     } finally {
       setLoading(false);
     }
+  }
+
+  const loginHref =
+    redirect !== "/explorer"
+      ? `/login?redirect=${encodeURIComponent(redirect)}`
+      : "/login";
+
+  if (pendingEmail) {
+    return (
+      <AuthShell
+        wide
+        title="Check your email"
+        subtitle="Your account is almost ready — one more step."
+        footer={
+          <>
+            Already confirmed?{" "}
+            <Link
+              href={loginHref}
+              className="font-medium text-[var(--accent-bright)] transition-colors hover:text-white"
+            >
+              Sign in
+            </Link>
+          </>
+        }
+      >
+        <div className="space-y-5">
+          <Message tone="notice">
+            We sent a confirmation link to{" "}
+            <span className="font-medium text-[var(--accent-bright)]">
+              {pendingEmail}
+            </span>
+            . Open it to activate your account, then sign in.
+          </Message>
+          <p className="text-xs leading-relaxed text-neutral-600">
+            Didn&apos;t get it? Check spam, or wait a minute and try signing in
+            — you can request a new link from there if needed.
+          </p>
+          <Link
+            href={loginHref}
+            className="flex w-full items-center justify-center rounded-lg border border-white/10 bg-white/[0.03] px-4 py-2.5 text-sm font-medium text-neutral-300 transition-colors hover:border-white/20 hover:text-white"
+          >
+            Go to sign in
+          </Link>
+        </div>
+      </AuthShell>
+    );
   }
 
   return (
@@ -109,7 +154,7 @@ function SignUpForm() {
         <>
           Already have an account?{" "}
           <Link
-            href={`/login${redirect !== "/explorer" ? `?redirect=${encodeURIComponent(redirect)}` : ""}`}
+            href={loginHref}
             className="font-medium text-[var(--accent-bright)] transition-colors hover:text-white"
           >
             Sign in
@@ -200,7 +245,6 @@ function SignUpForm() {
         />
 
         <Message tone="error">{error}</Message>
-        <Message tone="notice">{notice}</Message>
 
         <SubmitButton
           loading={loading}

@@ -57,8 +57,12 @@ function Nav({ canAnimate }: { canAnimate: boolean }) {
             GridSolve
           </span>
         </div>
-        <div className="flex items-center gap-2.5">
+        <div className="flex items-center gap-3">
           <UserMenu />
+          <span
+            className="hidden h-4 w-px shrink-0 bg-white/10 sm:block"
+            aria-hidden
+          />
           <Link
             href="/explorer"
             className="group flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-1.5 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"

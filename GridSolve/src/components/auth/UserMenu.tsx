@@ -1,8 +1,9 @@
 "use client";
 
 // Auth-aware nav element. Shows the signed-in user's email + a Sign out
-// button, or a "Sign in" link when logged out. Renders nothing when Supabase
-// isn't configured, so the nav stays clean until auth is wired up.
+// button, or a compact sign-in / sign-up control when logged out. Renders
+// nothing when Supabase isn't configured, so the nav stays clean until auth
+// is wired up.
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -46,12 +47,20 @@ export default function UserMenu({ className = "" }: { className?: string }) {
 
   if (!email) {
     return (
-      <div className={`flex items-center gap-2 ${className}`}>
-        <Link href="/signup" className={PILL}>
-          Sign up
+      <div
+        className={`inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-0.5 backdrop-blur ${className}`}
+      >
+        <Link
+          href="/login"
+          className="rounded-full px-3.5 py-1.5 text-xs text-neutral-400 transition-colors hover:text-white"
+        >
+          Log in
         </Link>
-        <Link href="/login" className={PILL}>
-          Sign in
+        <Link
+          href="/signup"
+          className="rounded-full bg-[var(--accent)]/15 px-3.5 py-1.5 text-xs font-medium text-[var(--accent-bright)] transition-colors hover:bg-[var(--accent)]/25"
+        >
+          Sign up
         </Link>
       </div>
     );
