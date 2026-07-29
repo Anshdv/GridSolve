@@ -47,7 +47,7 @@ export default function ResetPasswordPage() {
   return (
     <AuthShell
       title="Set a new password"
-      subtitle="Choose a new password for your Levora account."
+      subtitle="Choose a new password for your GridSolve account."
     >
       {done ? (
         <Message tone="notice">

@@ -1,8 +1,8 @@
 // Canonical site URL and shared metadata. Set NEXT_PUBLIC_SITE_URL in production
-// (e.g. https://levora.example.com). On Vercel, VERCEL_URL is used as a fallback.
+// (e.g. https://grid-solve.com). On Vercel, VERCEL_URL is used as a fallback.
 export const siteConfig = {
-  name: "Levora",
-  title: "Levora — Where data centers can actually get power",
+  name: "GridSolve",
+  title: "GridSolve — Where data centers can actually get power",
   description:
     "Withdrawal-adjusted interconnection capacity nationwide, for data center site selection.",
   tagline: "Where data centers can actually get power",
