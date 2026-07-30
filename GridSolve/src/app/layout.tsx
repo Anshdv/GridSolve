@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo, Martian_Mono } from "next/font/google";
-import { getSiteUrl, siteConfig } from "@/lib/site";
+import JsonLd from "@/components/JsonLd";
+import { organizationJsonLd, webApplicationJsonLd } from "@/lib/seo";
+import { getSiteUrl, seoKeywords, siteConfig } from "@/lib/site";
 import "./globals.css";
 
 // One deliberate grotesque (Archivo, full weight range) carries both display and
@@ -26,6 +28,7 @@ export const metadata: Metadata = {
     template: `%s — ${siteConfig.name}`,
   },
   description: siteConfig.description,
+  keywords: [...seoKeywords],
   applicationName: siteConfig.name,
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
@@ -57,9 +60,13 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  alternates: {
-    canonical: "/",
-  },
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export const viewport: Viewport = {
@@ -73,7 +80,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       lang="en"
       className={`${archivo.variable} ${martianMono.variable}`}
     >
-      <body className="bg-[#07080a] text-neutral-200 antialiased">{children}</body>
+      <body className="bg-[#07080a] text-neutral-200 antialiased">
+        <JsonLd data={[organizationJsonLd(), webApplicationJsonLd()]} />
+        {children}
+      </body>
     </html>
   );
 }

@@ -1,0 +1,27 @@
+# GridSolve
+
+> Interconnection queue prediction and withdrawal-adjusted grid capacity for data center site selection.
+
+GridSolve re-scores U.S. substations by deliverable megawatts after predicting which interconnection queue projects will withdraw. Built for data center developers, generation developers, and anyone evaluating grid interconnection headroom.
+
+## Key pages
+
+- Home: /
+- Interconnection queue guide: /interconnection-queue
+- Model methodology: /methodology
+
+## Product
+
+- National dataset: 4,600+ substations across 9 ISO/RTO regions and 48 states
+- Cox survival model for interconnection queue withdrawal prediction
+- Withdrawal-adjusted capacity (adjusted available MW) per substation
+- GridSolve Site Score (0–100) for data center site selection
+
+## Data sources
+
+- Lawrence Berkeley National Laboratory Queued Up (ISO/RTO interconnection queues)
+- LBNL interconnection cost studies
+
+## Scope
+
+Models generation-interconnection queue projects (solar, wind, storage). Does not model large-load or data-center interconnection requests directly. Deliverable capacity is a proxy for grid headroom, not a load interconnection study.

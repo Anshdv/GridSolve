@@ -1,13 +1,24 @@
 // Plain-prose explanation of what the model does and doesn't do. Every number
 // here is read from data/gridsolve.json (the model{} block and derived dataset
 // aggregates) — nothing hardcoded.
+import type { Metadata } from "next";
 import Link from "next/link";
 import DriversChart from "@/components/DriversChart";
 import { model, drivers, datasetStats, tierMeta } from "@/lib/data";
+import { pageMetadata, seoKeywords } from "@/lib/site";
 
-export const metadata = {
-  title: "Methodology",
-  alternates: { canonical: "/methodology" },
+export const metadata: Metadata = {
+  ...pageMetadata.methodology,
+  keywords: [...seoKeywords],
+  openGraph: {
+    title: `${pageMetadata.methodology.title} — GridSolve`,
+    description: pageMetadata.methodology.description,
+    url: "/methodology",
+  },
+  twitter: {
+    title: `${pageMetadata.methodology.title} — GridSolve`,
+    description: pageMetadata.methodology.description,
+  },
 };
 
 export default function Methodology() {
@@ -22,22 +33,31 @@ export default function Methodology() {
           <Link href="/" className="text-sm text-neutral-300 transition-colors hover:text-white">
             ← GridSolve
           </Link>
-          <Link
-            href="/explorer"
-            className="text-sm text-neutral-300 transition-colors hover:text-white"
-          >
-            Explorer →
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/interconnection-queue"
+              className="text-sm text-neutral-300 transition-colors hover:text-white"
+            >
+              Interconnection queue
+            </Link>
+            <Link
+              href="/explorer"
+              className="text-sm text-neutral-300 transition-colors hover:text-white"
+            >
+              Explorer →
+            </Link>
+          </div>
         </div>
       </header>
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <h1 className="font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
-          Methodology
+          Interconnection queue model methodology
         </h1>
         <p className="mt-4 text-[15.5px] leading-relaxed text-neutral-400">
-          A short, honest account of what this model predicts, what it
-          covers, and where its numbers come from.
+          How GridSolve predicts interconnection queue withdrawals, validates
+          the survival model by region, and computes withdrawal-adjusted
+          deliverable capacity.
         </p>
 
         <Section title="What the model predicts">
