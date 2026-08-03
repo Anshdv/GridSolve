@@ -13,7 +13,7 @@ import {
   scoreColor,
   type ScoredSubstation,
 } from "@/lib/siteScore";
-import { tierMeta } from "@/lib/data";
+import { tierMeta } from "@/lib/data-meta";
 import { type Axis } from "@/lib/scores";
 import { AxisBadges } from "./AxisBadges";
 import QuadrantChart from "./QuadrantChart";

@@ -10,9 +10,8 @@ import {
   scoreColor,
   type ScoredSubstation,
 } from "@/lib/siteScore";
-import { tierMeta } from "@/lib/data";
+import { tierMeta } from "@/lib/data-meta";
 import {
-  scoreOf,
   hazardReadings,
   dominantHazardsCaption,
   axisColor,
@@ -20,6 +19,7 @@ import {
   AXIS_COLOR_LOW,
   type Axis,
 } from "@/lib/scores";
+import { useExplorerScore } from "./ExplorerScoreContext";
 import { AxisBadges } from "./AxisBadges";
 import QuadrantChart from "./QuadrantChart";
 import { PrintFooter, PrintHeader } from "./PrintChrome";
@@ -42,6 +42,7 @@ export default function DetailPanel({
   onToggleCollapsed: () => void;
   onExport: () => void;
 }) {
+  const scoreOf = useExplorerScore();
   const result = s.scoreResult;
   const tier = tierMeta(s.modelTier);
   const two = scoreOf(s);

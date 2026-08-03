@@ -6,8 +6,9 @@
 // single verdict. Points with a null on either axis can't be placed, so they're
 // listed below the chart as "not plottable" rather than dropped silently or
 // jammed onto an edge at a fake 0.
-import type { Substation } from "@/lib/data";
-import { scoreOf } from "@/lib/scores";
+import type { Substation } from "@/lib/data-meta";
+import type { TwoAxisScore } from "@/lib/scores";
+import { useExplorerScore } from "./ExplorerScoreContext";
 
 // Pure SVG, no chart dependency. viewBox is square; the parent controls size.
 const SIZE = 200;
@@ -20,10 +21,11 @@ export default function QuadrantChart({
   items: Substation[];
   highlightId?: string | null;
 }) {
+  const scoreOf = useExplorerScore();
   const plotted = items
     .map((s) => ({ s, two: scoreOf(s) }))
     .filter(
-      (x): x is { s: Substation; two: ReturnType<typeof scoreOf> } =>
+      (x): x is { s: Substation; two: TwoAxisScore } =>
         x.two.powerScore != null && x.two.riskScore != null
     );
   const notPlottable = items.filter((s) => {

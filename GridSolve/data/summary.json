@@ -1,0 +1,137 @@
+{
+  "model": {
+    "coverage": "National — 9 regions. Model validation varies by region.",
+    "pacificorp_concordance": 0.718,
+    "note": "Withdrawal rates are EMPIRICAL, computed within each region from that region's own resolved projects. They are observed history, not model extrapolation. Survival-model concordance was validated per region and differs widely — see model_tier on each substation.",
+    "region_validation": {
+      "West": {
+        "concordance": 0.617,
+        "tier": "marginal"
+      },
+      "Southeast": {
+        "concordance": 0.657,
+        "tier": "usable"
+      },
+      "PJM": {
+        "concordance": 0.597,
+        "tier": "weak"
+      },
+      "MISO": {
+        "concordance": null,
+        "tier": "unvalidated"
+      },
+      "CAISO": {
+        "concordance": 0.514,
+        "tier": "not_predictive"
+      },
+      "ISO-NE": {
+        "concordance": 0.651,
+        "tier": "usable"
+      },
+      "SPP": {
+        "concordance": null,
+        "tier": "unvalidated"
+      },
+      "NYISO": {
+        "concordance": null,
+        "tier": "unvalidated"
+      },
+      "ERCOT": {
+        "concordance": null,
+        "tier": "unvalidated"
+      }
+    },
+    "withdrawal_rate_note": "Regional base rates range from 25% (ERCOT) to 92% (NYISO).",
+    "coord_source": "POI coordinates from LBNL interconnection cost studies (partial coverage)"
+  },
+  "drivers": [
+    {
+      "feature": "In cluster process",
+      "hazard_ratio": 2.74
+    },
+    {
+      "feature": "Third-party developer",
+      "hazard_ratio": 1.89
+    },
+    {
+      "feature": "NRIS service",
+      "hazard_ratio": 1.52
+    },
+    {
+      "feature": "Battery",
+      "hazard_ratio": 1.43
+    }
+  ],
+  "availableRegions": [
+    "West",
+    "CAISO",
+    "ERCOT",
+    "SPP",
+    "MISO",
+    "PJM",
+    "Southeast",
+    "NYISO",
+    "ISO-NE"
+  ],
+  "availableStates": [
+    "AL",
+    "AR",
+    "AZ",
+    "CA",
+    "CO",
+    "CT",
+    "DE",
+    "FL",
+    "GA",
+    "IA",
+    "ID",
+    "IL",
+    "IN",
+    "KS",
+    "KY",
+    "LA",
+    "MA",
+    "MD",
+    "ME",
+    "MI",
+    "MN",
+    "MO",
+    "MS",
+    "MT",
+    "MX",
+    "NC",
+    "ND",
+    "NE",
+    "NJ",
+    "NM",
+    "NV",
+    "NY",
+    "OH",
+    "OK",
+    "OR",
+    "PA",
+    "RI",
+    "SC",
+    "SD",
+    "TN",
+    "TX",
+    "UT",
+    "VA",
+    "VT",
+    "WA",
+    "WI",
+    "WV",
+    "WY"
+  ],
+  "datasetStats": {
+    "total": 4687,
+    "regions": 9,
+    "states": 48,
+    "mapped": 4687,
+    "exactCoords": 4626,
+    "approxCoords": 61,
+    "activeQueue": 4363,
+    "activeProjects": 5660,
+    "nationalWithdrawalRate": 0.6068774615308478
+  }
+}

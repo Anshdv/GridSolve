@@ -5,15 +5,15 @@
 // axis's tercile banding (passed in), and each handles its null case with a
 // plain "—" plus a tooltip rather than a blank or a NaN. Risk with no hazard
 // data reads "no risk data" on hover.
-import type { Substation } from "@/lib/data";
+import type { Substation } from "@/lib/data-meta";
 import {
-  scoreOf,
   axisValue,
   axisColor,
   AXIS_LABEL,
   AXIS_COLOR_NONE,
   type Axis,
 } from "@/lib/scores";
+import { useExplorerScore } from "./ExplorerScoreContext";
 
 const AXES: Axis[] = ["power", "risk", "combined"];
 
@@ -26,6 +26,7 @@ export function AxisBadges({
   axisTerciles: Record<Axis, [number, number]>;
   size?: "sm" | "md";
 }) {
+  const scoreOf = useExplorerScore();
   const two = scoreOf(s);
   const pad = size === "md" ? "px-2 py-0.5 text-[11px]" : "px-1.5 py-0.5 text-[10px]";
   return (

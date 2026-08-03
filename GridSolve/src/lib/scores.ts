@@ -18,7 +18,7 @@
 // The POWER math is the same as the established GridSolve Site Score
 // (siteScore.ts); this module restates it as one half of the two-axis view so
 // power and risk live behind a single, symmetric API.
-import type { Substation } from "./data";
+import type { Substation } from "./data-meta";
 
 export const COST_CEIL = 1500; // $/kW — effectively prohibitive to connect
 
@@ -254,12 +254,6 @@ export function dominantHazardsCaption(s: Substation): string {
   return `Primary exposure: ${parts.join(", ")}.`;
 }
 
-// Precomputed inputs and scored set over the WHOLE dataset — so a site's scores
-// are stable regardless of how the user filters (only the color BANDING is
-// recomputed per view). Imported directly by the explorer and its components,
-// avoiding prop-threading the inputs everywhere.
-import { substations } from "./data";
-export const SCORE_INPUTS: ScoreInputs = precompute(substations);
-export function scoreOf(s: Substation): TwoAxisScore {
-  return scoreSubstation(s, SCORE_INPUTS);
+export function makeScoreOf(inputs: ScoreInputs) {
+  return (s: Substation) => scoreSubstation(s, inputs);
 }

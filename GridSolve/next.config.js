@@ -16,6 +16,7 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
+  serverExternalPackages: ["resend"],
   async headers() {
     return [
       {
@@ -23,6 +24,15 @@ const nextConfig = {
         headers: securityHeaders,
       },
     ];
+  },
+  webpack: (config, { isServer }) => {
+    if (isServer) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        "next/og": false,
+      };
+    }
+    return config;
   },
 };
 

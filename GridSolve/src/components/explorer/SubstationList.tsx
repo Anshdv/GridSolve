@@ -5,7 +5,8 @@
 // two real numbers (queued → adjusted MW) and the cost. A no-active-queue
 // station has no score to show and says so plainly instead of a blank or 0.
 import { type ScoredSubstation } from "@/lib/siteScore";
-import { scoreOf, axisColor, AXIS_COLOR_NONE, type Axis } from "@/lib/scores";
+import { axisColor, AXIS_COLOR_NONE, type Axis } from "@/lib/scores";
+import { useExplorerScore } from "./ExplorerScoreContext";
 import { AxisBadges } from "./AxisBadges";
 
 const mw = (n: number) => `${Math.round(n).toLocaleString()} MW`;
@@ -29,6 +30,8 @@ export default function SubstationList({
   onSelect: (s: ScoredSubstation) => void;
   onToggleCompare: (id: string) => void;
 }) {
+  const scoreOf = useExplorerScore();
+
   if (items.length === 0) {
     return (
       <div className="flex-1 px-5 py-8 text-center text-xs text-neutral-600">

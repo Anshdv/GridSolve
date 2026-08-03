@@ -5,7 +5,7 @@
 //
 // The score is RELATIVE within this PacifiCorp dataset, not an absolute
 // standard — see scoreTerciles/scoreColor below and the methodology page.
-import type { Substation } from "./data";
+import type { Substation } from "./data-meta";
 
 export const COST_CEIL = 1500; // $/kW — effectively prohibitive to connect
 
