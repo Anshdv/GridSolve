@@ -11,6 +11,17 @@ import {
   type ScoredSubstation,
 } from "@/lib/siteScore";
 import { tierMeta } from "@/lib/data";
+import {
+  scoreOf,
+  hazardReadings,
+  dominantHazardsCaption,
+  axisColor,
+  bandLabel,
+  AXIS_COLOR_LOW,
+  type Axis,
+} from "@/lib/scores";
+import { AxisBadges } from "./AxisBadges";
+import QuadrantChart from "./QuadrantChart";
 import { PrintFooter, PrintHeader } from "./PrintChrome";
 
 const mw = (n: number) => `${Math.round(n).toLocaleString()} MW`;
@@ -19,18 +30,22 @@ const pct = (n: number) => `${Math.round(n * 100)}%`;
 export default function DetailPanel({
   s,
   terciles,
+  axisTerciles,
   collapsed,
   onToggleCollapsed,
   onExport,
 }: {
   s: ScoredSubstation;
   terciles: [number, number];
+  axisTerciles: Record<Axis, [number, number]>;
   collapsed: boolean;
   onToggleCollapsed: () => void;
   onExport: () => void;
 }) {
   const result = s.scoreResult;
   const tier = tierMeta(s.modelTier);
+  const two = scoreOf(s);
+  const hazards = hazardReadings(s);
   return (
     <div className="border-t border-white/5 bg-white/[0.02] px-5 py-4">
       <div className="flex items-start justify-between gap-3">
@@ -77,9 +92,20 @@ export default function DetailPanel({
           minimized, so the map/list can take the space back. */}
       {!collapsed && (
         <>
-      {/* GridSolve Site Score — prominent, then the full component breakdown so
-          the number is never a black box. */}
-      <Section title="GridSolve Site Score">
+      {/* Two-axis summary badges up top — the at-a-glance read before the
+          separated Power and Risk sections below. */}
+      <div className="mt-3 flex items-center gap-2">
+        <AxisBadges s={s} axisTerciles={axisTerciles} size="md" />
+        <span className="text-[10px] text-neutral-600">
+          Power · Risk · Combined
+        </span>
+      </div>
+
+      {/* ── POWER AXIS ──────────────────────────────────────────────────
+          Interconnection suitability. The existing four-component breakdown —
+          a separate axis from RISK below, by design; the two are never merged
+          into one verdict. */}
+      <Section title="Power — interconnection suitability">
         {result != null ? (
           <>
             <div className="flex items-baseline gap-3">
@@ -146,6 +172,85 @@ export default function DetailPanel({
           <p className="text-[11px] leading-relaxed text-neutral-500">
             No active queue — this substation isn&apos;t scored. There&apos;s
             nothing currently in the queue to rank.
+          </p>
+        )}
+      </Section>
+
+      {/* ── RISK AXIS ───────────────────────────────────────────────────
+          Natural-hazard exposure (FEMA National Risk Index), a SEPARATE axis
+          from Power above — deliberately not merged. Higher riskScore = safer.
+          One horizontal bar per hazard, worst on top; "no risk data" when the
+          dataset carries no hazard fields. */}
+      <Section title="Risk — natural-hazard exposure">
+        {two.riskScore != null && hazards.length > 0 ? (
+          <>
+            <div className="flex items-baseline gap-3">
+              <span
+                className="font-tele text-3xl font-semibold"
+                style={{ color: axisColor(two.riskScore, axisTerciles.risk) }}
+              >
+                {two.riskScore}
+              </span>
+              <span
+                className="text-[11px] font-semibold uppercase tracking-wider"
+                style={{ color: axisColor(two.riskScore, axisTerciles.risk) }}
+              >
+                {bandLabel(two.riskScore, axisTerciles.risk)}
+              </span>
+              <span className="ml-auto text-[11px] text-neutral-500">
+                higher = safer
+              </span>
+            </div>
+
+            <div className="mt-4 space-y-2.5">
+              {[...hazards]
+                .sort((a, b) => b.score - a.score)
+                .map((h) => (
+                  <HazardBar key={h.key} label={h.label} score={h.score} />
+                ))}
+            </div>
+
+            <p className="mt-3 text-[11px] leading-relaxed text-neutral-500">
+              {dominantHazardsCaption(s)} FEMA scores are county-level composite
+              risk (0–100, higher = worse) — a first-pass screen, not a
+              site-specific assessment.
+            </p>
+          </>
+        ) : (
+          <p className="text-[11px] leading-relaxed text-neutral-500">
+            No risk data — this substation carries no FEMA hazard scores, so a
+            risk score can&apos;t be computed.
+          </p>
+        )}
+      </Section>
+
+      {/* ── COMBINED ────────────────────────────────────────────────────
+          The headline visual: where this site sits on Power × Risk. Top-right
+          is strong on both. Shows the tradeoff rather than a single verdict. */}
+      <Section title="Combined — power × risk">
+        {two.combined != null ? (
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
+            <div className="shrink-0">
+              <span
+                className="font-tele text-3xl font-semibold"
+                style={{ color: axisColor(two.combined, axisTerciles.combined) }}
+              >
+                {two.combined}
+              </span>
+              <div className="mt-1 text-[10px] leading-relaxed text-neutral-500">
+                {bandLabel(two.combined, axisTerciles.combined)} · penalizes
+                sites lopsided on either axis
+              </div>
+            </div>
+            <div className="min-w-0 flex-1">
+              <QuadrantChart items={[s]} highlightId={s.id} />
+            </div>
+          </div>
+        ) : (
+          <p className="text-[11px] leading-relaxed text-neutral-500">
+            No combined score — it needs BOTH a Power and a Risk score, and this
+            site is missing one (
+            {two.powerScore == null ? "no power score" : "no risk data"}).
           </p>
         )}
       </Section>
@@ -400,6 +505,30 @@ function ComponentBar({
         />
       </div>
       <div className="mt-1 text-[10px] text-neutral-600">{caption}</div>
+    </div>
+  );
+}
+
+// One horizontal bar for a single FEMA hazard (0–100, higher = worse). Bars
+// are colored on a red gradient by severity so the worst exposures read hot.
+function HazardBar({ label, score }: { label: string; score: number }) {
+  const clamped = Math.min(Math.max(score, 0), 100);
+  return (
+    <div>
+      <div className="mb-1 flex items-baseline justify-between text-[11px]">
+        <span className="text-neutral-300">{label}</span>
+        <span className="font-tele text-neutral-500">{Math.round(score)}</span>
+      </div>
+      <div className="h-1.5 rounded bg-white/5">
+        <div
+          className="h-1.5 rounded"
+          style={{
+            width: `${clamped}%`,
+            backgroundColor: AXIS_COLOR_LOW,
+            opacity: 0.4 + (clamped / 100) * 0.6,
+          }}
+        />
+      </div>
     </div>
   );
 }

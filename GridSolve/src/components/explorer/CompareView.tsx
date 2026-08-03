@@ -14,6 +14,9 @@ import {
   type ScoredSubstation,
 } from "@/lib/siteScore";
 import { tierMeta } from "@/lib/data";
+import { type Axis } from "@/lib/scores";
+import { AxisBadges } from "./AxisBadges";
+import QuadrantChart from "./QuadrantChart";
 import { useCanAnimate } from "@/components/Reveal";
 import CountUp from "@/components/CountUp";
 import { PrintFooter, PrintHeader } from "./PrintChrome";
@@ -111,6 +114,7 @@ function computeMetric(items: ScoredSubstation[], m: Metric) {
 export default function CompareView({
   items,
   terciles,
+  axisTerciles,
   onRemove,
   onClear,
   onClose,
@@ -118,6 +122,7 @@ export default function CompareView({
 }: {
   items: ScoredSubstation[];
   terciles: [number, number];
+  axisTerciles: Record<Axis, [number, number]>;
   onRemove: (id: string) => void;
   onClear: () => void;
   onClose: () => void;
@@ -188,6 +193,21 @@ export default function CompareView({
 
       {/* Comparison grid */}
       <div className="no-print relative z-10 flex-1 overflow-auto px-5 py-6 sm:px-8">
+        {/* Headline: the Power × Risk quadrant for all compared sites. Scrolls
+            horizontally inside its own container on narrow screens. */}
+        <div className="mx-auto mb-6 max-w-5xl">
+          <div className="rounded-lg border border-white/[0.06] bg-white/[0.02] p-4">
+            <div className="mb-2 flex items-baseline justify-between">
+              <h3 className="text-xs font-medium text-neutral-300">
+                Power × Risk — the tradeoff
+              </h3>
+              <span className="font-tele text-[10px] text-neutral-600">
+                top-right = strong on both
+              </span>
+            </div>
+            <QuadrantChart items={items} />
+          </div>
+        </div>
         <div className="mx-auto max-w-5xl overflow-x-auto pb-6">
           <div className="grid gap-x-3" style={gridStyle}>
             {/* Row: substation headers */}
@@ -281,6 +301,19 @@ export default function CompareView({
                 </Cell>
               );
             })}
+
+            {/* Row: two-axis badges (Power · Risk · Combined) per site */}
+            <RowLabel label="Two-axis scores" unit="power · risk · combined" />
+            {items.map((s, i) => (
+              <Cell
+                key={s.id}
+                canAnimate={canAnimate}
+                delay={0.18 + 0.04 * i}
+                className="px-3 py-2.5"
+              >
+                <AxisBadges s={s} axisTerciles={axisTerciles} size="md" />
+              </Cell>
+            ))}
 
             {/* Divider */}
             <div

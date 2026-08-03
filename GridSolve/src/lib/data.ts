@@ -54,6 +54,11 @@ type RawSubstation = {
   n_projects_with_cost: number;
   model_tier: string;
   region_concordance: number | null;
+  // FEMA National Risk Index hazard scores (0-100, higher = worse). Optional:
+  // the current dataset carries none, but any `hazard_<name>` key present is
+  // passed straight through to the RISK axis (see scores.ts). Index signature
+  // lets us read them generically without enumerating each hazard here.
+  [key: `hazard_${string}`]: number | null | undefined;
 };
 
 type RawGridSolve = {
@@ -88,9 +93,25 @@ export type Substation = {
   nProjectsWithCost: number;
   modelTier: string;
   regionConcordance: number | null;
+  // Any FEMA `hazard_<name>` fields on the source row, keyed by the name
+  // suffix (e.g. `earthquake`). Empty when the JSON has no hazard data — the
+  // RISK axis degrades to "no risk data" rather than inventing zeros.
+  hazards: Record<string, number>;
 };
 
 const raw = gridsolve as RawGridSolve;
+
+// Pull every `hazard_<name>` key off a raw row into a { name: score } map,
+// keeping only finite numbers (a null/absent hazard is omitted, never zeroed).
+function extractHazards(s: RawSubstation): Record<string, number> {
+  const out: Record<string, number> = {};
+  for (const [k, v] of Object.entries(s)) {
+    if (k.startsWith("hazard_") && typeof v === "number" && Number.isFinite(v)) {
+      out[k.slice("hazard_".length)] = v;
+    }
+  }
+  return out;
+}
 
 // A few rows carry no usable name (the literal string "undefined" or empty) —
 // show a readable placeholder rather than leaking that into the UI.
@@ -142,6 +163,7 @@ function normalize(s: RawSubstation, index: number): Substation {
     nProjectsWithCost: s.n_projects_with_cost ?? 0,
     modelTier: s.model_tier,
     regionConcordance: s.region_concordance,
+    hazards: extractHazards(s),
   };
 }
 

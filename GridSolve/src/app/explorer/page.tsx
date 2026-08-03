@@ -33,9 +33,20 @@ import {
   scoreInputs,
   scoreSubstation,
   scoreTerciles,
-  scoreColor,
   type ScoredSubstation,
 } from "@/lib/siteScore";
+import {
+  scoreOf,
+  axisValue,
+  axisColor,
+  terciles as axisTercilesOf,
+  AXIS_LABEL,
+  AXIS_COLOR_TOP,
+  AXIS_COLOR_MID,
+  AXIS_COLOR_LOW,
+  AXIS_COLOR_NONE,
+  type Axis,
+} from "@/lib/scores";
 import FilterBar, {
   type Filters,
   type SortKey,
@@ -245,7 +256,20 @@ function sortSubstations(
   key: SortKey
 ): ScoredSubstation[] {
   const arr = [...items];
+  // Two-axis sorts — null values (no data on that axis) always sink to the
+  // bottom regardless of direction, since there's nothing to rank them by.
+  const byAxis = (axis: Axis) =>
+    arr.sort(
+      (a, b) =>
+        (axisValue(scoreOf(b), axis) ?? -1) - (axisValue(scoreOf(a), axis) ?? -1)
+    );
   switch (key) {
+    case "combined":
+      return byAxis("combined");
+    case "power":
+      return byAxis("power");
+    case "risk":
+      return byAxis("risk");
     case "score":
       return arr.sort(
         (a, b) => (b.scoreResult?.score ?? -1) - (a.scoreResult?.score ?? -1)
@@ -280,10 +304,12 @@ export default function Explorer() {
   const draggingRef = useRef(false);
   // Holds substation ids (names are not unique nationally).
   const [selectedName, setSelectedName] = useState<string | null>(
-    () => sortSubstations(SCORED, "score")[0]?.id ?? null
+    () => sortSubstations(SCORED, "combined")[0]?.id ?? null
   );
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
-  const [sortKey, setSortKey] = useState<SortKey>("score");
+  const [sortKey, setSortKey] = useState<SortKey>("combined");
+  // Which axis colors the map + drives its legend: Power | Risk | Combined.
+  const [axis, setAxis] = useState<Axis>("combined");
   const [compareNames, setCompareNames] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
   const [detailCollapsed, setDetailCollapsed] = useState(false);
@@ -338,6 +364,32 @@ export default function Explorer() {
       ),
     [filtered]
   );
+  // Per-axis terciles for the SELECTED axis, recomputed against the current
+  // view — colors the map markers and its legend. Null values (no data on this
+  // axis) are excluded from the banding.
+  const axisTerciles = useMemo(
+    () =>
+      axisTercilesOf(
+        filtered
+          .map((s) => axisValue(scoreOf(s), axis))
+          .filter((n): n is number => n != null)
+      ),
+    [filtered, axis]
+  );
+  // All three axes' terciles over the current view — so each of the three row
+  // badges (Power / Risk / Combined) and the detail panel can be colored by
+  // its own axis's banding, not a shared scale.
+  const allAxisTerciles = useMemo(() => {
+    const vals = (a: Axis) =>
+      filtered
+        .map((s) => axisValue(scoreOf(s), a))
+        .filter((n): n is number => n != null);
+    return {
+      power: axisTercilesOf(vals("power")),
+      risk: axisTercilesOf(vals("risk")),
+      combined: axisTercilesOf(vals("combined")),
+    } as Record<Axis, [number, number]>;
+  }, [filtered]);
   // Which substations the map plots: the full filtered set for a full-access
   // user, or just the curated 6 for a preview user (so the map matches the
   // teaser list — a small, varied showcase rather than the whole country).
@@ -358,15 +410,15 @@ export default function Explorer() {
           },
           properties: {
             id: s.id,
-            color: s.hasActiveQueue
-              ? scoreColor(s.scoreResult?.score ?? null, terciles)
-              : "#6b7280",
-            active: s.hasActiveQueue ? 1 : 0,
+            // Colored by the selected axis (Power | Risk | Combined). A null on
+            // that axis (e.g. no risk data) draws gray/hollow, never a fake 0.
+            color: axisColor(axisValue(scoreOf(s), axis), axisTerciles),
+            active: axisValue(scoreOf(s), axis) != null ? 1 : 0,
             approx: s.approxLocation ? 1 : 0,
           },
         })),
     }),
-    [mapSource, terciles]
+    [mapSource, axis, axisTerciles]
   );
   // Only the top slice is rendered as DOM rows (see LIST_RENDER_LIMIT).
   const visibleRows = useMemo(
@@ -515,6 +567,27 @@ export default function Explorer() {
           </div>
         </div>
 
+        {/* Axis toggle — recolors the markers and the legend by Power, Risk,
+            or Combined. Centered pill, clears the top-left/right controls. */}
+        <div className="pointer-events-none absolute left-0 right-0 top-16 flex justify-center px-4">
+          <div className="pointer-events-auto flex items-center gap-1 rounded-md border border-white/10 bg-[#0a0a0b]/85 p-1 text-[11px] backdrop-blur">
+            {(["power", "risk", "combined"] as Axis[]).map((a) => (
+              <button
+                key={a}
+                onClick={() => setAxis(a)}
+                aria-pressed={axis === a}
+                className={`rounded px-2.5 py-1 font-medium transition-colors ${
+                  axis === a
+                    ? "bg-white/15 text-white"
+                    : "text-neutral-400 hover:text-white"
+                }`}
+              >
+                {AXIS_LABEL[a]}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Legend — colours mean the same thing on the map and in the list.
             Tercile cut points are computed at runtime from the CURRENT view
             (see `terciles` above), never hardcoded — the score is relative,
@@ -525,31 +598,40 @@ export default function Explorer() {
             aria-expanded={!legendCollapsed}
             className="flex w-full items-center justify-between gap-2 px-3 py-2 text-left transition-colors hover:bg-white/[0.04]"
           >
-            <span className="font-medium text-neutral-300">GridSolve Site Score</span>
+            <span className="font-medium text-neutral-300">
+              {AXIS_LABEL[axis]} score
+            </span>
             <ChevronToggle up={!legendCollapsed} />
           </button>
 
           {!legendCollapsed && (
             <div className="px-3 pb-2.5">
               <div className="mb-1.5 text-neutral-500">
-                Interconnection suitability — top/middle/bottom third of the
-                current view
+                {axis === "power"
+                  ? "Interconnection suitability"
+                  : axis === "risk"
+                  ? "Hazard safety (higher = safer)"
+                  : "Balanced power × risk"}{" "}
+                — top/middle/bottom third of the current view
               </div>
               {[
-                { c: "#22c55e", l: "Top third", r: `> ${terciles[1]}` },
+                { c: AXIS_COLOR_TOP, l: "Top third", r: `> ${axisTerciles[1]}` },
                 {
-                  c: "#f59e0b",
+                  c: AXIS_COLOR_MID,
                   l: "Middle third",
-                  // Scores can cluster tightly (many thin-evidence sites near
-                  // 50); collapse the range to a single value when the band
-                  // is one point wide rather than printing "52–52".
+                  // Scores can cluster tightly; collapse the range to a single
+                  // value when the band is one point wide rather than "52–52".
                   r:
-                    terciles[1] > terciles[0] + 1
-                      ? `${terciles[0] + 1}–${terciles[1]}`
-                      : `${terciles[1]}`,
+                    axisTerciles[1] > axisTerciles[0] + 1
+                      ? `${axisTerciles[0] + 1}–${axisTerciles[1]}`
+                      : `${axisTerciles[1]}`,
                 },
-                { c: "#ef4444", l: "Bottom third", r: `≤ ${terciles[0]}` },
-                { c: "#6b7280", l: "No active queue", r: "not scored" },
+                { c: AXIS_COLOR_LOW, l: "Bottom third", r: `≤ ${axisTerciles[0]}` },
+                {
+                  c: AXIS_COLOR_NONE,
+                  l: axis === "risk" ? "No risk data" : "Not scored",
+                  r: "—",
+                },
               ].map((b) => (
                 <div key={b.l} className="flex items-center gap-2 py-0.5">
                   <span
@@ -667,7 +749,7 @@ export default function Explorer() {
             <SubstationList
               items={visibleRows}
               hiddenCount={sorted.length - visibleRows.length}
-              terciles={terciles}
+              axisTerciles={allAxisTerciles}
               selectedName={selectedName}
               compareSet={compareSet}
               compareFull={compareNames.length >= 4}
@@ -684,6 +766,7 @@ export default function Explorer() {
                 <DetailPanel
                   s={selected}
                   terciles={terciles}
+                  axisTerciles={allAxisTerciles}
                   collapsed={detailCollapsed}
                   onToggleCollapsed={() => setDetailCollapsed((c) => !c)}
                   onExport={exportPrint}
@@ -707,6 +790,7 @@ export default function Explorer() {
                 <DetailPanel
                   s={teaserSelected}
                   terciles={terciles}
+                  axisTerciles={allAxisTerciles}
                   collapsed={detailCollapsed}
                   onToggleCollapsed={() => setDetailCollapsed((c) => !c)}
                   onExport={exportPrint}
@@ -726,6 +810,7 @@ export default function Explorer() {
         <CompareView
           items={compareItems}
           terciles={terciles}
+          axisTerciles={allAxisTerciles}
           onRemove={(id) =>
             setCompareNames((prev) => prev.filter((n) => n !== id))
           }

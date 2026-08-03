@@ -4,14 +4,16 @@
 // GridSolve Site Score badge (colored by tercile — see siteScore.ts), then the
 // two real numbers (queued → adjusted MW) and the cost. A no-active-queue
 // station has no score to show and says so plainly instead of a blank or 0.
-import { scoreColor, type ScoredSubstation } from "@/lib/siteScore";
+import { type ScoredSubstation } from "@/lib/siteScore";
+import { scoreOf, axisColor, AXIS_COLOR_NONE, type Axis } from "@/lib/scores";
+import { AxisBadges } from "./AxisBadges";
 
 const mw = (n: number) => `${Math.round(n).toLocaleString()} MW`;
 
 export default function SubstationList({
   items,
   hiddenCount,
-  terciles,
+  axisTerciles,
   selectedName,
   compareSet,
   compareFull,
@@ -20,7 +22,7 @@ export default function SubstationList({
 }: {
   items: ScoredSubstation[];
   hiddenCount: number; // matched rows not rendered (list is capped)
-  terciles: [number, number];
+  axisTerciles: Record<Axis, [number, number]>;
   selectedName: string | null;
   compareSet: Set<string>;
   compareFull: boolean;
@@ -39,8 +41,11 @@ export default function SubstationList({
     <div className="flex-1 overflow-y-auto">
       {items.map((s) => {
         const active = s.id === selectedName;
-        const score = s.scoreResult?.score ?? null;
-        const color = s.hasActiveQueue ? scoreColor(score, terciles) : "#6b7280";
+        // The row dot reflects the COMBINED axis (the default headline read);
+        // gray/hollow when there's no combined score for this site.
+        const combined = scoreOf(s).combined;
+        const color =
+          combined != null ? axisColor(combined, axisTerciles.combined) : AXIS_COLOR_NONE;
         const checked = compareSet.has(s.id);
         const disableCheck = !checked && compareFull;
 
@@ -105,13 +110,7 @@ export default function SubstationList({
                   )}
                 </div>
               </div>
-              <span
-                className="shrink-0 rounded px-2 py-0.5 font-mono text-[11px] font-semibold"
-                style={{ backgroundColor: color + "22", color }}
-                title="GridSolve Site Score"
-              >
-                {score != null ? score : "—"}
-              </span>
+              <AxisBadges s={s} axisTerciles={axisTerciles} />
             </button>
           </div>
         );

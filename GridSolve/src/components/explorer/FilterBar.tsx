@@ -9,7 +9,15 @@
 import type { CostBandKey } from "@/lib/data";
 
 export type StatusFilter = "active" | "history" | "all";
-export type SortKey = "score" | "adjusted" | "cost" | "withdrawal" | "name";
+export type SortKey =
+  | "combined"
+  | "power"
+  | "risk"
+  | "score"
+  | "adjusted"
+  | "cost"
+  | "withdrawal"
+  | "name";
 
 export type Filters = {
   regions: string[]; // empty = all regions
@@ -28,6 +36,9 @@ const COST_OPTIONS: { key: CostBandKey; label: string }[] = [
 ];
 
 const SORT_OPTIONS: { key: SortKey; label: string }[] = [
+  { key: "combined", label: "Combined score (high → low)" },
+  { key: "power", label: "Power score (high → low)" },
+  { key: "risk", label: "Risk score — safer first (high → low)" },
   { key: "score", label: "GridSolve Site Score (high → low)" },
   { key: "adjusted", label: "Adjusted available MW (high → low)" },
   { key: "cost", label: "Median cost (low → high)" },

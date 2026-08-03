@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import DriversChart from "@/components/DriversChart";
 import { model, drivers, datasetStats, tierMeta } from "@/lib/data";
+import { HAZARD_WEIGHTS } from "@/lib/scores";
 import { pageMetadata, seoKeywords } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -249,6 +250,83 @@ export default function Methodology() {
             large load — this score cannot tell those two apart, which is
             also why substations with no active queue aren&apos;t scored at
             all rather than being guessed at.
+          </p>
+        </Section>
+
+        <Section title="Two axes: Power and Risk">
+          <p>
+            GridSolve now scores every site on{" "}
+            <span className="text-neutral-200">two separate axes</span> rather
+            than folding everything into one number. The{" "}
+            <span className="text-neutral-200">Power</span> score is the
+            interconnection-suitability read described above (higher is better).
+            The <span className="text-neutral-200">Risk</span> score is a natural-hazard
+            safety read from FEMA data (higher is safer). A{" "}
+            <span className="text-neutral-200">Combined</span> score blends them
+            but deliberately penalizes lopsided sites — a site has to be decent
+            on <span className="text-neutral-200">both</span> axes to score high.
+          </p>
+          <p className="mt-3">
+            They are kept separate on purpose. A high-hazard site may be a hard
+            no for one developer and a priced-in cost for another — the tool
+            shows the tradeoff rather than deciding it for you. Merging them into
+            a single verdict would hide exactly the judgment call that belongs to
+            the person siting the project. That&apos;s why the explorer offers a
+            Power × Risk quadrant as the headline visual: it plots where a site
+            sits on both, instead of collapsing it to one rank.
+          </p>
+        </Section>
+
+        <Section title="How the Risk score works">
+          <p>
+            The Risk score is a weighted average of a site&apos;s FEMA National
+            Risk Index hazard scores (each 0–100, higher = worse), subtracted
+            from 100 so that a higher Risk score means a{" "}
+            <span className="text-neutral-200">safer</span> site. Only the
+            hazards present for a site are averaged, and the weights are
+            renormalized over those present. The weights are:
+          </p>
+          <div className="mt-4 overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02]">
+            <table className="w-full text-left text-sm">
+              <thead>
+                <tr className="border-b border-white/10 text-[11px] uppercase tracking-wider text-neutral-500">
+                  <th className="px-4 py-2.5 font-medium">Hazard</th>
+                  <th className="px-4 py-2.5 font-medium">Weight</th>
+                </tr>
+              </thead>
+              <tbody>
+                {HAZARD_WEIGHTS.map((h) => (
+                  <tr key={h.key} className="border-b border-white/5 last:border-0">
+                    <td className="px-4 py-2.5 text-neutral-200">{h.label}</td>
+                    <td className="px-4 py-2.5 font-mono text-neutral-300">
+                      {h.weight.toFixed(2)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p className="mt-4">
+            These weights are{" "}
+            <span className="text-neutral-200">our editorial judgment</span> of
+            relative concern for siting a data center — they are not derived from
+            the data or fit to any outcome. A different developer might weight
+            them differently, and reasonably so.
+          </p>
+          <p className="mt-3">
+            The FEMA scores are{" "}
+            <span className="text-neutral-200">county-level composite risk</span>{" "}
+            — a loss-weighted index combining a hazard&apos;s frequency and its
+            expected consequences. They are a{" "}
+            <span className="text-neutral-200">first-pass screen</span>, not a
+            site-specific engineering assessment: two substations in the same
+            county carry the same hazard scores regardless of their exact siting,
+            elevation, or local mitigation.
+          </p>
+          <p className="mt-4 rounded-lg border border-white/10 bg-white/[0.03] p-4 text-[13px] leading-relaxed text-neutral-400">
+            This product uses the Federal Emergency Management Agency&apos;s
+            National Risk Index but is not endorsed by FEMA. FEMA cannot vouch
+            for the data or analyses derived from these data.
           </p>
         </Section>
 
