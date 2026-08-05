@@ -660,14 +660,14 @@ export default function Explorer() {
             ) : (
               <>
                 A free preview — a varied sample of sites across the country,
-                with full scoring. The complete list, filters, and comparisons
-                are unlocked by request.
+                with full scoring. Compare among these sites now; the complete
+                list and filters are unlocked by request.
               </>
             )}
           </p>
         </div>
 
-        {hasFullAccess && compareNames.length > 0 && (
+        {compareNames.length > 0 && (
           <div className="no-print flex items-center justify-between gap-3 border-b border-white/5 bg-blue-500/[0.06] px-5 py-2.5 text-xs">
             <span className="text-neutral-300">
               {compareNames.length} selected to compare
@@ -746,9 +746,12 @@ export default function Explorer() {
             <div className="flex-1 overflow-y-auto">
               <ExplorerTeaser
                 items={teaserSubstations}
-                terciles={terciles}
+                axisTerciles={allAxisTerciles}
                 selectedName={selectedName}
+                compareSet={compareSet}
+                compareFull={compareNames.length >= 4}
                 onSelect={select}
+                onToggleCompare={toggleCompare}
               />
               {teaserSelected && (
                 <DetailPanel
@@ -770,7 +773,7 @@ export default function Explorer() {
         )}
       </div>
 
-      {hasFullAccess && compareOpen && compareItems.length >= 2 && (
+      {compareOpen && compareItems.length >= 2 && (
         <CompareView
           items={compareItems}
           terciles={terciles}
