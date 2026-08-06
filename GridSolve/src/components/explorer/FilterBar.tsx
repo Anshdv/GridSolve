@@ -35,7 +35,7 @@ const COST_OPTIONS: { key: CostBandKey; label: string }[] = [
   { key: "high", label: "> $600/kW" },
 ];
 
-const SORT_OPTIONS: { key: SortKey; label: string }[] = [
+export const SORT_OPTIONS: { key: SortKey; label: string }[] = [
   { key: "combined", label: "Combined score (high → low)" },
   { key: "power", label: "Power score (high → low)" },
   { key: "risk", label: "Risk score — safer first (high → low)" },

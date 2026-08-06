@@ -54,6 +54,7 @@ import {
   type TwoAxisScore,
 } from "@/lib/scores";
 import FilterBar, {
+  SORT_OPTIONS,
   type Filters,
   type SortKey,
   type StatusFilter,
@@ -61,7 +62,6 @@ import FilterBar, {
 import SubstationList from "@/components/explorer/SubstationList";
 import DetailPanel from "@/components/explorer/DetailPanel";
 import CompareView from "@/components/explorer/CompareView";
-import ExplorerTeaser from "@/components/explorer/ExplorerTeaser";
 import TeaserContact from "@/components/explorer/TeaserContact";
 import UserMenu from "@/components/auth/UserMenu";
 import { ExplorerScoreProvider } from "@/components/explorer/ExplorerScoreContext";
@@ -340,7 +340,16 @@ export default function Explorer() {
       combined: axisTercilesOf(vals("combined")),
     } as Record<Axis, [number, number]>;
   }, [filtered, scoreOf]);
-  const mapSource = hasFullAccess ? sorted : teaserSubstations;
+  // Teaser list uses the same sort as the full explorer (FilterBar sortKey,
+  // kept in sync with the map's Power/Risk/Combined axis toggle below).
+  const teaserSorted = useMemo(
+    () =>
+      scoreOf
+        ? sortSubstations(teaserSubstations, sortKey, scoreOf)
+        : teaserSubstations,
+    [teaserSubstations, sortKey, scoreOf]
+  );
+  const mapSource = hasFullAccess ? sorted : teaserSorted;
 
   // GeoJSON for the map's circle layer — plottable points with per-feature
   // color/active/approx.
@@ -387,9 +396,12 @@ export default function Explorer() {
       authReady &&
       !hasFullAccess &&
       scored &&
+      scoreOf &&
       !teaserIds.has(selectedName ?? "")
     ) {
-      setSelectedName(teaserSubstations[0]?.id ?? null);
+      setSelectedName(
+        sortSubstations(teaserSubstations, "combined", scoreOf)[0]?.id ?? null
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [authReady, hasFullAccess, scored]);
@@ -532,13 +544,18 @@ export default function Explorer() {
         </div>
 
         {/* Axis toggle — recolors the markers and the legend by Power, Risk,
-            or Combined. Centered pill, clears the top-left/right controls. */}
+            or Combined, and keeps the list sorted by the same axis. Centered
+            pill, clears the top-left/right controls. */}
         <div className="pointer-events-none absolute left-0 right-0 top-16 flex justify-center px-4">
           <div className="pointer-events-auto flex items-center gap-1 rounded-md border border-white/10 bg-[#0a0a0b]/85 p-1 text-[11px] backdrop-blur">
             {(["power", "risk", "combined"] as Axis[]).map((a) => (
               <button
                 key={a}
-                onClick={() => setAxis(a)}
+                onClick={() => {
+                  setAxis(a);
+                  // Keep the list ordered by the same axis the map is colored by.
+                  setSortKey(a);
+                }}
                 aria-pressed={axis === a}
                 className={`rounded px-2.5 py-1 font-medium transition-colors ${
                   axis === a
@@ -740,20 +757,61 @@ export default function Explorer() {
           </>
         ) : (
           <>
-            {/* One smooth scroll: the preview rows and the selected site's
-                full detail flow together in a single column (no nested,
-                fighting scroll regions), with the contact bar pinned below. */}
-            <div className="flex-1 overflow-y-auto">
-              <ExplorerTeaser
-                items={teaserSubstations}
-                axisTerciles={allAxisTerciles}
-                selectedName={selectedName}
-                compareSet={compareSet}
-                compareFull={compareNames.length >= 4}
-                onSelect={select}
-                onToggleCompare={toggleCompare}
-              />
-              {teaserSelected && (
+            {/* Same list component as full access — only the curated 6,
+                sorted by the active Power/Risk/Combined axis (or FilterBar
+                sortKey). Preview chrome + contact bar wrap it. */}
+            <div className="no-print border-b border-white/5 px-5 py-2.5">
+              <p className="font-tele text-[11px] uppercase tracking-[0.14em] text-[var(--accent-bright)]">
+                Preview · a varied sample, coast to coast
+              </p>
+              <p className="mt-1 text-[11px] leading-relaxed text-neutral-500">
+                Select any site to see its full breakdown, or check up to 4 to
+                compare — power, risk, and combined. Switch the map axis to
+                reorder this list.
+              </p>
+              <label className="mt-2.5 flex min-w-0 items-center gap-2 text-[11px] text-neutral-500">
+                <span className="shrink-0">Sort by</span>
+                <select
+                  value={sortKey}
+                  onChange={(e) => {
+                    const next = e.target.value as SortKey;
+                    setSortKey(next);
+                    if (
+                      next === "power" ||
+                      next === "risk" ||
+                      next === "combined"
+                    ) {
+                      setAxis(next);
+                    }
+                  }}
+                  className="w-full cursor-pointer rounded border border-white/10 bg-white/[0.03] px-2 py-1.5 text-[11px] text-neutral-200 outline-none transition-colors hover:border-white/20 focus:border-blue-500/60"
+                >
+                  {SORT_OPTIONS.map((o) => (
+                    <option key={o.key} value={o.key} className="bg-neutral-900">
+                      {o.label}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            </div>
+
+            <SubstationList
+              items={teaserSorted}
+              hiddenCount={0}
+              axisTerciles={allAxisTerciles}
+              selectedName={selectedName}
+              compareSet={compareSet}
+              compareFull={compareNames.length >= 4}
+              onSelect={select}
+              onToggleCompare={toggleCompare}
+            />
+
+            {teaserSelected && !compareOpen && (
+              <div
+                className={`shrink-0 overflow-y-auto ${
+                  detailCollapsed ? "" : "max-h-[46%]"
+                }`}
+              >
                 <DetailPanel
                   s={teaserSelected}
                   terciles={terciles}
@@ -762,8 +820,8 @@ export default function Explorer() {
                   onToggleCollapsed={() => setDetailCollapsed((c) => !c)}
                   onExport={exportPrint}
                 />
-              )}
-            </div>
+              </div>
+            )}
 
             <TeaserContact
               previewCount={teaserSubstations.length}
