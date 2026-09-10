@@ -3,7 +3,7 @@
 export function getExplorerAccessEmail(): string {
   return (
     process.env.NEXT_PUBLIC_EXPLORER_ACCESS_EMAIL?.trim().toLowerCase() ??
-    "ansh28.dev@gmail.com"
+    "deepslatelabs@gmail.com"
   );
 }
 
