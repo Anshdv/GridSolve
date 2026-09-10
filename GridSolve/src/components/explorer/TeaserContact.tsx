@@ -1,7 +1,7 @@
 // Compact contact-to-unlock bar pinned below the preview list + detail. Kept
-// slim so it never crowds the panel. Email is the configured explorer-access
-// address (single source of truth).
-import { getExplorerAccessEmail } from "@/lib/explorerAccess";
+// slim so it never crowds the panel. Contact email is separate from the
+// signed-in access allowlist.
+import { getExplorerContactEmail } from "@/lib/explorerAccess";
 
 export default function TeaserContact({
   previewCount,
@@ -10,7 +10,7 @@ export default function TeaserContact({
   previewCount: number;
   total: number;
 }) {
-  const email = getExplorerAccessEmail();
+  const email = getExplorerContactEmail();
 
   return (
     <div className="shrink-0 border-t border-white/10 bg-[var(--accent)]/[0.04] px-5 py-4 text-center">
