@@ -22,15 +22,19 @@ export const metadata: Metadata = {
   },
 };
 
+const withdrawalPct = Math.round(datasetStats.nationalWithdrawalRate * 100);
+
+const TIER_GLOSS =
+  "Validated / Usable = safe to weight heavily. Marginal = directional only. Weak = limited signal. Unvalidated / Not predictive = treat this region's model output as a coin flip; rely on the empirical withdrawal rate instead.";
+
 export default function Methodology() {
-  const withdrawalPct = Math.round(datasetStats.nationalWithdrawalRate * 100);
   // Regional validation table, straight from the model block.
   const regionRows = Object.entries(model.region_validation);
 
   return (
     <main className="min-h-screen bg-[#07080a] text-neutral-200">
       <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-[#07080a]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
+        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4">
           <Link href="/" className="text-sm text-neutral-300 transition-colors hover:text-white">
             ← GridSolve
           </Link>
@@ -52,14 +56,49 @@ export default function Methodology() {
       </header>
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-        <h1 className="font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
+        <h1 className="font-display text-3xl font-semibold tracking-tight text-white [text-wrap:balance] md:text-4xl">
           Interconnection queue model methodology
         </h1>
-        <p className="mt-4 text-[15.5px] leading-relaxed text-neutral-400">
+        <p className="mt-4 max-w-[70ch] text-[15.5px] leading-relaxed text-neutral-400 [text-wrap:pretty]">
           How GridSolve predicts interconnection queue withdrawals, validates
           the survival model by region, and computes withdrawal-adjusted
           deliverable capacity.
         </p>
+        <p className="mt-5 max-w-[70ch] text-[15.5px] leading-relaxed text-neutral-300 [text-wrap:pretty]">
+          This page shows exactly where the model is strong, where it&apos;s
+          weak, and how every score is calculated — so you can weigh our
+          numbers against your own judgment.
+        </p>
+
+        <div className="mt-10 grid grid-cols-1 gap-8 border-y border-white/10 py-8 sm:grid-cols-3 sm:gap-0">
+          <div className="sm:pr-6">
+            <div className="font-tele text-[1.75rem] font-medium leading-none tracking-normal text-white tabular-nums">
+              {datasetStats.total.toLocaleString("en-US")}
+            </div>
+            <div className="mt-3 text-sm font-medium text-neutral-200">Substations</div>
+            <div className="mt-1 text-xs text-neutral-500">
+              across {datasetStats.regions} ISO/RTO regions
+            </div>
+          </div>
+          <div className="sm:border-l sm:border-white/10 sm:px-6">
+            <div className="font-tele text-[1.75rem] font-medium leading-none tracking-normal text-white tabular-nums">
+              {datasetStats.activeProjects.toLocaleString("en-US")}
+            </div>
+            <div className="mt-3 text-sm font-medium text-neutral-200">Active projects</div>
+            <div className="mt-1 text-xs text-neutral-500">
+              in the national interconnection queue
+            </div>
+          </div>
+          <div className="sm:border-l sm:border-white/10 sm:pl-6">
+            <div className="font-tele text-[1.75rem] font-medium leading-none tracking-normal text-white tabular-nums">
+              {withdrawalPct}%
+            </div>
+            <div className="mt-3 text-sm font-medium text-neutral-200">Withdrawal rate</div>
+            <div className="mt-1 text-xs text-neutral-500">
+              capacity-weighted, national
+            </div>
+          </div>
+        </div>
 
         <Section title="What the model predicts">
           <p>
@@ -87,7 +126,7 @@ export default function Methodology() {
             This dataset is national:{" "}
             <span className="text-neutral-200">{model.coverage}</span> — about{" "}
             <span className="text-neutral-200">
-              {datasetStats.total.toLocaleString()} substations
+              {datasetStats.total.toLocaleString("en-US")} substations
             </span>{" "}
             across {datasetStats.regions} ISO/RTO regions and{" "}
             {datasetStats.states} states. Withdrawal rates are computed{" "}
@@ -113,9 +152,9 @@ export default function Methodology() {
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-white/10 text-[11px] uppercase tracking-wider text-neutral-500">
-                  <th className="px-4 py-2.5 font-medium">Region</th>
-                  <th className="px-4 py-2.5 font-medium">Concordance</th>
-                  <th className="px-4 py-2.5 font-medium">Tier</th>
+                  <th className="px-3 py-2.5 font-medium sm:px-4">Region</th>
+                  <th className="px-3 py-2.5 font-medium sm:px-4">Concordance</th>
+                  <th className="px-3 py-2.5 font-medium sm:px-4">Tier</th>
                 </tr>
               </thead>
               <tbody>
@@ -123,14 +162,17 @@ export default function Methodology() {
                   const t = tierMeta(v.tier);
                   return (
                     <tr key={region} className="border-b border-white/5 last:border-0">
-                      <td className="px-4 py-2.5 text-neutral-200">{region}</td>
-                      <td className="px-4 py-2.5 font-mono text-neutral-300">
+                      <td className="whitespace-nowrap px-3 py-2.5 text-neutral-200 sm:px-4">
+                        {region}
+                      </td>
+                      <td className="px-3 py-2.5 font-mono text-neutral-300 sm:px-4">
                         {v.concordance != null ? v.concordance.toFixed(3) : "—"}
                       </td>
-                      <td className="px-4 py-2.5">
+                      <td className="px-3 py-2.5 sm:px-4">
                         <span
-                          className="rounded px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider"
+                          className="inline-block whitespace-nowrap rounded px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide sm:px-2"
                           style={{ backgroundColor: t.color + "22", color: t.color }}
+                          title={t.blurb}
                         >
                           {t.label}
                         </span>
@@ -141,6 +183,9 @@ export default function Methodology() {
               </tbody>
             </table>
           </div>
+          <p className="mt-3 text-[13px] leading-relaxed text-neutral-400">
+            {TIER_GLOSS}
+          </p>
           <p className="mt-4">
             Because the withdrawal rates are empirical, the capacity numbers
             stay meaningful even where the survival model is weak — the tier is
@@ -157,24 +202,23 @@ export default function Methodology() {
             below 1 lowers it. These are the features the survival model
             weighs most heavily.
           </p>
-          <div className="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-6">
-            <div className="flex items-baseline justify-between">
+          <div className="mt-2 rounded-xl border border-white/10 bg-white/[0.02] p-5 md:p-6">
+            <div className="flex items-baseline justify-between gap-3">
               <h3 className="font-display text-sm font-medium text-white">
                 What predicts withdrawal
               </h3>
-              <span className="font-tele text-[11px] text-neutral-500">
+              <span className="font-tele shrink-0 text-[11px] text-neutral-500">
                 hazard ratio
               </span>
             </div>
             <DriversChart drivers={drivers} />
             <p className="mt-1 text-[11px] text-neutral-500">
-              &gt;1 = more likely to withdraw · caption above marks 1.0, no
-              effect.
+              &gt;1 = more likely to withdraw.
             </p>
           </div>
         </Section>
 
-        <Section title="How the GridSolve Site Score works">
+        <Section title="How the GridSolve Site Score works" breakBefore>
           <p>
             Every substation with an active queue gets a single 0–100{" "}
             <span className="text-neutral-200">GridSolve Site Score</span>{" "}
@@ -253,7 +297,7 @@ export default function Methodology() {
           </p>
         </Section>
 
-        <Section title="Two axes: Power and Risk">
+        <Section title="Two axes: Power and Risk" breakBefore>
           <p>
             GridSolve now scores every site on{" "}
             <span className="text-neutral-200">two separate axes</span> rather
@@ -363,6 +407,15 @@ export default function Methodology() {
           </p>
         </Section>
 
+        <p className="mt-12 text-[14px] text-neutral-500">
+          <Link
+            href="/explorer"
+            className="text-neutral-300 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+          >
+            See these numbers applied to real substations →
+          </Link>
+        </p>
+
         <p className="mt-16 border-t border-white/10 pt-6 text-[11px] leading-relaxed text-neutral-600">
           Source: ISO/RTO interconnection queues (LBNL Queued Up) and LBNL
           interconnection cost studies. Withdrawal rates are empirical, per
@@ -377,15 +430,23 @@ function Section({
   title,
   children,
   last,
+  breakBefore,
 }: {
   title: string;
   children: React.ReactNode;
   last?: boolean;
+  breakBefore?: boolean;
 }) {
   return (
-    <section className={`mt-12 ${last ? "" : "border-b border-white/5 pb-12"}`}>
-      <h2 className="font-display text-lg font-medium text-white">{title}</h2>
-      <div className="mt-3 text-[15px] leading-relaxed text-neutral-400">
+    <section
+      className={`${breakBefore ? "mt-20 pt-4" : "mt-12"} ${
+        last ? "" : "border-b border-white/5 pb-12"
+      }`}
+    >
+      <h2 className="font-display text-lg font-medium text-white [text-wrap:balance]">
+        {title}
+      </h2>
+      <div className="mt-3 text-[15px] leading-relaxed text-neutral-400 [text-wrap:pretty] [&_p]:max-w-[70ch] [&_ul]:max-w-[70ch]">
         {children}
       </div>
     </section>
