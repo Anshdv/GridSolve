@@ -6,6 +6,7 @@ import {
   rateLimit,
 } from "@/lib/rate-limit";
 import { isValidEmail, jsonError, sleep } from "@/lib/auth-json";
+import { hasEnrolledMfa } from "@/lib/validation";
 
 export async function POST(request: Request) {
   let body: { email?: string; token?: string; action?: string };
@@ -74,6 +75,13 @@ export async function POST(request: Request) {
   if (error) {
     await sleep(300);
     return jsonError("That code is invalid or expired. Try again.", 401);
+  }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user && !hasEnrolledMfa(user.user_metadata)) {
+    return Response.json({ enrollRequired: true });
   }
 
   return Response.json({ ok: true });

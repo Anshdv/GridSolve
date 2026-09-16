@@ -6,6 +6,7 @@ import {
   rateLimit,
 } from "@/lib/rate-limit";
 import { isValidEmail, jsonError, sleep } from "@/lib/auth-json";
+import { hasEnrolledMfa } from "@/lib/validation";
 
 const GENERIC_LOGIN_ERROR = "Email or password is incorrect.";
 
@@ -64,7 +65,14 @@ export async function POST(request: Request) {
       });
     }
   } catch {
-    // MFA not enabled on the project — password sign-in is enough.
+    // MFA not enabled on the project — still require enrollment when the flag is missing.
+  }
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user && !hasEnrolledMfa(user.user_metadata)) {
+    return Response.json({ enrollRequired: true });
   }
 
   return Response.json({ ok: true });

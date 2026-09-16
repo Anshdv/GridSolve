@@ -3,7 +3,7 @@
 // the session) and gates protected routes.
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
-import { hasAcceptedTerms } from "@/lib/validation";
+import { hasAcceptedTerms, hasEnrolledMfa } from "@/lib/validation";
 import { authCookieOptions } from "@/lib/supabase/cookies";
 import { safeRedirectPath } from "@/lib/safe-redirect";
 
@@ -77,6 +77,21 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
+  const needsMfaEnrollment = Boolean(user) && !hasEnrolledMfa(user?.user_metadata);
+
+  if (needsMfaEnrollment && path !== "/signup" && !path.startsWith("/auth")) {
+    if (isProtected || path === "/login") {
+      const enrollUrl = request.nextUrl.clone();
+      enrollUrl.pathname = "/signup";
+      enrollUrl.search = "";
+      const dest = safeRedirectPath(path);
+      if (dest !== "/explorer" && isProtected) {
+        enrollUrl.searchParams.set("redirect", dest);
+      }
+      return NextResponse.redirect(enrollUrl);
+    }
+  }
+
   if ((!user || needsMfa) && isProtected) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
@@ -98,7 +113,12 @@ export async function updateSession(request: NextRequest) {
   }
 
   // Already signed in and hitting auth pages → send them into the app.
-  if (user && !needsMfa && (path === "/login" || path === "/signup")) {
+  if (
+    user &&
+    !needsMfa &&
+    !needsMfaEnrollment &&
+    (path === "/login" || path === "/signup")
+  ) {
     const dest = request.nextUrl.clone();
     dest.pathname = hasAcceptedTerms(user.user_metadata)
       ? "/explorer"

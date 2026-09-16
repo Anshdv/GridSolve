@@ -1,11 +1,11 @@
 "use client";
 
-import { Suspense, useState } from "react";
+import { Suspense, useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { formatAuthError } from "@/lib/auth-errors";
-import { isAtLeast18, isPasswordStrong } from "@/lib/validation";
+import { hasEnrolledMfa, isAtLeast18, isPasswordStrong } from "@/lib/validation";
 import { isPasswordPwned } from "@/lib/password-security";
 import { safeRedirectPath } from "@/lib/safe-redirect";
 import { AuthShell } from "@/components/auth/AuthShell";
@@ -13,6 +13,7 @@ import { Field, Message, SubmitButton } from "@/components/auth/fields";
 import { PasswordField } from "@/components/auth/PasswordField";
 import { PasswordRequirements } from "@/components/auth/PasswordRequirements";
 import { TermsAgreement } from "@/components/auth/TermsAgreement";
+import { MfaEnrollForm } from "@/components/auth/MfaEnrollForm";
 
 function SignUpForm() {
   const router = useRouter();
@@ -27,6 +28,25 @@ function SignUpForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [pendingEmail, setPendingEmail] = useState<string | null>(null);
+  const [enrollMfa, setEnrollMfa] = useState(false);
+
+  const finishSignup = useCallback(() => {
+    router.replace(redirect);
+    router.refresh();
+  }, [redirect, router]);
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data }) => {
+      if (!data.user) return;
+      if (hasEnrolledMfa(data.user.user_metadata)) {
+        finishSignup();
+        return;
+      }
+      setEnrollMfa(true);
+    });
+  }, [finishSignup]);
 
   const signupReady =
     fullName.trim().length > 0 &&
@@ -87,7 +107,7 @@ function SignUpForm() {
         password,
         options: {
           emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(
-            redirect
+            "/signup"
           )}`,
           data: {
             full_name: fullName.trim(),
@@ -99,8 +119,7 @@ function SignUpForm() {
       if (signUpError) throw signUpError;
 
       if (data.session) {
-        router.replace(redirect);
-        router.refresh();
+        setEnrollMfa(true);
         return;
       }
 
@@ -117,12 +136,27 @@ function SignUpForm() {
       ? `/login?redirect=${encodeURIComponent(redirect)}`
       : "/login";
 
+  if (enrollMfa) {
+    return (
+      <AuthShell
+        wide
+        title="Set up your authenticator"
+        subtitle="Scan the QR code with your authenticator app. You'll need it every time you sign in."
+      >
+        <MfaEnrollForm
+          submitLabel="Confirm and continue"
+          onComplete={finishSignup}
+        />
+      </AuthShell>
+    );
+  }
+
   if (pendingEmail) {
     return (
       <AuthShell
         wide
         title="Check your email"
-        subtitle="Your account is almost ready — one more step."
+        subtitle="Confirm your address, then you'll set up an authenticator app."
         footer={
           <>
             Already confirmed?{" "}
@@ -141,7 +175,8 @@ function SignUpForm() {
             <span className="font-medium text-[var(--accent-bright)]">
               {pendingEmail}
             </span>
-            . Open it to activate your account, then sign in.
+            . Open it to activate your account — next you&apos;ll add an
+            authenticator app.
           </Message>
           <p className="text-xs leading-relaxed text-neutral-600">
             Didn&apos;t get it? Check spam, or wait a minute and try signing in
@@ -257,13 +292,18 @@ function SignUpForm() {
           disabled={loading || !isSupabaseConfigured}
         />
 
+        <p className="text-xs leading-relaxed text-neutral-500">
+          Next you&apos;ll scan a QR code with an authenticator app. That
+          second factor is required to finish creating your account.
+        </p>
+
         <Message tone="error">{error}</Message>
 
         <SubmitButton
           loading={loading}
           disabled={!isSupabaseConfigured || !signupReady}
         >
-          {loading ? "Creating account…" : "Create account"}
+          {loading ? "Creating account…" : "Continue to authenticator"}
         </SubmitButton>
       </form>
 

@@ -38,6 +38,7 @@ async function readAuthJson(res: Response): Promise<{
   notice?: string;
   ok?: boolean;
   mfaRequired?: boolean;
+  enrollRequired?: boolean;
   factorId?: string | null;
 }> {
   try {
@@ -101,7 +102,12 @@ function LoginForm() {
     setMfaCode("");
   }
 
-  function finishSignIn() {
+  function finishSignIn(enrollRequired?: boolean) {
+    if (enrollRequired) {
+      router.replace(signupHref);
+      router.refresh();
+      return;
+    }
     router.replace(redirect);
     router.refresh();
   }
@@ -137,7 +143,7 @@ function LoginForm() {
           setError(data.error || "Email or password is incorrect.");
           return;
         }
-        finishSignIn();
+        finishSignIn(data.enrollRequired);
         return;
       }
 
@@ -158,7 +164,7 @@ function LoginForm() {
           setError(data.error || "That authenticator code is invalid.");
           return;
         }
-        finishSignIn();
+        finishSignIn(data.enrollRequired);
         return;
       }
 
@@ -195,7 +201,7 @@ function LoginForm() {
           setError(data.error || "That code is invalid or expired.");
           return;
         }
-        finishSignIn();
+        finishSignIn(data.enrollRequired);
         return;
       }
 

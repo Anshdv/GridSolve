@@ -46,3 +46,9 @@ export function hasAcceptedTerms(
 ): boolean {
   return Boolean(metadata?.tos_accepted_at);
 }
+
+export function hasEnrolledMfa(
+  metadata: Record<string, unknown> | undefined
+): boolean {
+  return Boolean(metadata?.mfa_enrolled_at);
+}
