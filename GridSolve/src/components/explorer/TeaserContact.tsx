@@ -1,7 +1,7 @@
 // Compact contact-to-unlock bar pinned below the preview list + detail. Kept
 // slim so it never crowds the panel. Contact email is separate from the
 // signed-in access allowlist.
-import { getExplorerContactEmail } from "@/lib/explorerAccess";
+import { getExplorerContactEmail } from "@/lib/explorerContact";
 
 export default function TeaserContact({
   previewCount,

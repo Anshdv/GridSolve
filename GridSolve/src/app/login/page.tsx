@@ -1,18 +1,21 @@
 "use client";
 
-// Sign in and forgot-password. New accounts are created at /signup.
-import { Suspense, useState } from "react";
+// Sign in, email OTP, TOTP MFA, and forgot-password.
+import { Suspense, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { formatAuthError } from "@/lib/auth-errors";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { Field, Message, SubmitButton } from "@/components/auth/fields";
 import { PasswordField } from "@/components/auth/PasswordField";
 
-type Mode = "signin" | "forgot";
+type Mode = "signin" | "forgot" | "otp" | "mfa";
 
-const COPY: Record<Mode, { title: string; subtitle: string; cta: string }> = {
+const COPY: Record<
+  Exclude<Mode, "mfa">,
+  { title: string; subtitle: string; cta: string }
+> = {
   signin: {
     title: "Sign in",
     subtitle: "Access the GridSolve interconnection explorer.",
@@ -23,19 +26,66 @@ const COPY: Record<Mode, { title: string; subtitle: string; cta: string }> = {
     subtitle: "We'll email you a link to set a new password.",
     cta: "Send reset link",
   },
+  otp: {
+    title: "Email a one-time code",
+    subtitle: "We'll send a 6-digit code. No password needed.",
+    cta: "Send code",
+  },
 };
+
+async function readAuthJson(res: Response): Promise<{
+  error?: string;
+  notice?: string;
+  ok?: boolean;
+  mfaRequired?: boolean;
+  factorId?: string | null;
+}> {
+  try {
+    return await res.json();
+  } catch {
+    return { error: "Something went wrong. Try again." };
+  }
+}
 
 function LoginForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const redirect = params.get("redirect") || "/explorer";
+  const redirect = safeRedirectPath(params.get("redirect"));
+  const linkError = params.get("error") === "link";
 
   const [mode, setMode] = useState<Mode>("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [otpCode, setOtpCode] = useState("");
+  const [otpSent, setOtpSent] = useState(false);
+  const [factorId, setFactorId] = useState<string | null>(null);
+  const [mfaCode, setMfaCode] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(
+    linkError ? "That sign-in link is invalid or expired. Please try again." : ""
+  );
   const [notice, setNotice] = useState("");
+
+  useEffect(() => {
+    if (!isSupabaseConfigured) return;
+    const supabase = createClient();
+    Promise.all([
+      supabase.auth.mfa.getAuthenticatorAssuranceLevel(),
+      supabase.auth.mfa.listFactors(),
+    ]).then(([aal, factors]) => {
+      if (
+        aal.data?.nextLevel === "aal2" &&
+        aal.data.currentLevel !== "aal2"
+      ) {
+        const totp = factors.data?.totp.find((f) => f.status === "verified");
+        if (totp) {
+          setFactorId(totp.id);
+          setMode("mfa");
+          setNotice("Enter the 6-digit code from your authenticator app.");
+        }
+      }
+    });
+  }, []);
 
   const signupHref =
     redirect !== "/explorer"
@@ -46,6 +96,14 @@ function LoginForm() {
     setMode(next);
     setError("");
     setNotice("");
+    setOtpSent(false);
+    setOtpCode("");
+    setMfaCode("");
+  }
+
+  function finishSignIn() {
+    router.replace(redirect);
+    router.refresh();
   }
 
   async function onSubmit(e: React.FormEvent) {
@@ -55,37 +113,124 @@ function LoginForm() {
     setLoading(true);
     setError("");
     setNotice("");
-    const supabase = createClient();
 
     try {
       if (mode === "signin") {
-        const { error } = await supabase.auth.signInWithPassword({
-          email: email.trim(),
-          password,
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({ email: email.trim(), password }),
         });
-        if (error) throw error;
-        router.replace(redirect);
-        router.refresh();
+        const data = await readAuthJson(res);
+        if (res.status === 429) {
+          setError(data.error || "Too many sign-in attempts. Try again later.");
+          return;
+        }
+        if (data.mfaRequired) {
+          setFactorId(data.factorId ?? null);
+          setMode("mfa");
+          setNotice("Enter the 6-digit code from your authenticator app.");
+          return;
+        }
+        if (!res.ok) {
+          setError(data.error || "Email or password is incorrect.");
+          return;
+        }
+        finishSignIn();
+        return;
+      }
+
+      if (mode === "mfa") {
+        if (!factorId) {
+          setError("Sign in again to continue two-factor verification.");
+          setMode("signin");
+          return;
+        }
+        const res = await fetch("/api/auth/mfa", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({ factorId, code: mfaCode }),
+        });
+        const data = await readAuthJson(res);
+        if (!res.ok) {
+          setError(data.error || "That authenticator code is invalid.");
+          return;
+        }
+        finishSignIn();
+        return;
+      }
+
+      if (mode === "otp") {
+        if (!otpSent) {
+          const res = await fetch("/api/auth/otp", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "same-origin",
+            body: JSON.stringify({ email: email.trim(), action: "send" }),
+          });
+          const data = await readAuthJson(res);
+          if (!res.ok) {
+            setError(data.error || "Couldn't send a code. Try again.");
+            return;
+          }
+          setOtpSent(true);
+          setNotice(data.notice || "Check your email for a one-time code.");
+          return;
+        }
+
+        const res = await fetch("/api/auth/otp", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({
+            email: email.trim(),
+            action: "verify",
+            token: otpCode,
+          }),
+        });
+        const data = await readAuthJson(res);
+        if (!res.ok) {
+          setError(data.error || "That code is invalid or expired.");
+          return;
+        }
+        finishSignIn();
         return;
       }
 
       if (mode === "forgot") {
-        const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-          redirectTo: `${window.location.origin}/auth/callback?next=/reset-password`,
+        const res = await fetch("/api/auth/forgot", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "same-origin",
+          body: JSON.stringify({ email: email.trim() }),
         });
-        if (error) throw error;
+        const data = await readAuthJson(res);
+        if (!res.ok) {
+          setError(data.error || "Couldn't send a reset link. Try again.");
+          return;
+        }
         setNotice(
-          `If an account exists for ${email.trim()}, a password-reset link is on its way.`
+          data.notice ||
+            `If an account exists for ${email.trim()}, a password-reset link is on its way.`
         );
       }
-    } catch (err) {
-      setError(formatAuthError(err));
+    } catch {
+      setError("Something went wrong. Try again.");
     } finally {
       setLoading(false);
     }
   }
 
-  const copy = COPY[mode];
+  const copy =
+    mode === "mfa"
+      ? {
+          title: "Two-factor authentication",
+          subtitle: "Confirm it's you with your authenticator app.",
+          cta: "Verify",
+        }
+      : COPY[mode];
 
   return (
     <AuthShell
@@ -129,17 +274,19 @@ function LoginForm() {
       )}
 
       <form onSubmit={onSubmit} className="space-y-4">
-        <Field
-          label="Email"
-          id="email"
-          type="email"
-          autoComplete="email"
-          required
-          placeholder="you@gmail.com"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={loading || !isSupabaseConfigured}
-        />
+        {mode !== "mfa" && (
+          <Field
+            label="Email"
+            id="email"
+            type="email"
+            autoComplete="email"
+            required
+            placeholder="you@gmail.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            disabled={loading || !isSupabaseConfigured || (mode === "otp" && otpSent)}
+          />
+        )}
 
         {mode === "signin" && (
           <div>
@@ -163,14 +310,60 @@ function LoginForm() {
           </div>
         )}
 
+        {mode === "otp" && otpSent && (
+          <Field
+            label="One-time code"
+            id="otp"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            required
+            pattern="[0-9]*"
+            maxLength={8}
+            placeholder="123456"
+            value={otpCode}
+            onChange={(e) => setOtpCode(e.target.value)}
+            disabled={loading}
+          />
+        )}
+
+        {mode === "mfa" && (
+          <Field
+            label="Authenticator code"
+            id="mfa"
+            inputMode="numeric"
+            autoComplete="one-time-code"
+            required
+            pattern="[0-9]*"
+            maxLength={6}
+            placeholder="123456"
+            value={mfaCode}
+            onChange={(e) => setMfaCode(e.target.value)}
+            disabled={loading}
+          />
+        )}
+
         <Message tone="error">{error}</Message>
         <Message tone="notice">{notice}</Message>
 
         <SubmitButton loading={loading} disabled={!isSupabaseConfigured}>
-          {loading ? "Working…" : copy.cta}
+          {loading
+            ? "Working…"
+            : mode === "otp" && otpSent
+              ? "Verify code"
+              : copy.cta}
         </SubmitButton>
 
-        {mode === "forgot" && (
+        {mode === "signin" && (
+          <button
+            type="button"
+            onClick={() => switchMode("otp")}
+            className="w-full text-center text-xs text-neutral-500 transition-colors hover:text-neutral-300"
+          >
+            Sign in with a one-time email code
+          </button>
+        )}
+
+        {(mode === "forgot" || mode === "otp" || mode === "mfa") && (
           <button
             type="button"
             onClick={() => switchMode("signin")}

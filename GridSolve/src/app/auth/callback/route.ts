@@ -3,11 +3,12 @@
 // forwards the user to `next` (the explorer by default, or the reset page).
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get("code");
-  const next = searchParams.get("next") ?? "/explorer";
+  const next = safeRedirectPath(searchParams.get("next"), "/explorer");
 
   if (code) {
     const supabase = await createClient();

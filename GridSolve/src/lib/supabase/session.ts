@@ -4,10 +4,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { hasAcceptedTerms } from "@/lib/validation";
+import { authCookieOptions } from "@/lib/supabase/cookies";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 
 // Prefixes that require an authenticated user. Logged-out visitors are sent to
 // /login with a `redirect` back to where they were headed.
-const PROTECTED_PREFIXES = ["/explorer"];
+const PROTECTED_PREFIXES = ["/explorer", "/account", "/data"];
 
 // Authenticated users must accept Terms/Privacy before using protected features.
 const TERMS_EXEMPT_PATHS = [
@@ -32,7 +34,7 @@ export async function updateSession(request: NextRequest) {
     if (isProtected) {
       const loginUrl = request.nextUrl.clone();
       loginUrl.pathname = "/login";
-      loginUrl.searchParams.set("redirect", path);
+      loginUrl.searchParams.set("redirect", safeRedirectPath(path));
       return NextResponse.redirect(loginUrl);
     }
     return NextResponse.next({ request });
@@ -41,6 +43,7 @@ export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
   const supabase = createServerClient(url, key, {
+    cookieOptions: authCookieOptions,
     cookies: {
       getAll() {
         return request.cookies.getAll();
@@ -63,10 +66,21 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user && isProtected) {
+  let needsMfa = false;
+  if (user) {
+    try {
+      const aal = await supabase.auth.mfa.getAuthenticatorAssuranceLevel();
+      needsMfa =
+        aal.data?.nextLevel === "aal2" && aal.data.currentLevel !== "aal2";
+    } catch {
+      needsMfa = false;
+    }
+  }
+
+  if ((!user || needsMfa) && isProtected) {
     const loginUrl = request.nextUrl.clone();
     loginUrl.pathname = "/login";
-    loginUrl.searchParams.set("redirect", path);
+    loginUrl.searchParams.set("redirect", safeRedirectPath(path));
     return NextResponse.redirect(loginUrl);
   }
 
@@ -79,12 +93,12 @@ export async function updateSession(request: NextRequest) {
   if (needsTermsAcceptance) {
     const termsUrl = request.nextUrl.clone();
     termsUrl.pathname = "/accept-terms";
-    termsUrl.searchParams.set("redirect", path);
+    termsUrl.searchParams.set("redirect", safeRedirectPath(path));
     return NextResponse.redirect(termsUrl);
   }
 
   // Already signed in and hitting auth pages → send them into the app.
-  if (user && (path === "/login" || path === "/signup")) {
+  if (user && !needsMfa && (path === "/login" || path === "/signup")) {
     const dest = request.nextUrl.clone();
     dest.pathname = hasAcceptedTerms(user.user_metadata)
       ? "/explorer"

@@ -2,6 +2,7 @@
 // Server Actions. Reads/writes the auth session from Next's cookie store.
 import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { authCookieOptions } from "@/lib/supabase/cookies";
 
 export async function createClient() {
   const cookieStore = await cookies();
@@ -10,6 +11,7 @@ export async function createClient() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
+      cookieOptions: authCookieOptions,
       cookies: {
         getAll() {
           return cookieStore.getAll();

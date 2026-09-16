@@ -1,11 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
-import { hasExplorerFullAccess } from "@/lib/explorerAccess";
+import { isSupabaseConfigured } from "@/lib/supabase/client";
 
 export function useExplorerAccess() {
-  const [email, setEmail] = useState<string | null>(null);
+  const [hasFullAccess, setHasFullAccess] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -13,20 +12,28 @@ export function useExplorerAccess() {
       setReady(true);
       return;
     }
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data }) => {
-      setEmail(data.user?.email ?? null);
-      setReady(true);
-    });
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setEmail(session?.user?.email ?? null);
-    });
-    return () => sub.subscription.unsubscribe();
+
+    let cancelled = false;
+    fetch("/api/explorer/access", { credentials: "same-origin" })
+      .then((res) => (res.ok ? res.json() : { hasFullAccess: false }))
+      .then((data: { hasFullAccess?: boolean }) => {
+        if (cancelled) return;
+        setHasFullAccess(Boolean(data.hasFullAccess));
+        setReady(true);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setHasFullAccess(false);
+        setReady(true);
+      });
+
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   return {
-    email,
     ready,
-    hasFullAccess: hasExplorerFullAccess(email),
+    hasFullAccess,
   };
 }

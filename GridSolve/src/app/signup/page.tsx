@@ -6,6 +6,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { formatAuthError } from "@/lib/auth-errors";
 import { isAtLeast18, isPasswordStrong } from "@/lib/validation";
+import { isPasswordPwned } from "@/lib/password-security";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { Field, Message, SubmitButton } from "@/components/auth/fields";
 import { PasswordField } from "@/components/auth/PasswordField";
@@ -15,7 +17,7 @@ import { TermsAgreement } from "@/components/auth/TermsAgreement";
 function SignUpForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const redirect = params.get("redirect") || "/explorer";
+  const redirect = safeRedirectPath(params.get("redirect"));
 
   const [fullName, setFullName] = useState("");
   const [dateOfBirth, setDateOfBirth] = useState("");
@@ -67,6 +69,17 @@ function SignUpForm() {
     const submittedEmail = email.trim();
 
     try {
+      try {
+        if (await isPasswordPwned(password)) {
+          setError(
+            "That password appears in a known data breach. Please choose a different one."
+          );
+          return;
+        }
+      } catch {
+        // HIBP unavailable — still allow a strong password through.
+      }
+
       const supabase = createClient();
       const tosAcceptedAt = new Date().toISOString();
       const { data, error: signUpError } = await supabase.auth.signUp({
@@ -235,7 +248,7 @@ function SignUpForm() {
             onChange={(e) => setPassword(e.target.value)}
             disabled={loading || !isSupabaseConfigured}
           />
-          <PasswordRequirements password={password} />
+          <PasswordRequirements password={password} checkBreaches />
         </div>
 
         <TermsAgreement

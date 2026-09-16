@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { formatAuthError } from "@/lib/auth-errors";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { safeRedirectPath } from "@/lib/safe-redirect";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { Message, SubmitButton } from "@/components/auth/fields";
 import { TermsAgreement } from "@/components/auth/TermsAgreement";
@@ -12,7 +13,7 @@ import { TermsAgreement } from "@/components/auth/TermsAgreement";
 function AcceptTermsForm() {
   const router = useRouter();
   const params = useSearchParams();
-  const redirect = params.get("redirect") || "/explorer";
+  const redirect = safeRedirectPath(params.get("redirect"));
 
   const [accepted, setAccepted] = useState(false);
   const [loading, setLoading] = useState(false);

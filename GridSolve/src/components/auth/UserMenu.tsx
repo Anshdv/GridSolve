@@ -74,6 +74,9 @@ export default function UserMenu({ className = "" }: { className?: string }) {
       >
         {email}
       </span>
+      <Link href="/account/security" className={PILL}>
+        Security
+      </Link>
       <button onClick={signOut} disabled={signingOut} className={PILL}>
         {signingOut ? "Signing out…" : "Sign out"}
       </button>

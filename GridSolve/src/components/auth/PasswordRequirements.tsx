@@ -1,10 +1,12 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import {
   checkPassword,
   PASSWORD_MIN_LENGTH,
   type PasswordChecks,
 } from "@/lib/validation";
+import { isPasswordPwned } from "@/lib/password-security";
 
 const REQUIREMENTS: {
   key: keyof PasswordChecks;
@@ -17,9 +19,38 @@ const REQUIREMENTS: {
   { key: "symbol", label: "One symbol (!@#$…)" },
 ];
 
-export function PasswordRequirements({ password }: { password: string }) {
+export function PasswordRequirements({
+  password,
+  checkBreaches = false,
+}: {
+  password: string;
+  checkBreaches?: boolean;
+}) {
   const checks = checkPassword(password);
   const metCount = Object.values(checks).filter(Boolean).length;
+  const [pwned, setPwned] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (!checkBreaches) return;
+    if (!password || metCount < REQUIREMENTS.length) {
+      setPwned(null);
+      return;
+    }
+    let cancelled = false;
+    const timer = setTimeout(() => {
+      isPasswordPwned(password)
+        .then((hit) => {
+          if (!cancelled) setPwned(hit);
+        })
+        .catch(() => {
+          if (!cancelled) setPwned(null);
+        });
+    }, 450);
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+  }, [checkBreaches, password, metCount]);
 
   return (
     <div
@@ -33,6 +64,16 @@ export function PasswordRequirements({ password }: { password: string }) {
         {REQUIREMENTS.map(({ key, label }) => (
           <RequirementItem key={key} met={checks[key]} label={label} />
         ))}
+        {checkBreaches && password.length > 0 && metCount === REQUIREMENTS.length && (
+          <RequirementItem
+            met={pwned === false}
+            label={
+              pwned === true
+                ? "Not found in known data breaches — choose another"
+                : "Not found in known data breaches"
+            }
+          />
+        )}
       </ul>
       {password.length > 0 && (
         <div className="mt-3 flex items-center gap-2">

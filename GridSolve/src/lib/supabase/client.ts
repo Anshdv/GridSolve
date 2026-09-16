@@ -1,6 +1,7 @@
 // Browser-side Supabase client. Used in client components (login form, user
 // menu) for auth calls. Reads the public env vars — never a service key.
 import { createBrowserClient } from "@supabase/ssr";
+import { authCookieOptions } from "@/lib/supabase/cookies";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -11,5 +12,7 @@ const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 export const isSupabaseConfigured = Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 
 export function createClient() {
-  return createBrowserClient(SUPABASE_URL!, SUPABASE_ANON_KEY!);
+  return createBrowserClient(SUPABASE_URL!, SUPABASE_ANON_KEY!, {
+    cookieOptions: authCookieOptions,
+  });
 }

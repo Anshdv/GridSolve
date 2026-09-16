@@ -7,9 +7,12 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { formatAuthError } from "@/lib/auth-errors";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
+import { isPasswordStrong } from "@/lib/validation";
+import { isPasswordPwned } from "@/lib/password-security";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { Message, SubmitButton } from "@/components/auth/fields";
 import { PasswordField } from "@/components/auth/PasswordField";
+import { PasswordRequirements } from "@/components/auth/PasswordRequirements";
 
 export default function ResetPasswordPage() {
   const router = useRouter();
@@ -26,9 +29,19 @@ export default function ResetPasswordPage() {
       setError("Passwords don't match.");
       return;
     }
+    if (!isPasswordStrong(password)) {
+      setError("Please choose a password that meets all requirements.");
+      return;
+    }
     setLoading(true);
     setError("");
     try {
+      if (await isPasswordPwned(password)) {
+        setError(
+          "That password appears in a known data breach. Please choose a different one."
+        );
+        return;
+      }
       const supabase = createClient();
       const { error } = await supabase.auth.updateUser({ password });
       if (error) throw error;
@@ -55,17 +68,20 @@ export default function ResetPasswordPage() {
         </Message>
       ) : (
         <form onSubmit={onSubmit} className="space-y-4">
-          <PasswordField
-            label="New password"
-            id="password"
-            autoComplete="new-password"
-            required
-            minLength={8}
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            disabled={loading}
-          />
+          <div>
+            <PasswordField
+              label="New password"
+              id="password"
+              autoComplete="new-password"
+              required
+              minLength={8}
+              placeholder="••••••••"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={loading}
+            />
+            <PasswordRequirements password={password} checkBreaches />
+          </div>
           <PasswordField
             label="Confirm password"
             id="confirm"

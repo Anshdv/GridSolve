@@ -116,4 +116,5 @@ export const privateRoutePrefixes = [
   "/reset-password",
   "/auth",
   "/accept-terms",
+  "/account",
 ];
