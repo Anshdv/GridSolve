@@ -106,6 +106,8 @@ export const publicRoutes = [
   { path: "/methodology", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3 },
   { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/dmca", changeFrequency: "yearly" as const, priority: 0.2 },
+  { path: "/unsubscribe", changeFrequency: "yearly" as const, priority: 0.1 },
 ];
 
 /** Routes that require auth or handle credentials — keep out of search indexes. */

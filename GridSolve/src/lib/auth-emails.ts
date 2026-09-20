@@ -1,4 +1,10 @@
 import { getResend, getResendFromAddress } from "@/lib/resend";
+import {
+  emailComplianceFooterHtml,
+  emailComplianceFooterText,
+  getUnsubscribeUrl,
+  PRIVACY_EMAIL,
+} from "@/lib/legal";
 
 export type AuthEmailUser = {
   email: string;
@@ -69,6 +75,7 @@ function wrapEmailHtml(body: string): string {
             <tr>
               <td style="color:#525252;font-size:12px;line-height:1.5;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);">
                 If you did not request this email, you can safely ignore it.
+                ${emailComplianceFooterHtml()}
               </td>
             </tr>
           </table>
@@ -101,12 +108,12 @@ function buildEmailContent(
 
   if (action === "reauthentication") {
     const subject = SUBJECTS.reauthentication;
-    const text = `${greeting}\n\nYour verification code is: ${emailData.token}\n\nThis code expires shortly.`;
     const html = wrapEmailHtml(
       `<p style="margin:0 0 12px;color:#e5e5e5;">${greeting}</p>
        <p style="margin:0 0 16px;">Use this verification code to continue:</p>
        <p style="margin:0;font-size:28px;letter-spacing:0.2em;color:#ffffff;font-weight:700;">${emailData.token}</p>`
     );
+    const text = `${greeting}\n\nYour verification code is: ${emailData.token}\n\nThis code expires shortly.${emailComplianceFooterText()}`;
     return { subject, html, text };
   }
 
@@ -172,7 +179,7 @@ function buildEmailContent(
      <p style="margin:0 0 4px;">${content.body}</p>
      ${buttonHtml(content.cta, confirmationUrl)}`
   );
-  const text = `${greeting}\n\n${content.title}\n${content.body}\n\n${confirmationUrl}`;
+  const text = `${greeting}\n\n${content.title}\n${content.body}\n\n${confirmationUrl}${emailComplianceFooterText()}`;
 
   return { subject, html, text };
 }
@@ -195,6 +202,10 @@ export async function sendAuthEmail(
     subject: content.subject,
     html: content.html,
     text: content.text,
+    headers: {
+      "List-Unsubscribe": `<${getUnsubscribeUrl()}>, <mailto:${PRIVACY_EMAIL}>`,
+      "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+    },
   });
 
   if (error) {

@@ -41,6 +41,13 @@ export function isAtLeast18(dob: string): boolean {
   return age !== null && age >= 18;
 }
 
+/** ISO date (YYYY-MM-DD) for the latest birthday that still makes the user 18. */
+export function maxDobForAdult(today = new Date()): string {
+  const d = new Date(today);
+  d.setFullYear(d.getFullYear() - 18);
+  return d.toISOString().split("T")[0] ?? "";
+}
+
 export function hasAcceptedTerms(
   metadata: Record<string, unknown> | undefined
 ): boolean {

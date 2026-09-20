@@ -1,24 +1,24 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Martian_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import JsonLd from "@/components/JsonLd";
 import { organizationJsonLd, webApplicationJsonLd } from "@/lib/seo";
 import { getSiteUrl, seoKeywords, siteConfig } from "@/lib/site";
 import "./globals.css";
 
-// One deliberate grotesque (Archivo, full weight range) carries both display and
-// text via weight/size contrast; Martian Mono handles telemetry/data readouts.
-// Two axes of contrast (weight + mono) rather than a timid two-sans pair.
-const archivo = Archivo({
-  subsets: ["latin"],
+// Fonts are served from this origin (no Google Fonts CDN) so visitor IPs are
+// not sent to Google — the issue a Munich court fined in 2022.
+const archivo = localFont({
+  src: "./fonts/archivo-latin-wght-normal.woff2",
   variable: "--font-sans",
   display: "swap",
+  weight: "100 900",
 });
 
-const martianMono = Martian_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+const martianMono = localFont({
+  src: "./fonts/martian-mono-latin-wght-normal.woff2",
   variable: "--font-mono",
   display: "swap",
+  weight: "100 800",
 });
 
 export const metadata: Metadata = {

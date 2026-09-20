@@ -32,6 +32,12 @@ export function LegalPageShell({
             >
               Privacy
             </Link>
+            <Link
+              href="/dmca"
+              className="text-neutral-400 transition-colors hover:text-white"
+            >
+              DMCA
+            </Link>
           </div>
         </div>
       </header>

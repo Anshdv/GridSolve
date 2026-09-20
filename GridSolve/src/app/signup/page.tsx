@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 import { formatAuthError } from "@/lib/auth-errors";
-import { hasEnrolledMfa, isAtLeast18, isPasswordStrong } from "@/lib/validation";
+import { hasEnrolledMfa, isAtLeast18, isPasswordStrong, maxDobForAdult } from "@/lib/validation";
 import { isPasswordPwned } from "@/lib/password-security";
 import { safeRedirectPath } from "@/lib/safe-redirect";
 import { AuthShell } from "@/components/auth/AuthShell";
@@ -242,11 +242,15 @@ function SignUpForm() {
             type="date"
             autoComplete="bday"
             required
-            max={new Date().toISOString().split("T")[0]}
+            max={maxDobForAdult()}
             value={dateOfBirth}
             onChange={(e) => setDateOfBirth(e.target.value)}
             disabled={loading || !isSupabaseConfigured}
           />
+          <p className="mt-2 text-xs text-neutral-600">
+            You must be 18 or older. We collect date of birth only to enforce
+            this age gate (COPPA / eligibility) — not for marketing.
+          </p>
           {dobInvalid && (
             <p className="mt-2 text-xs text-red-400/90">
               You must be at least 18 years old to create an account.

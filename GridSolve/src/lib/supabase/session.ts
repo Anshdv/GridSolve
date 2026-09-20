@@ -16,6 +16,8 @@ const TERMS_EXEMPT_PATHS = [
   "/accept-terms",
   "/terms",
   "/privacy",
+  "/dmca",
+  "/unsubscribe",
   "/login",
   "/signup",
   "/reset-password",

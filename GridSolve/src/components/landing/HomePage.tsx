@@ -545,6 +545,10 @@ function FinalCta() {
           Explore substations nationwide ranked by capacity that&apos;s
           actually deliverable — not just what the queue claims.
         </p>
+        <p className="mx-auto mt-3 max-w-lg text-[12px] leading-relaxed text-neutral-600">
+          GridSolve provides modeled estimates for planning only — not
+          engineering, legal, or investment advice.
+        </p>
         <div className="mt-9 flex justify-center">
           <MagneticCta href="/explorer">Open the explorer</MagneticCta>
         </div>
@@ -572,6 +576,15 @@ function Footer() {
           </Link>
           <Link href="/methodology" className="transition-colors hover:text-neutral-300">
             Methodology
+          </Link>
+          <Link href="/terms" className="transition-colors hover:text-neutral-300">
+            Terms
+          </Link>
+          <Link href="/privacy" className="transition-colors hover:text-neutral-300">
+            Privacy
+          </Link>
+          <Link href="/dmca" className="transition-colors hover:text-neutral-300">
+            DMCA
           </Link>
           <span className="font-tele">Withdrawal benchmark: LBNL, Queued Up</span>
         </div>

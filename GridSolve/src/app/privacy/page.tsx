@@ -5,7 +5,7 @@ export const metadata = {
   alternates: { canonical: "/privacy" },
 };
 
-const LAST_UPDATED = "July 29, 2026";
+const LAST_UPDATED = "September 19, 2026";
 
 export default function PrivacyPage() {
   return (
@@ -37,9 +37,10 @@ export default function PrivacyPage() {
         </p>
         <p>
           <span className="text-neutral-200">Usage information.</span> We
-          collect standard log and analytics data such as pages viewed, feature
-          interactions, browser type, device identifiers, IP address, and
-          timestamps to operate, secure, and improve the Service.
+          collect standard log data such as pages viewed, feature
+          interactions, browser type, IP address, and
+          timestamps as needed to operate and secure the Service. We do not
+          use session replay.
         </p>
         <p>
           <span className="text-neutral-200">Communications.</span> If you
@@ -60,7 +61,10 @@ export default function PrivacyPage() {
         </ul>
         <p>
           We do not sell your personal information. We do not use your date of
-          birth for marketing profiling.
+          birth for marketing profiling. We do not use session replay, heatmaps
+          that record your screen, keystroke logging, or similar
+          &ldquo;call-recording&rdquo; analytics. We do not load fonts or
+          trackers from Google&apos;s font CDN.
         </p>
       </LegalSection>
 
@@ -76,15 +80,24 @@ export default function PrivacyPage() {
       <LegalSection title="5. Sharing & processors">
         <p>
           We share information with trusted service providers that help us
-          operate GridSolve — for example, cloud hosting, authentication
-          (Supabase), and analytics — under contracts that require appropriate
+          operate GridSolve — for example, cloud hosting and authentication
+          (Supabase) — under contracts that require appropriate
           safeguards. We may also disclose information if required by law, to
           protect rights and safety, or in connection with a merger or
           acquisition with notice as required.
         </p>
       </LegalSection>
 
-      <LegalSection title="6. Data retention">
+      <LegalSection title="6. Cookies">
+        <p>
+          We use essential cookies only — primarily to keep you signed in
+          (authentication session). We do not set advertising cookies or
+          third-party tracking cookies. Because these cookies are required to
+          operate the logged-in Service, they are not optional.
+        </p>
+      </LegalSection>
+
+      <LegalSection title="7. Data retention">
         <p>
           We retain account information for as long as your account is active
           and as needed to provide the Service, resolve disputes, and meet
@@ -94,7 +107,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="7. Security">
+      <LegalSection title="8. Security">
         <p>
           We implement administrative, technical, and organizational measures
           designed to protect personal information, including encryption in
@@ -104,7 +117,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="8. Your rights & choices">
+      <LegalSection title="9. Your rights & choices">
         <p>
           Depending on your location, you may have rights to access, correct,
           delete, or export your personal information, and to object to or
@@ -123,7 +136,7 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="9. International transfers">
+      <LegalSection title="10. International transfers">
         <p>
           GridSolve may process information in the United States and other
           countries where we or our providers operate. Where required, we use
@@ -131,15 +144,23 @@ export default function PrivacyPage() {
         </p>
       </LegalSection>
 
-      <LegalSection title="10. Children">
+      <LegalSection title="11. Children">
         <p>
-          GridSolve is not directed to individuals under 18. We do not
-          knowingly collect personal information from minors. If you believe a
-          minor has provided us data, contact us and we will delete it.
+          GridSolve is not directed to children under 13 or to anyone under 18.
+          We require a date of birth at signup and reject accounts that are not
+          at least 18. We do not knowingly collect personal information from
+          children. If you believe a minor has provided us data, contact{" "}
+          <a
+            href="mailto:privacy@gridsolve.com"
+            className="text-[var(--accent-bright)] underline"
+          >
+            privacy@gridsolve.com
+          </a>{" "}
+          and we will delete it.
         </p>
       </LegalSection>
 
-      <LegalSection title="11. Changes & contact">
+      <LegalSection title="12. Changes & contact">
         <p>
           We may update this Privacy Policy periodically. The &ldquo;Last
           updated&rdquo; date at the top reflects the latest revision. Material
