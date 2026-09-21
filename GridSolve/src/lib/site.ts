@@ -95,6 +95,42 @@ export function getSiteUrl(): string {
   return "http://localhost:3000";
 }
 
+/** Host shown in authenticator apps (never localhost). */
+export function totpIssuerHost(): string {
+  try {
+    const host = new URL(getSiteUrl()).hostname.replace(/^www\./, "");
+    if (host && host !== "localhost" && host !== "127.0.0.1") return host;
+  } catch {
+    /* fall through */
+  }
+  return "grid-solve.com";
+}
+
+export function brandedTotpUri(originalUri: string, email?: string | null): string {
+  const issuer = totpIssuerHost();
+  let secret = "";
+  let account = email?.trim() || "account";
+  const prefix = "otpauth://totp/";
+  if (originalUri.startsWith(prefix)) {
+    const rest = originalUri.slice(prefix.length);
+    const q = rest.indexOf("?");
+    const label = decodeURIComponent(q === -1 ? rest : rest.slice(0, q));
+    const query = q === -1 ? "" : rest.slice(q + 1);
+    secret = new URLSearchParams(query).get("secret") ?? "";
+    const colon = label.lastIndexOf(":");
+    if (colon >= 0 && label.slice(colon + 1)) account = label.slice(colon + 1);
+    else if (label) account = label;
+  }
+  const params = new URLSearchParams({
+    secret,
+    issuer,
+    algorithm: "SHA1",
+    digits: "6",
+    period: "30",
+  });
+  return `otpauth://totp/${encodeURIComponent(issuer)}:${encodeURIComponent(account)}?${params.toString()}`;
+}
+
 /** Public routes that should appear in the sitemap and be indexed. */
 export const publicRoutes = [
   { path: "/", changeFrequency: "weekly" as const, priority: 1 },

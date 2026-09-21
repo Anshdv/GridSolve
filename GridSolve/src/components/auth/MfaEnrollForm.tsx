@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
+import { brandedTotpUri, totpIssuerHost } from "@/lib/site";
 import { Field, Message, SubmitButton } from "@/components/auth/fields";
 
 export async function markMfaEnrolled() {
@@ -55,9 +56,13 @@ export function MfaEnrollForm({
         return;
       }
 
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
       const { data, error: enrollError } = await supabase.auth.mfa.enroll({
         factorType: "totp",
-        friendlyName: "Authenticator",
+        friendlyName: totpIssuerHost(),
       });
       if (cancelled) return;
       if (enrollError || !data) {
@@ -68,8 +73,16 @@ export function MfaEnrollForm({
         setStarting(false);
         return;
       }
+      const uri = brandedTotpUri(data.totp.uri, user?.email);
+      const { default: QRCode } = await import("qrcode");
+      const qr = await QRCode.toDataURL(uri, {
+        width: 240,
+        margin: 1,
+        errorCorrectionLevel: "M",
+      });
+      if (cancelled) return;
       setFactorId(data.id);
-      setQr(data.totp.qr_code);
+      setQr(qr);
       setSecret(data.totp.secret);
       setStarting(false);
     }
@@ -120,8 +133,8 @@ export function MfaEnrollForm({
         </div>
       )}
       <p className="text-center text-xs leading-relaxed text-neutral-500">
-        Scan with Google Authenticator, 1Password, Authy, or any TOTP app, then
-        enter the 6-digit code.
+        Scan with Google Authenticator, 1Password, Authy, or any TOTP app.
+        It will be saved as {totpIssuerHost()}. Then enter the 6-digit code.
       </p>
       {secret && (
         <p className="break-all text-center font-tele text-[11px] text-neutral-500">
