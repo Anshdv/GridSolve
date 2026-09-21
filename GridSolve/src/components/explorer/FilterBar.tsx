@@ -58,6 +58,9 @@ export default function FilterBar({
   onSortChange,
   shown,
   total,
+  canSeeRisk = true,
+  canExport = false,
+  onExportCsv,
 }: {
   availableRegions: string[];
   availableStates: string[];
@@ -67,6 +70,9 @@ export default function FilterBar({
   onSortChange: (k: SortKey) => void;
   shown: number;
   total: number;
+  canSeeRisk?: boolean;
+  canExport?: boolean;
+  onExportCsv?: () => void;
 }) {
   function toggleRegion(r: string) {
     const has = filters.regions.includes(r);
@@ -201,16 +207,36 @@ export default function FilterBar({
             onChange={(e) => onSortChange(e.target.value as SortKey)}
             className={`w-full ${selectClass}`}
           >
-            {SORT_OPTIONS.map((o) => (
+            {SORT_OPTIONS.filter(
+              (o) => canSeeRisk || (o.key !== "risk" && o.key !== "combined")
+            ).map((o) => (
               <option key={o.key} value={o.key} className="bg-neutral-900">
                 {o.label}
               </option>
             ))}
           </select>
         </label>
-        <span className="shrink-0 whitespace-nowrap text-[11px] text-neutral-600">
-          {shown.toLocaleString()} of {total.toLocaleString()}
-        </span>
+        <div className="flex shrink-0 items-center gap-2">
+          {canExport && onExportCsv ? (
+            <button
+              type="button"
+              onClick={onExportCsv}
+              className="rounded border border-white/10 px-2 py-1 text-[11px] text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
+            >
+              CSV
+            </button>
+          ) : (
+            <a
+              href="/pricing"
+              className="rounded border border-white/10 px-2 py-1 text-[11px] text-neutral-500 transition-colors hover:border-white/25 hover:text-white"
+            >
+              CSV · diligence
+            </a>
+          )}
+          <span className="whitespace-nowrap text-[11px] text-neutral-500">
+            {shown.toLocaleString()} of {total.toLocaleString()}
+          </span>
+        </div>
       </div>
     </div>
   );

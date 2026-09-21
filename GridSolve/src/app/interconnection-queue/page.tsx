@@ -40,12 +40,20 @@ export default function InterconnectionQueuePage() {
             <Link href="/" className="text-sm text-neutral-300 transition-colors hover:text-white">
               ← GridSolve
             </Link>
-            <Link
-              href="/explorer"
-              className="text-sm text-neutral-300 transition-colors hover:text-white"
-            >
-              Explorer →
-            </Link>
+            <div className="flex items-center gap-4">
+              <Link
+                href="/pricing"
+                className="text-sm text-neutral-300 transition-colors hover:text-white"
+              >
+                Pricing
+              </Link>
+              <Link
+                href="/explorer"
+                className="text-sm text-neutral-300 transition-colors hover:text-white"
+              >
+                Explorer →
+              </Link>
+            </div>
           </div>
         </header>
 

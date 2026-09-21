@@ -380,9 +380,13 @@ function LoginForm() {
         )}
       </form>
 
-      <p className="mt-6 border-t border-white/[0.06] pt-4 text-center text-[11px] leading-relaxed text-neutral-600">
-        The homepage and{" "}
-        <Link href="/methodology" className="underline decoration-dotted hover:text-neutral-400">
+      <p className="mt-6 border-t border-white/[0.06] pt-4 text-center text-[11px] leading-relaxed text-neutral-500">
+        The homepage,{" "}
+        <Link href="/pricing" className="underline decoration-dotted hover:text-neutral-300">
+          pricing
+        </Link>
+        , and{" "}
+        <Link href="/methodology" className="underline decoration-dotted hover:text-neutral-300">
           methodology
         </Link>{" "}
         stay open without an account.

@@ -20,9 +20,10 @@ export function PrintFooter() {
   return (
     <p className="mt-8 border-t border-black/20 pt-3 text-[10px] leading-relaxed text-black/50">
       Source: ISO/RTO interconnection queues (LBNL Queued Up) and LBNL
-      interconnection cost studies. Withdrawal rates are empirical, computed
-      per region; survival-model validation varies by region — see each
-      substation&apos;s model reliability note.
+      interconnection cost studies. For internal screening and IC memos — not
+      a utility interconnection study, engineering stamp, or investment
+      advice. Withdrawal rates are empirical, per region; survival-model
+      validation varies — see each substation&apos;s model reliability note.
     </p>
   );
 }

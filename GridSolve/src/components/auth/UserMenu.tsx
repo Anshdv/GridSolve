@@ -74,6 +74,9 @@ export default function UserMenu({ className = "" }: { className?: string }) {
       >
         {email}
       </span>
+      <Link href="/pricing" className={PILL}>
+        Pricing
+      </Link>
       <Link href="/account/security" className={PILL}>
         Security
       </Link>

@@ -20,6 +20,8 @@ export default function SubstationList({
   compareFull,
   onSelect,
   onToggleCompare,
+  canCompare = true,
+  showRisk = true,
 }: {
   items: ScoredSubstation[];
   hiddenCount: number; // matched rows not rendered (list is capped)
@@ -29,6 +31,8 @@ export default function SubstationList({
   compareFull: boolean;
   onSelect: (s: ScoredSubstation) => void;
   onToggleCompare: (id: string) => void;
+  canCompare?: boolean;
+  showRisk?: boolean;
 }) {
   const scoreOf = useExplorerScore();
 
@@ -46,9 +50,12 @@ export default function SubstationList({
         const active = s.id === selectedName;
         // The row dot reflects the COMBINED axis (the default headline read);
         // gray/hollow when there's no combined score for this site.
-        const combined = scoreOf(s).combined;
+        const axisKey: Axis = showRisk ? "combined" : "power";
+        const axisScore = scoreOf(s)[axisKey];
         const color =
-          combined != null ? axisColor(combined, axisTerciles.combined) : AXIS_COLOR_NONE;
+          axisScore != null
+            ? axisColor(axisScore, axisTerciles[axisKey])
+            : AXIS_COLOR_NONE;
         const checked = compareSet.has(s.id);
         const disableCheck = !checked && compareFull;
 
@@ -59,6 +66,7 @@ export default function SubstationList({
               active ? "bg-white/[0.05]" : ""
             }`}
           >
+            {canCompare && (
             <input
               type="checkbox"
               checked={checked}
@@ -71,6 +79,7 @@ export default function SubstationList({
               }
               className="h-3.5 w-3.5 shrink-0 cursor-pointer accent-blue-500 disabled:cursor-not-allowed disabled:opacity-30"
             />
+            )}
 
             <button onClick={() => onSelect(s)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
               {/* Status/score indicator: filled = active queue (scored), hollow = no active queue */}
@@ -113,7 +122,7 @@ export default function SubstationList({
                   )}
                 </div>
               </div>
-              <AxisBadges s={s} axisTerciles={axisTerciles} />
+              <AxisBadges s={s} axisTerciles={axisTerciles} showRisk={showRisk} />
             </button>
           </div>
         );

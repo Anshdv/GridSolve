@@ -19,6 +19,12 @@ export default function NotFound() {
           Home
         </Link>
         <Link
+          href="/pricing"
+          className="rounded-full border border-white/10 px-4 py-2 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
+        >
+          Pricing
+        </Link>
+        <Link
           href="/methodology"
           className="rounded-full border border-white/10 px-4 py-2 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
         >

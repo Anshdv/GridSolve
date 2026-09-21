@@ -13,6 +13,7 @@
 // marker = active queue (scored); hollow/gray = no active queue.
 import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Map, {
   Layer,
   Source,
@@ -66,6 +67,7 @@ import TeaserContact from "@/components/explorer/TeaserContact";
 import UserMenu from "@/components/auth/UserMenu";
 import { ExplorerScoreProvider } from "@/components/explorer/ExplorerScoreContext";
 import { useExplorerAccess } from "@/hooks/useExplorerAccess";
+import { downloadCatalogCsv } from "@/lib/exportCatalogCsv";
 
 const MAP_STYLE = "https://tiles.openfreemap.org/styles/dark";
 const LIST_RENDER_LIMIT = 250;
@@ -190,16 +192,28 @@ export default function Explorer() {
   const [loadError, setLoadError] = useState<string | null>(null);
   const [selectedName, setSelectedName] = useState<string | null>(null);
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
-  const [sortKey, setSortKey] = useState<SortKey>("combined");
+  const [sortKey, setSortKey] = useState<SortKey>("power");
   // Which axis colors the map + drives its legend: Power | Risk | Combined.
-  const [axis, setAxis] = useState<Axis>("combined");
+  const [axis, setAxis] = useState<Axis>("power");
   const [compareNames, setCompareNames] = useState<string[]>([]);
   const [compareOpen, setCompareOpen] = useState(false);
   const [detailCollapsed, setDetailCollapsed] = useState(false);
   const [legendCollapsed, setLegendCollapsed] = useState(false);
   const [panelPct, setPanelPct] = useState(PANEL_DEFAULT_PCT);
   const [mapCursor, setMapCursor] = useState("");
-  const { ready: authReady, hasFullAccess } = useExplorerAccess();
+  const router = useRouter();
+  const { ready: authReady, plan, hasFullAccess } = useExplorerAccess();
+
+  useEffect(() => {
+    if (!plan.canSeeRisk && (axis === "risk" || axis === "combined")) {
+      setAxis("power");
+      if (sortKey === "risk" || sortKey === "combined") setSortKey("power");
+    }
+    if (!plan.canCompare) {
+      setCompareNames([]);
+      setCompareOpen(false);
+    }
+  }, [plan.canSeeRisk, plan.canCompare, axis, sortKey]);
 
   useEffect(() => {
     let cancelled = false;
@@ -213,7 +227,7 @@ export default function Explorer() {
         }));
         setScored(nextScored);
         setSelectedName(
-          sortSubstations(nextScored, "combined", makeScoreOf(inputs))[0]?.id ??
+          sortSubstations(nextScored, "power", makeScoreOf(inputs))[0]?.id ??
             null
         );
       })
@@ -400,7 +414,7 @@ export default function Explorer() {
       !teaserIds.has(selectedName ?? "")
     ) {
       setSelectedName(
-        sortSubstations(teaserSubstations, "combined", scoreOf)[0]?.id ?? null
+        sortSubstations(teaserSubstations, "power", scoreOf)[0]?.id ?? null
       );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -448,6 +462,11 @@ export default function Explorer() {
 
   function exportPrint() {
     window.print();
+  }
+
+  function exportCsv() {
+    if (!plan.canExport || !scoreOf || !sorted.length) return;
+    downloadCatalogCsv(sorted, scoreOf, plan.canSeeRisk);
   }
 
   if (loadError) {
@@ -534,6 +553,12 @@ export default function Explorer() {
               top-right corner and would otherwise sit on top of these. */}
           <div className="pointer-events-auto mr-14 flex items-center gap-2">
             <Link
+              href="/pricing"
+              className="rounded-md border border-white/10 bg-[#0a0a0b]/80 px-3 py-1.5 text-xs text-neutral-300 backdrop-blur transition-colors hover:text-white"
+            >
+              Pricing
+            </Link>
+            <Link
               href="/methodology"
               className="rounded-md border border-white/10 bg-[#0a0a0b]/80 px-3 py-1.5 text-xs text-neutral-300 backdrop-blur transition-colors hover:text-white"
             >
@@ -548,24 +573,34 @@ export default function Explorer() {
             pill, clears the top-left/right controls. */}
         <div className="pointer-events-none absolute left-0 right-0 top-16 flex justify-center px-4">
           <div className="pointer-events-auto flex items-center gap-1 rounded-md border border-white/10 bg-[#0a0a0b]/85 p-1 text-[11px] backdrop-blur">
-            {(["power", "risk", "combined"] as Axis[]).map((a) => (
-              <button
-                key={a}
-                onClick={() => {
-                  setAxis(a);
-                  // Keep the list ordered by the same axis the map is colored by.
-                  setSortKey(a);
-                }}
-                aria-pressed={axis === a}
-                className={`rounded px-2.5 py-1 font-medium transition-colors ${
-                  axis === a
-                    ? "bg-white/15 text-white"
-                    : "text-neutral-400 hover:text-white"
-                }`}
-              >
-                {AXIS_LABEL[a]}
-              </button>
-            ))}
+            {(["power", "risk", "combined"] as Axis[]).map((a) => {
+              const locked = !plan.canSeeRisk && a !== "power";
+              return (
+                <button
+                  key={a}
+                  onClick={() => {
+                    if (locked) {
+                      router.push("/pricing");
+                      return;
+                    }
+                    setAxis(a);
+                    setSortKey(a);
+                  }}
+                  aria-pressed={axis === a}
+                  title={locked ? "Diligence license" : undefined}
+                  className={`rounded px-2.5 py-1 font-medium transition-colors ${
+                    axis === a
+                      ? "bg-white/15 text-white"
+                      : locked
+                        ? "text-neutral-600"
+                        : "text-neutral-400 hover:text-white"
+                  }`}
+                >
+                  {AXIS_LABEL[a]}
+                  {locked ? " · diligence" : ""}
+                </button>
+              );
+            })}
           </div>
         </div>
 
@@ -668,23 +703,29 @@ export default function Explorer() {
             </span>
           </div>
           <p className="mt-1.5 text-xs leading-relaxed text-neutral-500">
-            {hasFullAccess ? (
+            {hasFullAccess && plan.canSeeRisk ? (
               <>
-                Ranked by GridSolve Site Score — a holistic read on interconnection
-                suitability, relative to the current view. Model reliability
-                varies by region; each panel shows the caveat.
+                Diligence view — Power, Risk, Combined, compare, and
+                print/CSV. Model reliability varies by region; each panel
+                shows the caveat. For internal screening, not a utility study.
+              </>
+            ) : hasFullAccess ? (
+              <>
+                Screening seat — national catalog ranked by Power. Risk,
+                Combined, compare, print, and CSV sit on the Diligence
+                license.
               </>
             ) : (
               <>
-                A free preview — a varied sample of sites across the country,
-                with full scoring. Compare among these sites now; the complete
-                list and filters are unlocked by request.
+                Sample — six sites, Power only. Screening ($3,000/mo) unlocks
+                the catalog for a live hunt; Diligence ($30,000/yr) is the
+                write-down.
               </>
             )}
           </p>
         </div>
 
-        {compareNames.length > 0 && (
+        {plan.canCompare && compareNames.length > 0 && (
           <div className="no-print flex items-center justify-between gap-3 border-b border-white/5 bg-blue-500/[0.06] px-5 py-2.5 text-xs">
             <span className="text-neutral-300">
               {compareNames.length} selected to compare
@@ -724,6 +765,9 @@ export default function Explorer() {
                 onSortChange={setSortKey}
                 shown={sorted.length}
                 total={totalCount}
+                canSeeRisk={plan.canSeeRisk}
+                canExport={plan.canExport}
+                onExportCsv={exportCsv}
               />
             </div>
 
@@ -736,6 +780,8 @@ export default function Explorer() {
               compareFull={compareNames.length >= 4}
               onSelect={select}
               onToggleCompare={toggleCompare}
+              canCompare={plan.canCompare}
+              showRisk={plan.canSeeRisk}
             />
 
             {selected && !compareOpen && (
@@ -751,23 +797,22 @@ export default function Explorer() {
                   collapsed={detailCollapsed}
                   onToggleCollapsed={() => setDetailCollapsed((c) => !c)}
                   onExport={exportPrint}
+                  canSeeRisk={plan.canSeeRisk}
+                  canExport={plan.canExport}
                 />
               </div>
             )}
           </>
         ) : (
           <>
-            {/* Same list component as full access — only the curated 6,
-                sorted by the active Power/Risk/Combined axis (or FilterBar
-                sortKey). Preview chrome + contact bar wrap it. */}
             <div className="no-print border-b border-white/5 px-5 py-2.5">
               <p className="font-tele text-[11px] uppercase tracking-[0.14em] text-[var(--accent-bright)]">
-                Preview · a varied sample, coast to coast
+                Preview · Power · six sites
               </p>
               <p className="mt-1 text-[11px] leading-relaxed text-neutral-500">
-                Select any site to see its full breakdown, or check up to 4 to
-                compare — power, risk, and combined. Switch the map axis to
-                reorder this list.
+                Sample of the instrument. Screening is a live hunt on the full
+                catalog; Diligence adds Risk, Combined, compare, print, and
+                CSV.
               </p>
               <label className="mt-2.5 flex min-w-0 items-center gap-2 text-[11px] text-neutral-500">
                 <span className="shrink-0">Sort by</span>
@@ -776,17 +821,13 @@ export default function Explorer() {
                   onChange={(e) => {
                     const next = e.target.value as SortKey;
                     setSortKey(next);
-                    if (
-                      next === "power" ||
-                      next === "risk" ||
-                      next === "combined"
-                    ) {
-                      setAxis(next);
-                    }
+                    if (next === "power") setAxis("power");
                   }}
                   className="w-full cursor-pointer rounded border border-white/10 bg-white/[0.03] px-2 py-1.5 text-[11px] text-neutral-200 outline-none transition-colors hover:border-white/20 focus:border-blue-500/60"
                 >
-                  {SORT_OPTIONS.map((o) => (
+                  {SORT_OPTIONS.filter(
+                    (o) => o.key !== "risk" && o.key !== "combined"
+                  ).map((o) => (
                     <option key={o.key} value={o.key} className="bg-neutral-900">
                       {o.label}
                     </option>
@@ -804,6 +845,8 @@ export default function Explorer() {
               compareFull={compareNames.length >= 4}
               onSelect={select}
               onToggleCompare={toggleCompare}
+              canCompare={false}
+              showRisk={false}
             />
 
             {teaserSelected && !compareOpen && (
@@ -819,6 +862,8 @@ export default function Explorer() {
                   collapsed={detailCollapsed}
                   onToggleCollapsed={() => setDetailCollapsed((c) => !c)}
                   onExport={exportPrint}
+                  canSeeRisk={false}
+                  canExport={false}
                 />
               </div>
             )}
@@ -831,7 +876,7 @@ export default function Explorer() {
         )}
       </div>
 
-      {compareOpen && compareItems.length >= 2 && (
+      {plan.canCompare && compareOpen && compareItems.length >= 2 && (
         <CompareView
           items={compareItems}
           terciles={terciles}

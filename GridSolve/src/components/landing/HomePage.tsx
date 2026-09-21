@@ -64,6 +64,12 @@ function Nav({ canAnimate }: { canAnimate: boolean }) {
             aria-hidden
           />
           <Link
+            href="/pricing"
+            className="hidden text-sm text-neutral-400 transition-colors hover:text-white sm:inline"
+          >
+            Pricing
+          </Link>
+          <Link
             href="/explorer"
             className="group flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-1.5 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
           >
@@ -549,8 +555,14 @@ function FinalCta() {
           GridSolve provides modeled estimates for planning only — not
           engineering, legal, or investment advice.
         </p>
-        <div className="mt-9 flex justify-center">
+        <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <MagneticCta href="/explorer">Open the explorer</MagneticCta>
+          <Link
+            href="/pricing"
+            className="text-sm text-neutral-400 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+          >
+            Screening and Diligence pricing
+          </Link>
         </div>
       </Reveal>
     </section>
@@ -573,6 +585,9 @@ function Footer() {
             className="transition-colors hover:text-neutral-300"
           >
             Interconnection queue
+          </Link>
+          <Link href="/pricing" className="transition-colors hover:text-neutral-300">
+            Pricing
           </Link>
           <Link href="/methodology" className="transition-colors hover:text-neutral-300">
             Methodology

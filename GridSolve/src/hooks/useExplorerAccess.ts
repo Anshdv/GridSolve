@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { isSupabaseConfigured } from "@/lib/supabase/client";
+import { PLAN_CAPABILITIES, type PlanCapabilities } from "@/lib/plans";
 
 export function useExplorerAccess() {
-  const [hasFullAccess, setHasFullAccess] = useState(false);
+  const [plan, setPlan] = useState<PlanCapabilities>(PLAN_CAPABILITIES.free);
+  const [authenticated, setAuthenticated] = useState(false);
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -15,15 +17,17 @@ export function useExplorerAccess() {
 
     let cancelled = false;
     fetch("/api/explorer/access", { credentials: "same-origin" })
-      .then((res) => (res.ok ? res.json() : { hasFullAccess: false }))
-      .then((data: { hasFullAccess?: boolean }) => {
+      .then((res) => res.json())
+      .then((data: { plan?: PlanCapabilities; authenticated?: boolean }) => {
         if (cancelled) return;
-        setHasFullAccess(Boolean(data.hasFullAccess));
+        setPlan(data.plan ?? PLAN_CAPABILITIES.free);
+        setAuthenticated(Boolean(data.authenticated));
         setReady(true);
       })
       .catch(() => {
         if (cancelled) return;
-        setHasFullAccess(false);
+        setPlan(PLAN_CAPABILITIES.free);
+        setAuthenticated(false);
         setReady(true);
       });
 
@@ -34,6 +38,8 @@ export function useExplorerAccess() {
 
   return {
     ready,
-    hasFullAccess,
+    plan,
+    authenticated,
+    hasFullAccess: plan.canSeeFullCatalog,
   };
 }

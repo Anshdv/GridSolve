@@ -21,17 +21,20 @@ export function AxisBadges({
   s,
   axisTerciles,
   size = "sm",
+  showRisk = true,
 }: {
   s: Substation;
   axisTerciles: Record<Axis, [number, number]>;
   size?: "sm" | "md";
+  showRisk?: boolean;
 }) {
   const scoreOf = useExplorerScore();
   const two = scoreOf(s);
   const pad = size === "md" ? "px-2 py-0.5 text-[11px]" : "px-1.5 py-0.5 text-[10px]";
+  const axes = showRisk ? AXES : (["power"] as Axis[]);
   return (
     <div className="flex shrink-0 items-center gap-1">
-      {AXES.map((a) => {
+      {axes.map((a) => {
         const v = axisValue(two, a);
         const color = v == null ? AXIS_COLOR_NONE : axisColor(v, axisTerciles[a]);
         const title =

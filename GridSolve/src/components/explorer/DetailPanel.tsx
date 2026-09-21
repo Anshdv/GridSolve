@@ -34,6 +34,8 @@ export default function DetailPanel({
   collapsed,
   onToggleCollapsed,
   onExport,
+  canSeeRisk = true,
+  canExport = true,
 }: {
   s: ScoredSubstation;
   terciles: [number, number];
@@ -41,6 +43,8 @@ export default function DetailPanel({
   collapsed: boolean;
   onToggleCollapsed: () => void;
   onExport: () => void;
+  canSeeRisk?: boolean;
+  canExport?: boolean;
 }) {
   const scoreOf = useExplorerScore();
   const result = s.scoreResult;
@@ -72,12 +76,21 @@ export default function DetailPanel({
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
+          {canExport ? (
           <button
             onClick={onExport}
             className="rounded border border-white/10 px-2.5 py-1 text-[11px] text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
           >
             Export
           </button>
+          ) : (
+            <a
+              href="/pricing"
+              className="rounded border border-white/10 px-2.5 py-1 text-[11px] text-neutral-500 transition-colors hover:border-white/25 hover:text-white"
+            >
+              Export · diligence
+            </a>
+          )}
           <button
             onClick={onToggleCollapsed}
             aria-label={collapsed ? "Expand details" : "Minimize details"}
@@ -96,9 +109,9 @@ export default function DetailPanel({
       {/* Two-axis summary badges up top — the at-a-glance read before the
           separated Power and Risk sections below. */}
       <div className="mt-3 flex items-center gap-2">
-        <AxisBadges s={s} axisTerciles={axisTerciles} size="md" />
+        <AxisBadges s={s} axisTerciles={axisTerciles} size="md" showRisk={canSeeRisk} />
         <span className="text-[10px] text-neutral-600">
-          Power · Risk · Combined
+          {canSeeRisk ? "Power · Risk · Combined" : "Power"}
         </span>
       </div>
 
@@ -182,6 +195,8 @@ export default function DetailPanel({
           from Power above — deliberately not merged. Higher riskScore = safer.
           One horizontal bar per hazard, worst on top; "no risk data" when the
           dataset carries no hazard fields. */}
+      {canSeeRisk ? (
+      <>
       <Section title="Risk — natural-hazard exposure">
         {two.riskScore != null && hazards.length > 0 ? (
           <>
@@ -255,6 +270,22 @@ export default function DetailPanel({
           </p>
         )}
       </Section>
+      </>
+      ) : (
+        <Section title="Risk & Combined — diligence">
+          <p className="text-[11px] leading-relaxed text-neutral-500">
+            Hazard safety, Combined score, and the Power × Risk quadrant ship
+            with the Diligence license.{" "}
+            <a
+              href="/pricing"
+              className="text-[var(--accent-bright)] underline decoration-dotted"
+            >
+              See plans
+            </a>
+            .
+          </p>
+        </Section>
+      )}
 
       {/* Model reliability — the survival model's predictive quality varies by
           region; this is the honesty caveat on the score above. */}

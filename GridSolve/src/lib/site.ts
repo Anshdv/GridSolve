@@ -83,6 +83,12 @@ export const pageMetadata = {
       "How GridSolve predicts interconnection queue withdrawals with a Cox survival model, validates by ISO/RTO region, and computes withdrawal-adjusted deliverable capacity at 4,600+ substations nationwide.",
     alternates: { canonical: "/methodology" },
   },
+  pricing: {
+    title: "Pricing — Sample, Screening, and Diligence License",
+    description:
+      "GridSolve commercial access: a six-site sample, a $3,000/month screening seat for a live siting sprint, and a $30,000/year diligence license with Risk, Combined, compare, print, and CSV.",
+    alternates: { canonical: "/pricing" },
+  },
 } as const;
 
 export function getSiteUrl(): string {
@@ -140,6 +146,7 @@ export const publicRoutes = [
     priority: 0.95,
   },
   { path: "/methodology", changeFrequency: "monthly" as const, priority: 0.85 },
+  { path: "/pricing", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3 },
   { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3 },
   { path: "/dmca", changeFrequency: "yearly" as const, priority: 0.2 },

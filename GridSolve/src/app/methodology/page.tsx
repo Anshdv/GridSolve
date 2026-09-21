@@ -46,6 +46,12 @@ export default function Methodology() {
               Interconnection queue
             </Link>
             <Link
+              href="/pricing"
+              className="text-sm text-neutral-300 transition-colors hover:text-white"
+            >
+              Pricing
+            </Link>
+            <Link
               href="/explorer"
               className="text-sm text-neutral-300 transition-colors hover:text-white"
             >

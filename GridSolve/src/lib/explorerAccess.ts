@@ -1,5 +1,5 @@
-// Which signed-in email gets full explorer access (list, scores, detail panels).
-// Server-only — never import this from a Client Component.
+import { planForEmail, type PlanCapabilities } from "@/lib/plans";
+
 export function getExplorerAccessEmail(): string {
   return (
     process.env.EXPLORER_ACCESS_EMAIL?.trim().toLowerCase() ||
@@ -11,6 +11,11 @@ export function getExplorerAccessEmail(): string {
 export function hasExplorerFullAccess(
   userEmail: string | null | undefined
 ): boolean {
-  if (!userEmail) return false;
-  return userEmail.trim().toLowerCase() === getExplorerAccessEmail();
+  return planForEmail(userEmail).canSeeFullCatalog;
+}
+
+export function explorerPlanForEmail(
+  userEmail: string | null | undefined
+): PlanCapabilities {
+  return planForEmail(userEmail);
 }
