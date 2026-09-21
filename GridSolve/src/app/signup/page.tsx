@@ -8,6 +8,7 @@ import { formatAuthError } from "@/lib/auth-errors";
 import { hasEnrolledMfa, isAtLeast18, isPasswordStrong, maxDobForAdult } from "@/lib/validation";
 import { isPasswordPwned } from "@/lib/password-security";
 import { safeRedirectPath } from "@/lib/safe-redirect";
+import { getSiteUrl } from "@/lib/site";
 import { AuthShell } from "@/components/auth/AuthShell";
 import { Field, Message, SubmitButton } from "@/components/auth/fields";
 import { PasswordField } from "@/components/auth/PasswordField";
@@ -106,7 +107,7 @@ function SignUpForm() {
         email: submittedEmail,
         password,
         options: {
-          emailRedirectTo: `${window.location.origin}/auth/callback?next=${encodeURIComponent(
+          emailRedirectTo: `${getSiteUrl()}/auth/callback?next=${encodeURIComponent(
             "/signup"
           )}`,
           data: {

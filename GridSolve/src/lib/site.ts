@@ -91,14 +91,81 @@ export const pageMetadata = {
   },
 } as const;
 
+const CANONICAL_PRODUCTION_URL = "https://grid-solve.com";
+
+function isLoopbackHost(hostname: string): boolean {
+  return (
+    hostname === "localhost" ||
+    hostname === "127.0.0.1" ||
+    hostname === "[::1]" ||
+    hostname === "::1"
+  );
+}
+
 export function getSiteUrl(): string {
   const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (configured) return configured.replace(/\/$/, "");
+  if (configured) {
+    const url = configured.replace(/\/$/, "");
+    try {
+      if (
+        process.env.NODE_ENV === "production" &&
+        isLoopbackHost(new URL(url).hostname)
+      ) {
+        return CANONICAL_PRODUCTION_URL;
+      }
+    } catch {
+      /* use as-is */
+    }
+    return url;
+  }
 
   const vercel = process.env.VERCEL_URL?.trim();
   if (vercel) return `https://${vercel.replace(/\/$/, "")}`;
 
+  if (process.env.NODE_ENV === "production") return CANONICAL_PRODUCTION_URL;
+
   return "http://localhost:3000";
+}
+
+/** Origin for auth emails and redirectTo — never a loopback host in production. */
+export function authCallbackUrl(next = "/explorer"): string {
+  const path = next.startsWith("/") && !next.startsWith("//") ? next : "/explorer";
+  return `${getSiteUrl()}/auth/callback?next=${encodeURIComponent(path)}`;
+}
+
+export function nextPathFromAuthRedirect(
+  type: string,
+  redirectTo: string | undefined
+): string {
+  if (type === "recovery") return "/reset-password";
+  try {
+    if (redirectTo) {
+      const url = new URL(redirectTo, getSiteUrl());
+      const next = url.searchParams.get("next");
+      if (next?.startsWith("/") && !next.startsWith("//")) return next;
+      if (url.pathname.startsWith("/reset-password")) return "/reset-password";
+      if (url.pathname.startsWith("/signup")) return "/signup";
+    }
+  } catch {
+    /* fall through */
+  }
+  if (type === "signup" || type === "invite") return "/signup";
+  return "/explorer";
+}
+
+/** App-hosted confirmation link so emails never inherit Supabase's localhost Site URL. */
+export function authConfirmationUrl(
+  tokenHash: string,
+  type: string,
+  redirectTo: string | undefined
+): string {
+  const next = nextPathFromAuthRedirect(type, redirectTo);
+  const params = new URLSearchParams({
+    token_hash: tokenHash,
+    type,
+    next,
+  });
+  return `${getSiteUrl()}/auth/callback?${params.toString()}`;
 }
 
 /** Host shown in authenticator apps (never localhost). */

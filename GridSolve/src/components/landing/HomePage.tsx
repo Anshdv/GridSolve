@@ -65,7 +65,7 @@ function Nav({ canAnimate }: { canAnimate: boolean }) {
           />
           <Link
             href="/pricing"
-            className="hidden text-sm text-neutral-400 transition-colors hover:text-white sm:inline"
+            className="rounded-full border border-white/10 px-4 py-1.5 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
           >
             Pricing
           </Link>
@@ -150,9 +150,15 @@ function Hero({ canAnimate }: { canAnimate: boolean }) {
             initial={canAnimate ? { opacity: 0, y: 16 } : false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE, delay: canAnimate ? 0.85 : 0 }}
-            className="mt-9 flex flex-wrap items-center gap-x-5 gap-y-3"
+            className="mt-9 flex flex-wrap items-center gap-x-4 gap-y-3"
           >
             <MagneticCta href="/explorer">Open the explorer</MagneticCta>
+            <Link
+              href="/pricing"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 px-5 py-3 text-sm font-medium text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
+            >
+              See pricing
+            </Link>
             <span className="font-tele text-[12px] text-neutral-500">
               {datasetStats.total.toLocaleString()} substations ·{" "}
               {datasetStats.regions} regions
@@ -559,9 +565,9 @@ function FinalCta() {
           <MagneticCta href="/explorer">Open the explorer</MagneticCta>
           <Link
             href="/pricing"
-            className="text-sm text-neutral-400 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+            className="inline-flex items-center gap-1.5 rounded-lg border border-white/15 px-5 py-3 text-sm font-medium text-neutral-200 transition-colors hover:border-white/30 hover:text-white"
           >
-            Screening and Diligence pricing
+            See pricing
           </Link>
         </div>
       </Reveal>

@@ -5,6 +5,7 @@ import {
   getUnsubscribeUrl,
   PRIVACY_EMAIL,
 } from "@/lib/legal";
+import { authConfirmationUrl } from "@/lib/site";
 
 export type AuthEmailUser = {
   email: string;
@@ -41,16 +42,18 @@ const SUBJECTS: Record<string, string> = {
 };
 
 function buildConfirmationUrl(emailData: AuthEmailData): string {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.replace(/\/$/, "");
-  if (!supabaseUrl) {
-    throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set");
+  if (!emailData.token_hash) {
+    throw new Error("Auth email is missing token_hash");
   }
-  const params = new URLSearchParams({
-    token: emailData.token_hash,
-    type: emailData.email_action_type,
-    redirect_to: emailData.redirect_to,
-  });
-  return `${supabaseUrl}/auth/v1/verify?${params.toString()}`;
+  return authConfirmationUrl(
+    emailData.token_hash,
+    emailData.email_action_type,
+    emailData.redirect_to
+  );
+}
+
+function isEmailOtp(token: string | undefined): boolean {
+  return Boolean(token && /^\d{6,8}$/.test(token));
 }
 
 function wrapEmailHtml(body: string): string {
@@ -133,6 +136,9 @@ function buildEmailContent(
 
   const confirmationUrl = buildConfirmationUrl(emailData);
   const subject = SUBJECTS[action] ?? "GridSolve notification";
+  const showOtp =
+    isEmailOtp(emailData.token) &&
+    (action === "magiclink" || action === "email");
 
   const copy: Record<string, { title: string; body: string; cta: string }> = {
     signup: {
@@ -173,13 +179,20 @@ function buildEmailContent(
   };
 
   const content = copy[action] ?? copy.signup;
+  const otpBlock = showOtp
+    ? `<p style="margin:16px 0 8px;">Or enter this 6-digit code on the sign-in page:</p>
+       <p style="margin:0 0 16px;font-size:28px;letter-spacing:0.2em;color:#ffffff;font-weight:700;">${emailData.token}</p>`
+    : "";
   const html = wrapEmailHtml(
     `<p style="margin:0 0 12px;color:#e5e5e5;">${greeting}</p>
      <p style="margin:0 0 8px;color:#ffffff;font-size:16px;font-weight:600;">${content.title}</p>
      <p style="margin:0 0 4px;">${content.body}</p>
-     ${buttonHtml(content.cta, confirmationUrl)}`
+     ${buttonHtml(content.cta, confirmationUrl)}
+     ${otpBlock}`
   );
-  const text = `${greeting}\n\n${content.title}\n${content.body}\n\n${confirmationUrl}${emailComplianceFooterText()}`;
+  const text = showOtp
+    ? `${greeting}\n\n${content.title}\n${content.body}\n\nCode: ${emailData.token}\n\nOr sign in: ${confirmationUrl}${emailComplianceFooterText()}`
+    : `${greeting}\n\n${content.title}\n${content.body}\n\n${confirmationUrl}${emailComplianceFooterText()}`;
 
   return { subject, html, text };
 }

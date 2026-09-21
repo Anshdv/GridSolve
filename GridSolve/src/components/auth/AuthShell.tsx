@@ -25,6 +25,13 @@ export function AuthShell({
       <div className="grid-bg pointer-events-none absolute inset-0 opacity-50" />
       <div className="pointer-events-none absolute inset-x-0 top-0 h-2/3 bg-[radial-gradient(60%_55%_at_50%_0%,rgba(61,123,255,0.12),transparent_65%)]" />
 
+      <Link
+        href="/pricing"
+        className="absolute right-6 top-6 z-10 rounded-full border border-white/10 px-3.5 py-1.5 text-xs text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
+      >
+        Pricing
+      </Link>
+
       <div className={`relative z-10 w-full ${wide ? "max-w-md" : "max-w-sm"}`}>
         <Link
           href="/"

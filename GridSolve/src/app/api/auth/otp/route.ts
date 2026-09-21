@@ -7,6 +7,7 @@ import {
 } from "@/lib/rate-limit";
 import { isValidEmail, jsonError, sleep } from "@/lib/auth-json";
 import { hasEnrolledMfa } from "@/lib/validation";
+import { authCallbackUrl } from "@/lib/site";
 
 export async function POST(request: Request) {
   let body: { email?: string; token?: string; action?: string };
@@ -50,7 +51,10 @@ export async function POST(request: Request) {
   if (action === "send") {
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { shouldCreateUser: false },
+      options: {
+        shouldCreateUser: false,
+        emailRedirectTo: authCallbackUrl("/explorer"),
+      },
     });
     if (error) {
       await sleep(300);

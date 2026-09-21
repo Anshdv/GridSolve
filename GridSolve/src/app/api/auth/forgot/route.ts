@@ -6,6 +6,7 @@ import {
   rateLimit,
 } from "@/lib/rate-limit";
 import { isValidEmail, jsonError } from "@/lib/auth-json";
+import { authCallbackUrl } from "@/lib/site";
 
 export async function POST(request: Request) {
   let body: { email?: string };
@@ -34,10 +35,9 @@ export async function POST(request: Request) {
     );
   }
 
-  const origin = new URL(request.url).origin;
   const supabase = await createClient();
   await supabase.auth.resetPasswordForEmail(email, {
-    redirectTo: `${origin}/auth/callback?next=/reset-password`,
+    redirectTo: authCallbackUrl("/reset-password"),
   });
 
   return Response.json({
