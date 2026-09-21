@@ -5,7 +5,7 @@
 // two real numbers (queued → adjusted MW) and the cost. A no-active-queue
 // station has no score to show and says so plainly instead of a blank or 0.
 import { type ScoredSubstation } from "@/lib/siteScore";
-import { axisColor, AXIS_COLOR_NONE, type Axis } from "@/lib/scores";
+import { axisColor, axisValue, AXIS_COLOR_NONE, type Axis } from "@/lib/scores";
 import { useExplorerScore } from "./ExplorerScoreContext";
 import { AxisBadges } from "./AxisBadges";
 
@@ -51,7 +51,7 @@ export default function SubstationList({
         // The row dot reflects the COMBINED axis (the default headline read);
         // gray/hollow when there's no combined score for this site.
         const axisKey: Axis = showRisk ? "combined" : "power";
-        const axisScore = scoreOf(s)[axisKey];
+        const axisScore = axisValue(scoreOf(s), axisKey);
         const color =
           axisScore != null
             ? axisColor(axisScore, axisTerciles[axisKey])
