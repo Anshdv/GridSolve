@@ -19,9 +19,9 @@ const nextConfig = {
   async redirects() {
     return [
       {
-        source: "/interconnection-queue",
-        destination: "/about",
-        permanent: true,
+        source: "/about",
+        destination: "/",
+        permanent: false,
       },
     ];
   },
