@@ -15,9 +15,11 @@ const ITEM =
 export default function UserMenu({
   className = "",
   layout = "menu",
+  onBand = false,
 }: {
   className?: string;
   layout?: "menu" | "inline";
+  onBand?: boolean;
 }) {
   const router = useRouter();
   const rootRef = useRef<HTMLDivElement>(null);
@@ -92,13 +94,17 @@ export default function UserMenu({
       <div className={`flex items-center gap-4 ${className}`}>
         <Link
           href="/login"
-          className="text-[13px] text-neutral-400 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+          className={`text-[13px] transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white ${
+            onBand ? "text-white/80" : "text-neutral-400"
+          }`}
         >
           Log in
         </Link>
         <Link
           href="/signup"
-          className="text-[13px] text-neutral-200 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+          className={`text-[13px] transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white ${
+            onBand ? "text-white/80" : "text-neutral-200"
+          }`}
         >
           Sign up
         </Link>
@@ -137,7 +143,9 @@ export default function UserMenu({
         aria-haspopup="menu"
         aria-expanded={open}
         title={email}
-        className="max-w-[11rem] truncate text-[13px] text-neutral-300 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
+        className={`max-w-[11rem] truncate text-[13px] transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white ${
+          onBand ? "text-white/80" : "text-neutral-300"
+        }`}
       >
         {email}
       </button>

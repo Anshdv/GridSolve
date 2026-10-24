@@ -539,7 +539,7 @@ function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-6 py-8 text-xs text-neutral-600 sm:flex-row sm:items-center">
         <span className="flex items-center gap-2">
           <LogoMark />
-          GridSolve · Withdrawal-adjusted interconnection capacity
+          © 2026 DeepSlate Labs
         </span>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
           <Link

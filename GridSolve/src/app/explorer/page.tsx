@@ -604,7 +604,7 @@ export default function Explorer() {
 
         {/* Axis toggle — recolors the markers and the legend by Power, Risk,
             or Combined, and keeps the list sorted by the same axis. */}
-        <div className="pointer-events-none absolute left-0 right-0 top-4 flex justify-center px-4">
+        <div className="pointer-events-none absolute left-14 right-0 top-4 flex justify-center px-4">
           <div className="pointer-events-auto flex items-center gap-1 rounded-md border border-white/10 bg-[#0a0a0b]/85 p-1 text-[11px] backdrop-blur">
             {(["power", "risk", "combined"] as Axis[]).map((a) => {
               const locked = !plan.canSeeRisk && a !== "power";
