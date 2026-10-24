@@ -6,17 +6,18 @@ import { usePathname } from "next/navigation";
 import UserMenu from "@/components/auth/UserMenu";
 
 const LINKS = [
+  { href: "/about", label: "About" },
+  { href: "/explorer", label: "Explorer" },
   { href: "/methodology", label: "Methodology" },
   { href: "/pricing", label: "Pricing" },
-  { href: "/interconnection-queue", label: "Queue" },
-  { href: "/explorer", label: "Explorer" },
+  { href: "/faqs", label: "FAQs" },
 ] as const;
 
 function LogoMark() {
   return (
     <span className="relative flex h-5 w-5 items-center justify-center" aria-hidden>
-      <span className="absolute inset-0 rounded-[5px] border border-white/40" />
-      <span className="h-1.5 w-1.5 rounded-[1px] bg-white" />
+      <span className="absolute inset-0 rounded-[5px] border border-[var(--accent)]/50" />
+      <span className="h-1.5 w-1.5 rounded-[1px] bg-[var(--accent-bright)]" />
     </span>
   );
 }
@@ -125,8 +126,10 @@ export default function SiteNav({
                   key={link.href}
                   href={link.href}
                   aria-current={active ? "page" : undefined}
-                  className={`border-b border-white/10 py-3.5 text-[15px] ${
-                    active ? "text-white" : "text-white/75"
+                  className={`w-fit border-b py-3.5 text-[15px] ${
+                    active
+                      ? "border-[var(--accent-bright)] text-white"
+                      : "border-transparent text-white/75"
                   }`}
                   onClick={() => setOpen(false)}
                 >
@@ -145,7 +148,7 @@ export default function SiteNav({
 
   return (
     <header
-      className={`sticky top-0 z-30 bg-[#0f2744] text-white ${canAnimate ? "gs-nav-in" : ""}`}
+      className={`sticky top-0 z-30 border-b border-white/[0.08] bg-[#07080a] text-white ${canAnimate ? "gs-nav-in" : ""}`}
     >
       <div className="relative flex h-16 items-center px-5 sm:px-7">
         <Link
@@ -169,11 +172,17 @@ export default function SiteNav({
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`text-[14px] transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white ${
-                  active ? "text-white" : "text-white/75 hover:text-white"
+                className={`relative text-[14px] transition-colors focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white ${
+                  active ? "text-white" : "text-neutral-400 hover:text-white"
                 }`}
               >
                 {link.label}
+                <span
+                  className={`absolute -bottom-2 left-0 right-0 h-px ${
+                    active ? "bg-[var(--accent-bright)]" : "bg-transparent"
+                  }`}
+                  aria-hidden
+                />
               </Link>
             );
           })}
@@ -181,7 +190,7 @@ export default function SiteNav({
 
         <div className="relative z-10 ml-auto flex items-center">
           <div className="hidden lg:block">
-            <UserMenu onBand />
+            <UserMenu />
           </div>
           <button
             type="button"
@@ -209,7 +218,11 @@ export default function SiteNav({
                 key={link.href}
                 href={link.href}
                 aria-current={active ? "page" : undefined}
-                className={`block py-2.5 text-[15px] ${active ? "text-white" : "text-white/80"}`}
+                className={`inline-block border-b py-2.5 text-[15px] ${
+                  active
+                    ? "border-[var(--accent-bright)] text-white"
+                    : "border-transparent text-neutral-300"
+                }`}
               >
                 {link.label}
               </Link>

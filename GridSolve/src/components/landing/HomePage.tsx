@@ -542,11 +542,11 @@ function Footer() {
           © 2026 DeepSlate Labs
         </span>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <Link
-            href="/interconnection-queue"
-            className="transition-colors hover:text-neutral-300"
-          >
-            Interconnection queue
+          <Link href="/about" className="transition-colors hover:text-neutral-300">
+            About
+          </Link>
+          <Link href="/faqs" className="transition-colors hover:text-neutral-300">
+            FAQs
           </Link>
           <Link href="/pricing" className="transition-colors hover:text-neutral-300">
             Pricing

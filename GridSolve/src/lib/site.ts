@@ -71,11 +71,17 @@ export const pageMetadata = {
     description: siteConfig.description,
     alternates: { canonical: "/" },
   },
-  interconnectionQueue: {
-    title: "Interconnection Queue Prediction & Grid Interconnection Data",
+  about: {
+    title: "About GridSolve — Interconnection Queue Prediction",
     description:
       "Understand the U.S. interconnection queue, predict project withdrawals, and find substations with deliverable grid capacity. GridSolve applies survival modeling to interconnection queue data for data center and generation developers.",
-    alternates: { canonical: "/interconnection-queue" },
+    alternates: { canonical: "/about" },
+  },
+  faqs: {
+    title: "FAQs — Interconnection Queue Prediction",
+    description:
+      "Answers on the interconnection queue, withdrawal-adjusted capacity, what GridSolve models, and the data behind the scores.",
+    alternates: { canonical: "/faqs" },
   },
   methodology: {
     title: "Interconnection Queue Model & Withdrawal Prediction Methodology",
@@ -207,11 +213,8 @@ export function brandedTotpUri(originalUri: string, email?: string | null): stri
 /** Public routes that should appear in the sitemap and be indexed. */
 export const publicRoutes = [
   { path: "/", changeFrequency: "weekly" as const, priority: 1 },
-  {
-    path: "/interconnection-queue",
-    changeFrequency: "weekly" as const,
-    priority: 0.95,
-  },
+  { path: "/about", changeFrequency: "weekly" as const, priority: 0.95 },
+  { path: "/faqs", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/methodology", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/pricing", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3 },

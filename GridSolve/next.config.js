@@ -16,6 +16,15 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/interconnection-queue",
+        destination: "/about",
+        permanent: true,
+      },
+    ];
+  },
   serverExternalPackages: ["resend"],
   async headers() {
     return [
