@@ -1,44 +1,44 @@
 {
   "model": {
     "coverage": "National — 9 regions. Model validation varies by region.",
-    "pacificorp_concordance": 0.718,
-    "note": "Withdrawal rates are EMPIRICAL, computed within each region from that region's own resolved projects. They are observed history, not model extrapolation. Survival-model concordance was validated per region and differs widely — see model_tier on each substation.",
+    "pacificorp_concordance": 0.74,
+    "note": "Withdrawal rates are EMPIRICAL, computed within each region from that region's own resolved projects. They are observed history, not model extrapolation. Survival-model concordance was validated per region (leakage-safe Cox, mature-project cross-validation) and differs widely — see model_tier on each substation.",
     "region_validation": {
       "West": {
-        "concordance": 0.617,
-        "tier": "marginal"
-      },
-      "Southeast": {
-        "concordance": 0.657,
+        "concordance": 0.689,
         "tier": "usable"
       },
+      "Southeast": {
+        "concordance": 0.703,
+        "tier": "validated"
+      },
       "PJM": {
-        "concordance": 0.597,
-        "tier": "weak"
+        "concordance": 0.606,
+        "tier": "marginal"
       },
       "MISO": {
-        "concordance": null,
-        "tier": "unvalidated"
+        "concordance": 0.584,
+        "tier": "weak"
       },
       "CAISO": {
-        "concordance": 0.514,
-        "tier": "not_predictive"
+        "concordance": 0.658,
+        "tier": "usable"
       },
       "ISO-NE": {
-        "concordance": 0.651,
+        "concordance": 0.666,
         "tier": "usable"
       },
       "SPP": {
-        "concordance": null,
-        "tier": "unvalidated"
+        "concordance": 0.643,
+        "tier": "usable"
       },
       "NYISO": {
-        "concordance": null,
-        "tier": "unvalidated"
+        "concordance": 0.609,
+        "tier": "marginal"
       },
       "ERCOT": {
-        "concordance": null,
-        "tier": "unvalidated"
+        "concordance": 0.755,
+        "tier": "validated"
       }
     },
     "withdrawal_rate_note": "Regional base rates range from 25% (ERCOT) to 92% (NYISO).",
@@ -47,19 +47,23 @@
   "drivers": [
     {
       "feature": "In cluster process",
-      "hazard_ratio": 2.74
-    },
-    {
-      "feature": "Third-party developer",
-      "hazard_ratio": 1.89
-    },
-    {
-      "feature": "NRIS service",
-      "hazard_ratio": 1.52
+      "hazard_ratio": 1.2
     },
     {
       "feature": "Battery",
-      "hazard_ratio": 1.43
+      "hazard_ratio": 1.16
+    },
+    {
+      "feature": "Named developer",
+      "hazard_ratio": 0.72
+    },
+    {
+      "feature": "Gas",
+      "hazard_ratio": 0.72
+    },
+    {
+      "feature": "ERIS service",
+      "hazard_ratio": 0.69
     }
   ],
   "availableRegions": [

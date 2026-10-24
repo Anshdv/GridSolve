@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 const withdrawalPct = Math.round(datasetStats.nationalWithdrawalRate * 100);
 
 const TIER_GLOSS =
-  "Validated / Usable = safe to weight heavily. Marginal = directional only. Weak = limited signal. Unvalidated / Not predictive = treat this region's model output as a coin flip; rely on the empirical withdrawal rate instead.";
+  "Validated / Usable = safe to weight heavily. Marginal = directional only. Weak = limited signal — rely more on the empirical withdrawal rate than on the model's ranking.";
 
 export default function Methodology() {
   // Regional validation table, straight from the model block.
@@ -151,8 +151,8 @@ export default function Methodology() {
             quality is not uniform. It was validated separately in each region,
             and concordance — the probability it ranks the project that
             withdraws first as the higher-risk one (0.5 is a coin flip, 1.0 is
-            perfect) — differs widely. Only some regions clear a usable bar;
-            others were never validated at all.
+            perfect) — differs widely. Every region now has a held-out score;
+            strength still varies.
           </p>
           <div className="mt-4 overflow-x-auto rounded-xl border border-white/10 bg-white/[0.02]">
             <table className="w-full text-left text-sm">
@@ -176,7 +176,7 @@ export default function Methodology() {
                       </td>
                       <td className="px-3 py-2.5 sm:px-4">
                         <span
-                          className="inline-block whitespace-nowrap rounded px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wide sm:px-2"
+                          className="inline-block whitespace-nowrap rounded px-1.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-normal sm:px-2"
                           style={{ backgroundColor: t.color + "22", color: t.color }}
                           title={t.blurb}
                         >
@@ -190,7 +190,9 @@ export default function Methodology() {
             </table>
           </div>
           <p className="mt-3 text-[13px] leading-relaxed text-neutral-400">
-            {TIER_GLOSS}
+            {TIER_GLOSS} PacifiCorp substations in OR, WA, ID, UT, and WY carry
+            concordance {model.pacificorp_concordance.toFixed(3)} (validated),
+            which is stronger than the rest of the West row.
           </p>
           <p className="mt-4">
             Because the withdrawal rates are empirical, the capacity numbers

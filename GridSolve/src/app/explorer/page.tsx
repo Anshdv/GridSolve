@@ -17,6 +17,7 @@ import { useRouter } from "next/navigation";
 import Map, {
   Layer,
   Source,
+  Popup,
   MapRef,
   NavigationControl,
   type MapLayerMouseEvent,
@@ -28,6 +29,7 @@ import {
   availableStates,
   datasetStats,
   matchesCostBand,
+  tierMeta,
 } from "@/lib/data-meta";
 import { loadSubstations } from "@/lib/data-load";
 import {
@@ -201,6 +203,7 @@ export default function Explorer() {
   const [legendCollapsed, setLegendCollapsed] = useState(false);
   const [panelPct, setPanelPct] = useState(PANEL_DEFAULT_PCT);
   const [mapCursor, setMapCursor] = useState("");
+  const [hoverId, setHoverId] = useState<string | null>(null);
   const router = useRouter();
   const { ready: authReady, plan, hasFullAccess } = useExplorerAccess();
 
@@ -385,6 +388,8 @@ export default function Explorer() {
               : AXIS_COLOR_NONE,
             active: scoreOf && axisValue(scoreOf(s), axis) != null ? 1 : 0,
             approx: s.approxLocation ? 1 : 0,
+            concordance: s.regionConcordance,
+            tier: s.modelTier,
           },
         })),
     }),
@@ -399,6 +404,10 @@ export default function Explorer() {
   const selected = useMemo(
     () => scored?.find((s) => s.id === selectedName) ?? null,
     [scored, selectedName]
+  );
+  const hovered = useMemo(
+    () => scored?.find((s) => s.id === hoverId) ?? null,
+    [scored, hoverId]
   );
   const teaserSelected = useMemo(
     () => teaserSubstations.find((s) => s.id === selectedName) ?? null,
@@ -448,6 +457,12 @@ export default function Explorer() {
     if (!id) return;
     const s = scored?.find((x) => x.id === id);
     if (s) select(s);
+  }
+
+  function onMapMouseMove(e: MapLayerMouseEvent) {
+    const id = e.features?.[0]?.properties?.id as string | undefined;
+    setHoverId(id ?? null);
+    setMapCursor(id ? "pointer" : "");
   }
 
   function toggleCompare(id: string) {
@@ -509,8 +524,11 @@ export default function Explorer() {
           style={{ width: "100%", height: "100%" }}
           interactiveLayerIds={[POINT_LAYER_ID]}
           onClick={onMapClick}
-          onMouseEnter={() => setMapCursor("pointer")}
-          onMouseLeave={() => setMapCursor("")}
+          onMouseMove={onMapMouseMove}
+          onMouseLeave={() => {
+            setHoverId(null);
+            setMapCursor("");
+          }}
           cursor={mapCursor}
         >
           <NavigationControl position="top-right" showCompass={false} />
@@ -539,6 +557,42 @@ export default function Explorer() {
               }}
             />
           </Source>
+          {hovered?.mapped && hovered.lng != null && hovered.lat != null && (
+            <Popup
+              longitude={hovered.lng}
+              latitude={hovered.lat}
+              closeButton={false}
+              closeOnClick={false}
+              offset={12}
+              className="gs-map-popup"
+              maxWidth="220px"
+            >
+              <div className="min-w-0">
+                <div className="truncate text-[12px] font-medium text-white">
+                  {hovered.name}
+                </div>
+                <div className="mt-0.5 text-[11px] text-neutral-400">
+                  {hovered.county}, {hovered.state}
+                </div>
+                <div className="mt-1.5 flex items-center gap-1.5">
+                  <span
+                    className="rounded px-1.5 py-px font-tele text-[9px] font-semibold uppercase tracking-wide"
+                    style={{
+                      backgroundColor: tierMeta(hovered.modelTier).color + "22",
+                      color: tierMeta(hovered.modelTier).color,
+                    }}
+                  >
+                    {tierMeta(hovered.modelTier).label}
+                  </span>
+                  <span className="font-tele text-[11px] tabular-nums text-neutral-300">
+                    {hovered.regionConcordance != null
+                      ? `${hovered.region} ${hovered.regionConcordance.toFixed(3)}`
+                      : hovered.region}
+                  </span>
+                </div>
+              </div>
+            </Popup>
+          )}
         </Map>
 
         <div className="pointer-events-none absolute left-0 right-0 top-0 flex items-start justify-between p-4">

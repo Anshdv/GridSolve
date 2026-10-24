@@ -6,6 +6,7 @@
 // station has no score to show and says so plainly instead of a blank or 0.
 import { type ScoredSubstation } from "@/lib/siteScore";
 import { axisColor, axisValue, AXIS_COLOR_NONE, type Axis } from "@/lib/scores";
+import { tierMeta } from "@/lib/data-meta";
 import { useExplorerScore } from "./ExplorerScoreContext";
 import { AxisBadges } from "./AxisBadges";
 
@@ -103,6 +104,18 @@ export default function SubstationList({
                 </div>
                 <div className="mt-0.5 text-xs text-neutral-500">
                   <span className="font-mono text-neutral-600">{s.region}</span>
+                  {s.regionConcordance != null && (
+                    <span className="font-tele tabular-nums text-neutral-500">
+                      {" "}
+                      {s.regionConcordance.toFixed(3)}
+                    </span>
+                  )}
+                  <span
+                    className="ml-1.5 font-tele text-[10px] font-semibold uppercase tracking-wide"
+                    style={{ color: tierMeta(s.modelTier).color }}
+                  >
+                    {tierMeta(s.modelTier).label}
+                  </span>
                   {" · "}
                   {s.hasActiveQueue ? (
                     <>

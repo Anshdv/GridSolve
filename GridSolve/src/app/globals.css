@@ -22,8 +22,25 @@ body {
 .font-display {
   font-family: var(--font-sans), sans-serif;
 }
-.font-tele {
-  font-family: var(--font-mono), ui-monospace, monospace;
+/* Map hover popup — override MapLibre's default white card. */
+.gs-map-popup {
+  pointer-events: none;
+}
+.gs-map-popup .maplibregl-popup-content {
+  background: rgba(10, 10, 11, 0.92);
+  color: #e6e7ea;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  box-shadow: none;
+  padding: 8px 10px;
+  font-size: 12px;
+}
+.gs-map-popup .maplibregl-popup-tip {
+  border-top-color: rgba(10, 10, 11, 0.92);
+}
+.gs-map-popup.maplibregl-popup-anchor-bottom .maplibregl-popup-tip {
+  border-top-color: rgba(10, 10, 11, 0.92);
+  border-bottom-color: transparent;
 }
 
 /* Faint engineering grid, used behind the hero. */

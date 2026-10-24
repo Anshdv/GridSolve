@@ -1,6 +1,7 @@
 # Dependency folders
 node_modules/
 .next/
+.venv/
 
 # Environment variables (secret keys)
 .env
@@ -16,6 +17,7 @@ build/
 # Model script (local / generated)
 gridsolve_model.py
 gridsolvemodel.py
+data/concordance-tuning.json
 
 # OpenNext
 .open-next

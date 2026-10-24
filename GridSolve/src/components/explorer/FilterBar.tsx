@@ -7,6 +7,7 @@
 // The dataset is national (9 regions, ~48 states), so region is the primary
 // geographic filter (a short chip row) and state is a lookup dropdown.
 import type { CostBandKey } from "@/lib/data";
+import { model, tierMeta } from "@/lib/data-meta";
 
 export type StatusFilter = "active" | "history" | "all";
 export type SortKey =
@@ -100,10 +101,17 @@ export default function FilterBar({
         <span className="mr-1 text-[11px] text-neutral-500">Region</span>
         {availableRegions.map((r) => {
           const active = filters.regions.includes(r);
+          const v = model.region_validation[r];
+          const t = v ? tierMeta(v.tier) : null;
           return (
             <button
               key={r}
               onClick={() => toggleRegion(r)}
+              title={
+                v?.concordance != null
+                  ? `${r} concordance ${v.concordance.toFixed(3)} · ${t?.label}`
+                  : r
+              }
               className={`rounded-full border px-2.5 py-1 text-[11px] font-medium transition-colors ${
                 active
                   ? "border-blue-500/50 bg-blue-500/15 text-blue-300"
@@ -111,6 +119,11 @@ export default function FilterBar({
               }`}
             >
               {r}
+              {v?.concordance != null && (
+                <span className="ml-1.5 font-tele text-[10px] tabular-nums opacity-80">
+                  {v.concordance.toFixed(3)}
+                </span>
+              )}
             </button>
           );
         })}
