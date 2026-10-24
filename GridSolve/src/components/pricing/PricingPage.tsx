@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import UserMenu from "@/components/auth/UserMenu";
+import SiteNav from "@/components/SiteNav";
 import { useExplorerAccess } from "@/hooks/useExplorerAccess";
 import { getExplorerContactEmail } from "@/lib/explorerContact";
 import { datasetStats } from "@/lib/data-meta";
@@ -30,31 +30,7 @@ export default function PricingPage() {
 
   return (
     <main className="min-h-screen bg-[#07080a] text-neutral-200">
-      <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-[#07080a]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4">
-          <Link
-            href="/"
-            className="text-sm text-neutral-300 transition-colors hover:text-white"
-          >
-            ← GridSolve
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/methodology"
-              className="text-sm text-neutral-300 transition-colors hover:text-white"
-            >
-              Methodology
-            </Link>
-            <Link
-              href="/explorer"
-              className="text-sm text-neutral-300 transition-colors hover:text-white"
-            >
-              Explorer →
-            </Link>
-            <UserMenu />
-          </div>
-        </div>
-      </header>
+      <SiteNav />
 
       <div className="mx-auto max-w-5xl px-6 py-16 md:py-24">
         <p className="font-tele text-[11px] uppercase tracking-[0.16em] text-[var(--accent-bright)]">

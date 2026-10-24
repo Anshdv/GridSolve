@@ -3,6 +3,7 @@
 // aggregates) — nothing hardcoded.
 import type { Metadata } from "next";
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 import DriversChart from "@/components/DriversChart";
 import { model, drivers, datasetStats, tierMeta } from "@/lib/data";
 import { HAZARD_WEIGHTS } from "@/lib/scores";
@@ -33,33 +34,7 @@ export default function Methodology() {
 
   return (
     <main className="min-h-screen bg-[#07080a] text-neutral-200">
-      <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-[#07080a]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-6 py-4">
-          <Link href="/" className="text-sm text-neutral-300 transition-colors hover:text-white">
-            ← GridSolve
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/interconnection-queue"
-              className="text-sm text-neutral-300 transition-colors hover:text-white"
-            >
-              Interconnection queue
-            </Link>
-            <Link
-              href="/pricing"
-              className="text-sm text-neutral-300 transition-colors hover:text-white"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/explorer"
-              className="text-sm text-neutral-300 transition-colors hover:text-white"
-            >
-              Explorer →
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteNav />
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <h1 className="font-display text-3xl font-semibold tracking-tight text-white [text-wrap:balance] md:text-4xl">

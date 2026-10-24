@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 import JsonLd from "@/components/JsonLd";
 import { datasetStats, model } from "@/lib/data";
 import { faqPageJsonLd, webPageJsonLd } from "@/lib/seo";
@@ -35,27 +36,7 @@ export default function InterconnectionQueuePage() {
         ]}
       />
       <main className="min-h-screen bg-[#07080a] text-neutral-200">
-        <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-[#07080a]/80 backdrop-blur-md">
-          <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-            <Link href="/" className="text-sm text-neutral-300 transition-colors hover:text-white">
-              ← GridSolve
-            </Link>
-            <div className="flex items-center gap-4">
-              <Link
-                href="/pricing"
-                className="text-sm text-neutral-300 transition-colors hover:text-white"
-              >
-                Pricing
-              </Link>
-              <Link
-                href="/explorer"
-                className="text-sm text-neutral-300 transition-colors hover:text-white"
-              >
-                Explorer →
-              </Link>
-            </div>
-          </div>
-        </header>
+        <SiteNav />
 
         <article className="mx-auto max-w-3xl px-6 py-16 md:py-24">
           <p className="font-tele text-[11px] uppercase tracking-[0.15em] text-neutral-500">

@@ -1,21 +1,29 @@
 "use client";
 
-// Auth-aware nav element. Shows the signed-in user's email + a Sign out
-// button, or a compact sign-in / sign-up control when logged out. Renders
-// nothing when Supabase isn't configured, so the nav stays clean until auth
-// is wired up.
-import { useEffect, useState } from "react";
+// Auth-aware nav element. Logged out: text links. Signed in: one account
+// control that opens Security and Sign out, so the bar stays a navigation
+// bar instead of a row of pills. Renders nothing when Supabase isn't
+// configured.
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient, isSupabaseConfigured } from "@/lib/supabase/client";
 
-const PILL =
-  "rounded-full border border-white/10 px-3 py-1.5 text-xs text-neutral-300 backdrop-blur transition-colors hover:border-white/25 hover:text-white disabled:opacity-60";
+const ITEM =
+  "block w-full px-3 py-2 text-left text-[13px] text-neutral-200 transition-colors hover:bg-white/[0.05] focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-[-1px] focus-visible:outline-[var(--accent)]";
 
-export default function UserMenu({ className = "" }: { className?: string }) {
+export default function UserMenu({
+  className = "",
+  layout = "menu",
+}: {
+  className?: string;
+  layout?: "menu" | "inline";
+}) {
   const router = useRouter();
+  const rootRef = useRef<HTMLDivElement>(null);
   const [email, setEmail] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const [open, setOpen] = useState(false);
   const [signingOut, setSigningOut] = useState(false);
 
   useEffect(() => {
@@ -34,31 +42,63 @@ export default function UserMenu({ className = "" }: { className?: string }) {
     return () => sub.subscription.unsubscribe();
   }, []);
 
-  // Nothing to show until auth is configured / resolved (avoids a flash).
+  useEffect(() => {
+    if (!open) return;
+    function onPointer(e: MouseEvent) {
+      if (!rootRef.current?.contains(e.target as Node)) setOpen(false);
+    }
+    function onKey(e: KeyboardEvent) {
+      if (e.key === "Escape") setOpen(false);
+    }
+    document.addEventListener("mousedown", onPointer);
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onPointer);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [open]);
+
   if (!isSupabaseConfigured || !ready) return null;
 
   async function signOut() {
     setSigningOut(true);
     const supabase = createClient();
     await supabase.auth.signOut();
+    setOpen(false);
     router.push("/");
     router.refresh();
   }
 
   if (!email) {
+    if (layout === "inline") {
+      return (
+        <div className={`flex flex-col ${className}`}>
+          <Link
+            href="/login"
+            className="py-2.5 text-[15px] text-neutral-300 transition-colors hover:text-white"
+          >
+            Log in
+          </Link>
+          <Link
+            href="/signup"
+            className="py-2.5 text-[15px] text-white transition-colors hover:text-neutral-200"
+          >
+            Sign up
+          </Link>
+        </div>
+      );
+    }
     return (
-      <div
-        className={`inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] p-0.5 backdrop-blur ${className}`}
-      >
+      <div className={`flex items-center gap-4 ${className}`}>
         <Link
           href="/login"
-          className="rounded-full px-3.5 py-1.5 text-xs text-neutral-400 transition-colors hover:text-white"
+          className="text-[13px] text-neutral-400 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
         >
           Log in
         </Link>
         <Link
           href="/signup"
-          className="rounded-full bg-[var(--accent)]/15 px-3.5 py-1.5 text-xs font-medium text-[var(--accent-bright)] transition-colors hover:bg-[var(--accent)]/25"
+          className="text-[13px] text-neutral-200 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
         >
           Sign up
         </Link>
@@ -66,20 +106,68 @@ export default function UserMenu({ className = "" }: { className?: string }) {
     );
   }
 
+  if (layout === "inline") {
+    return (
+      <div className={className}>
+        <p className="truncate py-2 font-tele text-[11px] text-neutral-500" title={email}>
+          {email}
+        </p>
+        <Link
+          href="/account/security"
+          className="block py-2.5 text-[15px] text-neutral-200 transition-colors hover:text-white"
+        >
+          Security
+        </Link>
+        <button
+          onClick={signOut}
+          disabled={signingOut}
+          className="block py-2.5 text-left text-[15px] text-neutral-400 transition-colors hover:text-white disabled:opacity-60"
+        >
+          {signingOut ? "Signing out…" : "Sign out"}
+        </button>
+      </div>
+    );
+  }
+
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      <span
-        className="hidden max-w-[11rem] truncate font-tele text-[11px] text-neutral-500 sm:inline"
+    <div ref={rootRef} className={`relative ${className}`}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-haspopup="menu"
+        aria-expanded={open}
         title={email}
+        className="max-w-[11rem] truncate text-[13px] text-neutral-300 transition-colors hover:text-white focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
       >
         {email}
-      </span>
-      <Link href="/account/security" className={PILL}>
-        Security
-      </Link>
-      <button onClick={signOut} disabled={signingOut} className={PILL}>
-        {signingOut ? "Signing out…" : "Sign out"}
       </button>
+      {open && (
+        <div
+          role="menu"
+          className="absolute right-0 top-[calc(100%+10px)] z-50 w-52 border border-white/10 bg-[#0c0d10] py-1"
+        >
+          <p className="truncate px-3 py-2 font-tele text-[11px] text-neutral-500" title={email}>
+            {email}
+          </p>
+          <Link
+            href="/account/security"
+            role="menuitem"
+            className={ITEM}
+            onClick={() => setOpen(false)}
+          >
+            Security
+          </Link>
+          <button
+            type="button"
+            role="menuitem"
+            onClick={signOut}
+            disabled={signingOut}
+            className={`${ITEM} disabled:opacity-60`}
+          >
+            {signingOut ? "Signing out…" : "Sign out"}
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -14,7 +14,7 @@ import CountUp from "@/components/CountUp";
 import ScrollBeam from "@/components/ScrollBeam";
 import { Reveal, RevealGroup, revealItem, useCanAnimate } from "@/components/Reveal";
 import { drivers, datasetStats } from "@/lib/data";
-import UserMenu from "@/components/auth/UserMenu";
+import SiteNav from "@/components/SiteNav";
 
 const EASE = [0.16, 1, 0.3, 1] as const; // ease-out-expo
 
@@ -28,7 +28,7 @@ export default function HomePage() {
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-[#07080a]">
       <ScrollBeam />
-      <Nav canAnimate={canAnimate} />
+      <SiteNav canAnimate={canAnimate} />
       <Hero canAnimate={canAnimate} />
       <Problem />
       <HowItWorks />
@@ -37,50 +37,6 @@ export default function HomePage() {
       <FinalCta />
       <Footer />
     </main>
-  );
-}
-
-/* ---------------------------------------------------------------- Nav */
-
-function Nav({ canAnimate }: { canAnimate: boolean }) {
-  return (
-    <motion.header
-      initial={canAnimate ? { opacity: 0, y: -16 } : false}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: EASE }}
-      className="sticky top-0 z-40 border-b border-white/[0.06] bg-[#07080a]/80 backdrop-blur-md"
-    >
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <div className="flex items-center gap-2.5">
-          <LogoMark />
-          <span className="font-display text-[17px] font-semibold tracking-tight text-white">
-            GridSolve
-          </span>
-        </div>
-        <div className="flex items-center gap-3">
-          <UserMenu />
-          <span
-            className="hidden h-4 w-px shrink-0 bg-white/10 sm:block"
-            aria-hidden
-          />
-          <Link
-            href="/pricing"
-            className="rounded-full border border-white/10 px-4 py-1.5 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
-          >
-            Pricing
-          </Link>
-          <Link
-            href="/explorer"
-            className="group flex items-center gap-1.5 rounded-full border border-white/10 px-4 py-1.5 text-sm text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
-          >
-            Explorer
-            <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-              →
-            </span>
-          </Link>
-        </div>
-      </div>
-    </motion.header>
   );
 }
 

@@ -12,7 +12,6 @@
 // relative to the CURRENT filtered view — not an absolute scale. Filled
 // marker = active queue (scored); hollow/gray = no active queue.
 import { useEffect, useMemo, useRef, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Map, {
   Layer,
@@ -66,7 +65,7 @@ import SubstationList from "@/components/explorer/SubstationList";
 import DetailPanel from "@/components/explorer/DetailPanel";
 import CompareView from "@/components/explorer/CompareView";
 import TeaserContact from "@/components/explorer/TeaserContact";
-import UserMenu from "@/components/auth/UserMenu";
+import SiteNav from "@/components/SiteNav";
 import { ExplorerScoreProvider } from "@/components/explorer/ExplorerScoreContext";
 import { useExplorerAccess } from "@/hooks/useExplorerAccess";
 import { downloadCatalogCsv } from "@/lib/exportCatalogCsv";
@@ -486,32 +485,40 @@ export default function Explorer() {
 
   if (loadError) {
     return (
-      <main className="flex h-screen items-center justify-center bg-[#0a0a0b] px-8 text-sm text-red-400">
-        {loadError}
+      <main className="flex h-screen flex-col bg-[#0a0a0b]">
+        <SiteNav variant="explorer" />
+        <div className="flex flex-1 items-center justify-center px-8 text-sm text-red-400">
+          {loadError}
+        </div>
       </main>
     );
   }
 
   if (!scored || !scoreOf) {
     return (
-      <main className="flex h-screen items-center justify-center bg-[#0a0a0b] text-sm text-neutral-500">
-        Loading substation data…
+      <main className="flex h-screen flex-col bg-[#0a0a0b]">
+        <SiteNav variant="explorer" />
+        <div className="flex flex-1 items-center justify-center text-sm text-neutral-500">
+          Loading substation data…
+        </div>
       </main>
     );
   }
 
   return (
     <ExplorerScoreProvider scoreOf={scoreOf}>
-    <main
-      ref={splitRef}
-      className="relative flex h-screen w-screen flex-col bg-[#0a0a0b] text-neutral-200 md:flex-row"
-      style={
-        {
-          "--panel-w": `${panelPct}%`,
-          "--map-w": `${100 - panelPct}%`,
-        } as React.CSSProperties
-      }
-    >
+    <main className="flex h-screen w-screen flex-col bg-[#0a0a0b] text-neutral-200">
+      <SiteNav variant="explorer" />
+      <div
+        ref={splitRef}
+        className="relative flex min-h-0 flex-1 flex-col md:flex-row"
+        style={
+          {
+            "--panel-w": `${panelPct}%`,
+            "--map-w": `${100 - panelPct}%`,
+          } as React.CSSProperties
+        }
+      >
       {/* Map */}
       <div className="no-print relative h-[45%] w-full md:h-full md:w-[var(--map-w)]">
         <Map
@@ -595,37 +602,9 @@ export default function Explorer() {
           )}
         </Map>
 
-        <div className="pointer-events-none absolute left-0 right-0 top-0 flex items-start justify-between p-4">
-          <Link
-            href="/"
-            className="pointer-events-auto rounded-md border border-white/10 bg-[#0a0a0b]/80 px-3 py-1.5 text-sm text-neutral-300 backdrop-blur transition-colors hover:text-white"
-          >
-            ← GridSolve
-          </Link>
-          {/* mr-14 clears maplibre's NavigationControl (+/- zoom), which is
-              its own absolutely-positioned element pinned to the map's
-              top-right corner and would otherwise sit on top of these. */}
-          <div className="pointer-events-auto mr-14 flex items-center gap-2">
-            <Link
-              href="/pricing"
-              className="rounded-md border border-white/10 bg-[#0a0a0b]/80 px-3 py-1.5 text-xs text-neutral-300 backdrop-blur transition-colors hover:text-white"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/methodology"
-              className="rounded-md border border-white/10 bg-[#0a0a0b]/80 px-3 py-1.5 text-xs text-neutral-300 backdrop-blur transition-colors hover:text-white"
-            >
-              Methodology
-            </Link>
-            <UserMenu />
-          </div>
-        </div>
-
         {/* Axis toggle — recolors the markers and the legend by Power, Risk,
-            or Combined, and keeps the list sorted by the same axis. Centered
-            pill, clears the top-left/right controls. */}
-        <div className="pointer-events-none absolute left-0 right-0 top-16 flex justify-center px-4">
+            or Combined, and keeps the list sorted by the same axis. */}
+        <div className="pointer-events-none absolute left-0 right-0 top-4 flex justify-center px-4">
           <div className="pointer-events-auto flex items-center gap-1 rounded-md border border-white/10 bg-[#0a0a0b]/85 p-1 text-[11px] backdrop-blur">
             {(["power", "risk", "combined"] as Axis[]).map((a) => {
               const locked = !plan.canSeeRisk && a !== "power";
@@ -928,6 +907,7 @@ export default function Explorer() {
             />
           </>
         )}
+      </div>
       </div>
 
       {plan.canCompare && compareOpen && compareItems.length >= 2 && (

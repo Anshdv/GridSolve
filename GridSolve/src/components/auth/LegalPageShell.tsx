@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SiteNav from "@/components/SiteNav";
 
 export function LegalPageShell({
   title,
@@ -11,42 +12,7 @@ export function LegalPageShell({
 }) {
   return (
     <main className="min-h-screen bg-[#07080a] text-neutral-200">
-      <header className="sticky top-0 z-10 border-b border-white/[0.06] bg-[#07080a]/80 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center justify-between px-6 py-4">
-          <Link
-            href="/"
-            className="text-sm text-neutral-300 transition-colors hover:text-white"
-          >
-            ← GridSolve
-          </Link>
-          <div className="flex items-center gap-4 text-sm">
-            <Link
-              href="/pricing"
-              className="text-neutral-400 transition-colors hover:text-white"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/terms"
-              className="text-neutral-400 transition-colors hover:text-white"
-            >
-              Terms
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-neutral-400 transition-colors hover:text-white"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/dmca"
-              className="text-neutral-400 transition-colors hover:text-white"
-            >
-              DMCA
-            </Link>
-          </div>
-        </div>
-      </header>
+      <SiteNav />
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <p className="font-tele text-[11px] uppercase tracking-[0.14em] text-neutral-500">
@@ -55,7 +21,18 @@ export function LegalPageShell({
         <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
           {title}
         </h1>
-        <p className="mt-3 text-sm text-neutral-500">Last updated: {lastUpdated}</p>
+        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-neutral-500">
+          <span>Last updated: {lastUpdated}</span>
+          <Link href="/terms" className="transition-colors hover:text-neutral-300">
+            Terms
+          </Link>
+          <Link href="/privacy" className="transition-colors hover:text-neutral-300">
+            Privacy
+          </Link>
+          <Link href="/dmca" className="transition-colors hover:text-neutral-300">
+            DMCA
+          </Link>
+        </p>
         <div className="prose-legal mt-10 space-y-8 text-[15px] leading-relaxed text-neutral-400">
           {children}
         </div>

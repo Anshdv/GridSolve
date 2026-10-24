@@ -27,7 +27,7 @@ export function AuthShell({
 
       <Link
         href="/pricing"
-        className="absolute right-6 top-6 z-10 rounded-full border border-white/10 px-3.5 py-1.5 text-xs text-neutral-300 transition-colors hover:border-white/25 hover:text-white"
+        className="absolute right-6 top-6 z-10 text-[13px] text-neutral-400 transition-colors hover:text-white"
       >
         Pricing
       </Link>
