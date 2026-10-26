@@ -1,4 +1,5 @@
 import { LegalPageShell, LegalSection } from "@/components/auth/LegalPageShell";
+import { PRIVACY_EMAIL } from "@/lib/legal";
 
 export const metadata = {
   title: "Privacy Policy",
@@ -123,10 +124,10 @@ export default function PrivacyPage() {
           delete, or export your personal information, and to object to or
           restrict certain processing. To exercise these rights, contact{" "}
           <a
-            href="mailto:privacy@gridsolve.com"
+            href={`mailto:${PRIVACY_EMAIL}`}
             className="text-[var(--accent-bright)] underline"
           >
-            privacy@gridsolve.com
+            {PRIVACY_EMAIL}
           </a>
           . We may need to verify your identity before responding.
         </p>
@@ -151,10 +152,10 @@ export default function PrivacyPage() {
           at least 18. We do not knowingly collect personal information from
           children. If you believe a minor has provided us data, contact{" "}
           <a
-            href="mailto:privacy@gridsolve.com"
+            href={`mailto:${PRIVACY_EMAIL}`}
             className="text-[var(--accent-bright)] underline"
           >
-            privacy@gridsolve.com
+            {PRIVACY_EMAIL}
           </a>{" "}
           and we will delete it.
         </p>
@@ -170,10 +171,10 @@ export default function PrivacyPage() {
         <p>
           Privacy inquiries:{" "}
           <a
-            href="mailto:privacy@gridsolve.com"
+            href={`mailto:${PRIVACY_EMAIL}`}
             className="text-[var(--accent-bright)] underline"
           >
-            privacy@gridsolve.com
+            {PRIVACY_EMAIL}
           </a>
         </p>
       </LegalSection>

@@ -1,8 +1,8 @@
 import { getSiteUrl } from "@/lib/site";
 
-export const LEGAL_EMAIL = "legal@gridsolve.com";
-export const PRIVACY_EMAIL = "privacy@gridsolve.com";
-export const DMCA_EMAIL = "dmca@gridsolve.com";
+export const LEGAL_EMAIL = "adevlekar@grid-solve.com";
+export const PRIVACY_EMAIL = "adevlekar@grid-solve.com";
+export const DMCA_EMAIL = "adevlekar@grid-solve.com";
 
 export function getLegalEntityName(): string {
   return process.env.NEXT_PUBLIC_LEGAL_ENTITY_NAME?.trim() || "GridSolve";

@@ -1,4 +1,5 @@
 import { LegalPageShell, LegalSection } from "@/components/auth/LegalPageShell";
+import { LEGAL_EMAIL } from "@/lib/legal";
 
 export const metadata = {
   title: "Terms of Service",
@@ -64,10 +65,10 @@ export default function TermsPage() {
           credentials and for all activity under your account. Notify us
           promptly at{" "}
           <a
-            href="mailto:legal@gridsolve.com"
+            href={`mailto:${LEGAL_EMAIL}`}
             className="text-[var(--accent-bright)] underline"
           >
-            legal@gridsolve.com
+            {LEGAL_EMAIL}
           </a>{" "}
           if you suspect unauthorized access.
         </p>
@@ -201,10 +202,10 @@ export default function TermsPage() {
         <p>
           Questions about these Terms:{" "}
           <a
-            href="mailto:legal@gridsolve.com"
+            href={`mailto:${LEGAL_EMAIL}`}
             className="text-[var(--accent-bright)] underline"
           >
-            legal@gridsolve.com
+            {LEGAL_EMAIL}
           </a>
         </p>
       </LegalSection>

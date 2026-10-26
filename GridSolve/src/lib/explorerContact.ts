@@ -2,6 +2,6 @@
 export function getExplorerContactEmail(): string {
   return (
     process.env.NEXT_PUBLIC_EXPLORER_CONTACT_EMAIL?.trim().toLowerCase() ??
-    "deepslatelabs@gmail.com"
+    "adevlekar@grid-solve.com"
   );
 }
