@@ -15,6 +15,7 @@ import ScrollBeam from "@/components/ScrollBeam";
 import { Reveal, RevealGroup, revealItem, useCanAnimate } from "@/components/Reveal";
 import { drivers, datasetStats } from "@/lib/data";
 import SiteNav from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 const EASE = [0.16, 1, 0.3, 1] as const; // ease-out-expo
 
@@ -35,22 +36,8 @@ export default function HomePage() {
       <ModelSection />
       <Stats />
       <FinalCta />
-      <Footer />
+      <SiteFooter />
     </main>
-  );
-}
-
-function LogoMark() {
-  return (
-    <span className="relative flex h-6 w-6 items-center justify-center">
-      <span className="absolute inset-0 rounded-[7px] border border-[var(--accent)]/40" />
-      <motion.span
-        className="h-2 w-2 rounded-[2px] bg-[var(--accent-bright)]"
-        animate={{ opacity: [0.4, 1, 0.4] }}
-        transition={{ duration: 2.4, repeat: Infinity, ease: "easeInOut" }}
-        style={{ boxShadow: "0 0 10px 0 var(--accent)" }}
-      />
-    </span>
   );
 }
 
@@ -58,7 +45,7 @@ function LogoMark() {
 
 function Hero({ canAnimate }: { canAnimate: boolean }) {
   const line1 = "Where data centers".split(" ");
-  const line2 = "can actually get power.".split(" ");
+  const line2 = "can still find room.".split(" ");
 
   return (
     <section className="grid-bg relative border-b border-white/[0.06]">
@@ -258,7 +245,7 @@ function Problem() {
             <motion.p variants={revealItem}>
               In this data, GridSolve&apos;s model estimates a base withdrawal rate
               of <span className="text-neutral-200">{withdrawalPct}%</span>.
-              Adjust for that, and the map of where power is actually deliverable
+              Adjust for that, and the map of where the model still sees room
               looks very different.
             </motion.p>
           </RevealGroup>
@@ -300,22 +287,22 @@ function WithdrawalBar() {
             <div className="mt-1.5 font-tele text-xl text-[var(--withdraw)]">
               {withdrawalPct}%
             </div>
-            <p className="mt-1 text-[11px] text-neutral-600">
+            <p className="mt-1 text-[11px] text-neutral-400">
               Likely to drop from the queue
             </p>
           </div>
           <div className="rounded-lg border border-[var(--accent)]/20 bg-[var(--accent)]/[0.05] px-4 py-3.5">
             <div className="flex items-center gap-2">
               <span className="h-1.5 w-1.5 rounded-[2px] bg-[var(--accent-bright)]" />
-              <span className="font-tele text-[11px] text-neutral-500">
-                Deliverable
+              <span className="font-tele text-[11px] text-neutral-400">
+                Modeled remainder
               </span>
             </div>
             <div className="mt-1.5 font-tele text-xl text-[var(--accent-bright)]">
               {survivePct}%
             </div>
-            <p className="mt-1 text-[11px] text-neutral-600">
-              Realistically available power
+            <p className="mt-1 text-[11px] text-neutral-400">
+              Estimated share still in the queue
             </p>
           </div>
         </div>
@@ -335,8 +322,9 @@ function WithdrawalBar() {
           />
         </div>
 
-        <p className="mt-4 text-[11px] leading-relaxed text-neutral-600">
-          Only the deliverable share is power you can actually count on.
+        <p className="mt-4 text-[11px] leading-relaxed text-neutral-400">
+          Modeled remainder after the withdrawal estimate. Not power a utility
+          has confirmed.
         </p>
       </div>
     </Reveal>
@@ -510,12 +498,12 @@ function FinalCta() {
           See which substations still have room.
         </h2>
         <p className="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-neutral-400">
-          Explore substations nationwide ranked by capacity that&apos;s
-          actually deliverable — not just what the queue claims.
+          Explore substations nationwide ranked by capacity the model treats
+          as still available after estimated withdrawals.
         </p>
-        <p className="mx-auto mt-3 max-w-lg text-[12px] leading-relaxed text-neutral-600">
+        <p className="mx-auto mt-3 max-w-lg text-[12px] leading-relaxed text-neutral-400">
           GridSolve provides modeled estimates for planning only — not
-          engineering, legal, or investment advice.
+          engineering, legal, or investment advice, and not a utility study.
         </p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
           <MagneticCta href="/explorer">Open the explorer</MagneticCta>
@@ -528,50 +516,5 @@ function FinalCta() {
         </div>
       </Reveal>
     </section>
-  );
-}
-
-/* ------------------------------------------------------------- Footer */
-
-function Footer() {
-  return (
-    <footer className="border-t border-white/[0.06]">
-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-3 px-6 py-8 text-xs text-neutral-600 sm:flex-row sm:items-center">
-        <span className="flex items-center gap-2">
-          <LogoMark />
-          © 2026 DeepSlate Labs
-        </span>
-        <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
-          <Link href="/" className="transition-colors hover:text-neutral-300">
-            About
-          </Link>
-          <Link
-            href="/interconnection-queue"
-            className="transition-colors hover:text-neutral-300"
-          >
-            Queue
-          </Link>
-          <Link href="/faqs" className="transition-colors hover:text-neutral-300">
-            FAQs
-          </Link>
-          <Link href="/pricing" className="transition-colors hover:text-neutral-300">
-            Pricing
-          </Link>
-          <Link href="/methodology" className="transition-colors hover:text-neutral-300">
-            Methodology
-          </Link>
-          <Link href="/terms" className="transition-colors hover:text-neutral-300">
-            Terms
-          </Link>
-          <Link href="/privacy" className="transition-colors hover:text-neutral-300">
-            Privacy
-          </Link>
-          <Link href="/dmca" className="transition-colors hover:text-neutral-300">
-            DMCA
-          </Link>
-          <span className="font-tele">Withdrawal benchmark: LBNL, Queued Up</span>
-        </div>
-      </div>
-    </footer>
   );
 }

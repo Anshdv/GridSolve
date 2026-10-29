@@ -56,10 +56,27 @@ export function AuthShell({
         </div>
 
         {footer && (
-          <div className="mt-6 text-center text-xs leading-relaxed text-neutral-500">
+          <div className="mt-6 text-center text-xs leading-relaxed text-neutral-400">
             {footer}
           </div>
         )}
+        <nav
+          aria-label="Legal"
+          className="mt-4 flex flex-wrap justify-center gap-x-4 gap-y-1 text-[11px] text-neutral-400"
+        >
+          <Link href="/terms" className="hover:text-white">
+            Terms
+          </Link>
+          <Link href="/privacy" className="hover:text-white">
+            Privacy
+          </Link>
+          <Link href="/cookies" className="hover:text-white">
+            Cookies
+          </Link>
+          <Link href="/refunds" className="hover:text-white">
+            Refunds
+          </Link>
+        </nav>
       </div>
     </main>
   );

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import JsonLd from "@/components/JsonLd";
+import { CookieNotice } from "@/components/CookieNotice";
 import { organizationJsonLd, webApplicationJsonLd } from "@/lib/seo";
 import { getSiteUrl, seoKeywords, siteConfig } from "@/lib/site";
 import "./globals.css";
@@ -81,8 +82,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       className={`${archivo.variable} ${martianMono.variable}`}
     >
       <body className="bg-[#07080a] text-neutral-200 antialiased">
+        <a href="#content" className="skip-link">
+          Skip to content
+        </a>
         <JsonLd data={[organizationJsonLd(), webApplicationJsonLd()]} />
-        {children}
+        <CookieNotice />
+        <div id="content">{children}</div>
       </body>
     </html>
   );

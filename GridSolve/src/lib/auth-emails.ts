@@ -76,7 +76,7 @@ function wrapEmailHtml(body: string): string {
               <td style="color:#a3a3a3;font-size:15px;line-height:1.6;">${body}</td>
             </tr>
             <tr>
-              <td style="color:#525252;font-size:12px;line-height:1.5;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);">
+              <td style="color:#a3a3a3;font-size:12px;line-height:1.5;padding-top:24px;border-top:1px solid rgba(255,255,255,0.06);">
                 If you did not request this email, you can safely ignore it.
                 ${emailComplianceFooterHtml()}
               </td>

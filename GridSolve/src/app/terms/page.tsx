@@ -6,7 +6,7 @@ export const metadata = {
   alternates: { canonical: "/terms" },
 };
 
-const LAST_UPDATED = "September 19, 2026";
+const LAST_UPDATED = "October 27, 2026";
 
 export default function TermsPage() {
   return (
@@ -93,21 +93,32 @@ export default function TermsPage() {
 
       <LegalSection title="6. Fees, taxes, and auto-renewal">
         <p>
-          GridSolve does not currently charge a subscription or other fee to
-          use the Service. If we introduce paid plans, the price, billing
-          period, auto-renewal terms, and how to cancel will be displayed
-          immediately adjacent to the purchase button before you pay, as
-          required by California&apos;s Automatic Renewal Law and similar
-          statutes. We will not enroll you in an automatically renewing paid
-          plan without that disclosure and your affirmative consent.
+          Prices published on the pricing page are the full fee for that plan.
+          There is no setup fee and no per-export or per-seat charge unless
+          that charge and its amount are stated in writing before you agree.
+          The site does not charge a card. A paid plan starts only after we
+          confirm the fee, the billing period, and how to cancel, and you
+          agree in writing.
+        </p>
+        <p>
+          We will not enroll you in an automatically renewing paid plan
+          without showing the price, billing period, auto-renewal terms, and
+          how to cancel immediately next to that agreement, and without your
+          affirmative consent, consistent with California&apos;s Automatic
+          Renewal Law and similar statutes. Any tax is stated before you pay.
+          Refunds are described in our{" "}
+          <a href="/refunds" className="text-[var(--accent-bright)] underline">
+            Refund Policy
+          </a>
+          .
         </p>
         <p>
           If paid plans are offered to customers in the EEA/UK, applicable VAT
           will be collected at the rate of the customer&apos;s country from the
           first euro of taxable supply. Where we have economic nexus in a U.S.
-          state that taxes SaaS, we will collect that tax. EEA consumers would
+          state that taxes SaaS, we will collect that tax. EEA consumers
           retain any mandatory 14-day withdrawal right unless a permitted
-          waiver is obtained at checkout.
+          waiver is obtained at the time of the agreement.
         </p>
       </LegalSection>
 

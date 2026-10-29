@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import JsonLd from "@/components/JsonLd";
 import { datasetStats, model } from "@/lib/data";
 import { webPageJsonLd } from "@/lib/seo";
@@ -54,7 +55,7 @@ export default function QueuePage() {
               <span className="text-neutral-100">
                 withdrawal-adjusted capacity
               </span>{" "}
-              that is actually deliverable.
+              the model treats as still in the queue.
             </p>
             <dl className="mt-12 grid max-w-3xl grid-cols-3 gap-6 border-t border-white/10 pt-8">
               <div>
@@ -189,12 +190,13 @@ export default function QueuePage() {
             </div>
           </div>
 
-          <p className="mt-12 text-[11px] leading-relaxed text-neutral-600">
+          <p className="mt-12 text-[11px] leading-relaxed text-neutral-400">
             Source: ISO/RTO interconnection queues (LBNL Queued Up) and LBNL
             interconnection cost studies.
           </p>
         </article>
       </main>
+      <SiteFooter />
     </>
   );
 }

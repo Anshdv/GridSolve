@@ -223,6 +223,13 @@ export const publicRoutes = [
   { path: "/pricing", changeFrequency: "monthly" as const, priority: 0.8 },
   { path: "/terms", changeFrequency: "yearly" as const, priority: 0.3 },
   { path: "/privacy", changeFrequency: "yearly" as const, priority: 0.3 },
+  { path: "/cookies", changeFrequency: "yearly" as const, priority: 0.2 },
+  { path: "/refunds", changeFrequency: "yearly" as const, priority: 0.2 },
+  {
+    path: "/privacy/requests",
+    changeFrequency: "yearly" as const,
+    priority: 0.2,
+  },
   { path: "/dmca", changeFrequency: "yearly" as const, priority: 0.2 },
   { path: "/unsubscribe", changeFrequency: "yearly" as const, priority: 0.1 },
 ];

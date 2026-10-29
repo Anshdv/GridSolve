@@ -28,8 +28,12 @@ export default function DmcaPage() {
           {agent}
           <br />
           {getLegalEntityName()}
-          <br />
-          {address}
+          {address ? (
+            <>
+              <br />
+              {address}
+            </>
+          ) : null}
           <br />
           Email:{" "}
           <a href={`mailto:${DMCA_EMAIL}`} className="text-[var(--accent-bright)] underline">

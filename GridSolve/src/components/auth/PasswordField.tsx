@@ -19,7 +19,7 @@ export const PasswordField = forwardRef<
           id={id}
           type={visible ? "text" : "password"}
           disabled={disabled}
-          className={`w-full rounded-lg border border-white/10 bg-white/[0.03] py-2.5 pl-3 pr-10 text-sm text-white outline-none transition-colors placeholder:text-neutral-600 hover:border-white/20 focus:border-[var(--accent)]/70 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
+          className={`w-full rounded-lg border border-white/10 bg-white/[0.03] py-2.5 pl-3 pr-10 text-sm text-white outline-none transition-colors placeholder:text-neutral-400 hover:border-white/20 focus:border-[var(--accent)]/70 disabled:cursor-not-allowed disabled:opacity-50 ${className}`}
           {...props}
         />
         <button

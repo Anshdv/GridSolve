@@ -22,7 +22,7 @@ export function TermsAgreement({
         className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/[0.03] accent-[var(--accent)] focus:ring-[var(--accent)]/50 focus:ring-offset-0"
       />
       <span className="text-xs leading-relaxed text-neutral-400">
-        I have read and agree to the{" "}
+        I am at least 18 years old. I have read and agree to the{" "}
         <Link
           href="/terms"
           target="_blank"

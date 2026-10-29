@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import JsonLd from "@/components/JsonLd";
 import { faqPageJsonLd, webPageJsonLd } from "@/lib/seo";
 import { pageMetadata, seoKeywords, siteFaqs } from "@/lib/site";
@@ -88,6 +89,7 @@ export default function FaqsPage() {
           </div>
         </section>
       </main>
+      <SiteFooter />
     </>
   );
 }

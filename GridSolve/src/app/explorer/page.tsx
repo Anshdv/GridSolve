@@ -520,7 +520,11 @@ export default function Explorer() {
         }
       >
       {/* Map */}
-      <div className="no-print relative h-[45%] w-full md:h-full md:w-[var(--map-w)]">
+      <div
+        className="no-print relative h-[45%] w-full md:h-full md:w-[var(--map-w)]"
+        role="region"
+        aria-label="Substation map"
+      >
         <Map
           ref={mapRef}
           mapStyle={MAP_STYLE}

@@ -179,7 +179,7 @@ function SignUpForm() {
             . Open it to activate your account — next you&apos;ll add an
             authenticator app.
           </Message>
-          <p className="text-xs leading-relaxed text-neutral-600">
+          <p className="text-xs leading-relaxed text-neutral-400">
             Didn&apos;t get it? Check spam, or wait a minute and try signing in
             — you can request a new link from there if needed.
           </p>
@@ -248,7 +248,7 @@ function SignUpForm() {
             onChange={(e) => setDateOfBirth(e.target.value)}
             disabled={loading || !isSupabaseConfigured}
           />
-          <p className="mt-2 text-xs text-neutral-600">
+          <p className="mt-2 text-xs text-neutral-400">
             You must be 18 or older. We collect date of birth only to enforce
             this age gate (COPPA / eligibility) — not for marketing.
           </p>
@@ -271,7 +271,7 @@ function SignUpForm() {
             onChange={(e) => setEmail(e.target.value)}
             disabled={loading || !isSupabaseConfigured}
           />
-          <p className="mt-2 text-xs text-neutral-600">
+          <p className="mt-2 text-xs text-neutral-400">
             Use any valid email — there is no domain restriction.
           </p>
         </div>
@@ -297,7 +297,7 @@ function SignUpForm() {
           disabled={loading || !isSupabaseConfigured}
         />
 
-        <p className="text-xs leading-relaxed text-neutral-500">
+        <p className="text-xs leading-relaxed text-neutral-400">
           Next you&apos;ll scan a QR code with an authenticator app. That
           second factor is required to finish creating your account.
         </p>
@@ -311,18 +311,6 @@ function SignUpForm() {
           {loading ? "Creating account…" : "Continue to authenticator"}
         </SubmitButton>
       </form>
-
-      <p className="mt-6 border-t border-white/[0.06] pt-4 text-center text-[11px] leading-relaxed text-neutral-600">
-        By creating an account you agree to our{" "}
-        <Link href="/terms" className="underline decoration-dotted hover:text-neutral-400">
-          Terms
-        </Link>{" "}
-        and{" "}
-        <Link href="/privacy" className="underline decoration-dotted hover:text-neutral-400">
-          Privacy Policy
-        </Link>
-        .
-      </p>
     </AuthShell>
   );
 }

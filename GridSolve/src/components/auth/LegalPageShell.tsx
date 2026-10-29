@@ -1,5 +1,6 @@
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 
 export function LegalPageShell({
   title,
@@ -15,21 +16,30 @@ export function LegalPageShell({
       <SiteNav />
 
       <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
-        <p className="font-tele text-[11px] uppercase tracking-[0.14em] text-neutral-500">
+        <p className="font-tele text-[11px] uppercase tracking-[0.14em] text-neutral-400">
           Legal
         </p>
         <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight text-white md:text-4xl">
           {title}
         </h1>
-        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-neutral-500">
+        <p className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-neutral-400">
           <span>Last updated: {lastUpdated}</span>
-          <Link href="/terms" className="transition-colors hover:text-neutral-300">
+          <Link href="/terms" className="hover:text-white">
             Terms
           </Link>
-          <Link href="/privacy" className="transition-colors hover:text-neutral-300">
+          <Link href="/privacy" className="hover:text-white">
             Privacy
           </Link>
-          <Link href="/dmca" className="transition-colors hover:text-neutral-300">
+          <Link href="/cookies" className="hover:text-white">
+            Cookies
+          </Link>
+          <Link href="/refunds" className="hover:text-white">
+            Refunds
+          </Link>
+          <Link href="/privacy/requests" className="hover:text-white">
+            Data requests
+          </Link>
+          <Link href="/dmca" className="hover:text-white">
             DMCA
           </Link>
         </p>
@@ -37,6 +47,7 @@ export function LegalPageShell({
           {children}
         </div>
       </div>
+      <SiteFooter />
     </main>
   );
 }

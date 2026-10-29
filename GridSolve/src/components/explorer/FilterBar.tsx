@@ -93,7 +93,7 @@ export default function FilterBar({
         value={filters.search}
         onChange={(e) => onFiltersChange({ ...filters, search: e.target.value })}
         placeholder="Search by name or county…"
-        className="w-full rounded border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-xs text-neutral-200 outline-none transition-colors placeholder:text-neutral-600 hover:border-white/20 focus:border-blue-500/60"
+        className="w-full rounded border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-xs text-neutral-200 outline-none transition-colors placeholder:text-neutral-400 hover:border-white/20 focus:border-blue-500/60"
       />
 
       {/* Region multi-select chips */}

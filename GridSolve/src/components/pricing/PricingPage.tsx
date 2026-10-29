@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import { useExplorerAccess } from "@/hooks/useExplorerAccess";
 import { getExplorerContactEmail } from "@/lib/explorerContact";
 import { datasetStats } from "@/lib/data-meta";
@@ -40,7 +41,7 @@ export default function PricingPage() {
           Screening is a sprint. Diligence is the license.
         </h1>
         <p className="mt-4 max-w-[68ch] text-[15.5px] leading-relaxed text-neutral-400 [text-wrap:pretty]">
-          A data-center POI call is a nine-figure mistake. GridSolve is
+          A data-center POI call can be a nine-figure decision. GridSolve is
           withdrawal-adjusted screening — not a utility study. Sample shows the
           instrument. Screening ($3,000/mo) is month-to-month while a site is
           in play. Diligence ($30,000/yr) is what you print and attach.
@@ -216,7 +217,9 @@ export default function PricingPage() {
           Sample is Screening with the catalog clamped to six sites. Screening
           is Power-only on purpose: you are ranking, not filing. Diligence is
           the only plan that surfaces Risk, Combined, compare, print, and CSV
-          of the current filter. Extra seats are by request to {contact}.
+          of the current filter. The price shown is the full fee. Extra seats
+          are quoted in writing before you agree — they are not added to an
+          invoice you have not seen. Nothing is charged on this page.
         </p>
 
         <p className="mt-8 text-[14px] text-neutral-500">
@@ -228,13 +231,19 @@ export default function PricingPage() {
           </Link>
         </p>
 
-        <p className="mt-16 border-t border-white/10 pt-6 text-[11px] leading-relaxed text-neutral-500">
+        <p className="mt-16 border-t border-white/10 pt-6 text-[11px] leading-relaxed text-neutral-400">
           Source: LBNL Queued Up and LBNL interconnection cost studies. Prices
-          are the commercial terms; checkout is not wired. GridSolve estimates
-          are for site screening — not engineering, legal, or investment
-          advice.
+          are the full commercial fee. No setup fee. Checkout is not wired, so
+          nothing renews or charges from this page. Refunds are described in
+          the{" "}
+          <Link href="/refunds" className="text-neutral-200 underline underline-offset-2">
+            refund policy
+          </Link>
+          . GridSolve estimates are for site screening — not engineering,
+          legal, or investment advice.
         </p>
       </div>
+      <SiteFooter />
     </main>
   );
 }

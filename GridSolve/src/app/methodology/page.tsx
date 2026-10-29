@@ -4,6 +4,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
+import { SiteFooter } from "@/components/SiteFooter";
 import DriversChart from "@/components/DriversChart";
 import { model, drivers, datasetStats, tierMeta } from "@/lib/data";
 import { HAZARD_WEIGHTS } from "@/lib/scores";
@@ -399,12 +400,13 @@ export default function Methodology() {
           </Link>
         </p>
 
-        <p className="mt-16 border-t border-white/10 pt-6 text-[11px] leading-relaxed text-neutral-600">
+        <p className="mt-16 border-t border-white/10 pt-6 text-[11px] leading-relaxed text-neutral-400">
           Source: ISO/RTO interconnection queues (LBNL Queued Up) and LBNL
           interconnection cost studies. Withdrawal rates are empirical, per
           region; survival-model validation varies by region.
         </p>
       </div>
+      <SiteFooter />
     </main>
   );
 }

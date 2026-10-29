@@ -1,22 +1,28 @@
 import { LegalPageShell, LegalSection } from "@/components/auth/LegalPageShell";
-import { PRIVACY_EMAIL } from "@/lib/legal";
+import {
+  PRIVACY_EMAIL,
+  getLegalEntityName,
+  getLegalMailingAddress,
+} from "@/lib/legal";
 
 export const metadata = {
   title: "Privacy Policy",
   alternates: { canonical: "/privacy" },
 };
 
-const LAST_UPDATED = "September 19, 2026";
+const LAST_UPDATED = "October 27, 2026";
 
 export default function PrivacyPage() {
+  const entity = getLegalEntityName();
+  const address = getLegalMailingAddress();
   return (
     <LegalPageShell title="Privacy Policy" lastUpdated={LAST_UPDATED}>
       <LegalSection title="1. Overview">
         <p>
-          GridSolve (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or &ldquo;our&rdquo;)
-          respects your privacy. This Privacy Policy explains what personal
+          {entity} operates GridSolve (&ldquo;we,&rdquo; &ldquo;us,&rdquo; or
+          &ldquo;our&rdquo;). This Privacy Policy explains what personal
           information we collect when you use our website and interconnection
-          analytics platform, how we use it, and the choices you have.
+          screening tool, how we use it, and the choices you have.
         </p>
         <p>
           By creating an account or using GridSolve, you acknowledge this Policy
@@ -72,20 +78,23 @@ export default function PrivacyPage() {
       <LegalSection title="4. Legal bases (EEA/UK users)">
         <p>
           Where applicable, we process personal data on the bases of contract
-          performance (providing the Service), legitimate interests (security,
-          analytics, product improvement), legal obligation, and consent where
-          required (e.g., non-essential cookies or marketing, if offered).
+          performance (providing the Service), legitimate interests (security
+          and operating the Service), legal obligation, and consent where
+          required.
         </p>
       </LegalSection>
 
       <LegalSection title="5. Sharing & processors">
         <p>
-          We share information with trusted service providers that help us
-          operate GridSolve — for example, cloud hosting and authentication
-          (Supabase) — under contracts that require appropriate
-          safeguards. We may also disclose information if required by law, to
-          protect rights and safety, or in connection with a merger or
-          acquisition with notice as required.
+          We share information only with processors that run the product:
+          Supabase (accounts, authentication, and the session cookie) and
+          Resend (transactional account email). Opening the explorer map
+          loads tiles from OpenFreeMap, which receives your IP address to
+          serve the map. We do not install advertising SDKs, analytics SDKs,
+          or session-replay tools, and we do not load fonts from Google.
+          We may also disclose information if required by law, to protect
+          rights and safety, or in connection with a merger or acquisition
+          with notice as required.
         </p>
       </LegalSection>
 
@@ -94,7 +103,12 @@ export default function PrivacyPage() {
           We use essential cookies only — primarily to keep you signed in
           (authentication session). We do not set advertising cookies or
           third-party tracking cookies. Because these cookies are required to
-          operate the logged-in Service, they are not optional.
+          operate the logged-in Service, they are not optional. Details are
+          in our{" "}
+          <a href="/cookies" className="text-[var(--accent-bright)] underline">
+            Cookie Policy
+          </a>
+          .
         </p>
       </LegalSection>
 
@@ -103,7 +117,7 @@ export default function PrivacyPage() {
           We retain account information for as long as your account is active
           and as needed to provide the Service, resolve disputes, and meet
           legal obligations. Usage logs are retained for a limited period
-          consistent with security and analytics needs, then deleted or
+          consistent with security needs, then deleted or
           anonymized.
         </p>
       </LegalSection>
@@ -132,8 +146,14 @@ export default function PrivacyPage() {
           . We may need to verify your identity before responding.
         </p>
         <p>
-          You may update your account email through account settings where
-          available. To delete your account, contact us at the address above.
+          You may ask us to access, correct, or delete your account from the{" "}
+          <a
+            href="/privacy/requests"
+            className="text-[var(--accent-bright)] underline"
+          >
+            data requests
+          </a>{" "}
+          page. We do not use your account information to train a model.
         </p>
       </LegalSection>
 
@@ -176,6 +196,8 @@ export default function PrivacyPage() {
           >
             {PRIVACY_EMAIL}
           </a>
+          . {entity}
+          {address ? `, ${address}` : ""}.
         </p>
       </LegalSection>
     </LegalPageShell>
