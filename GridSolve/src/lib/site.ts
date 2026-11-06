@@ -89,6 +89,12 @@ export const pageMetadata = {
       "How GridSolve predicts interconnection queue withdrawals with a Cox survival model, validates by ISO/RTO region, and computes withdrawal-adjusted deliverable capacity at 4,600+ substations nationwide.",
     alternates: { canonical: "/methodology" },
   },
+  about: {
+    title: "About GridSolve and DeepSlate Labs LLC",
+    description:
+      "GridSolve is built and operated by DeepSlate Labs LLC. Who we are, what we build, and how to reach us.",
+    alternates: { canonical: "/about" },
+  },
   pricing: {
     title: "Pricing — Sample, Screening, and Diligence License",
     description:
@@ -218,6 +224,7 @@ export const publicRoutes = [
     changeFrequency: "weekly" as const,
     priority: 0.95,
   },
+  { path: "/about", changeFrequency: "monthly" as const, priority: 0.6 },
   { path: "/faqs", changeFrequency: "monthly" as const, priority: 0.7 },
   { path: "/methodology", changeFrequency: "monthly" as const, priority: 0.85 },
   { path: "/pricing", changeFrequency: "monthly" as const, priority: 0.8 },

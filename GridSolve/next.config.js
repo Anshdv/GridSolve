@@ -16,15 +16,6 @@ const securityHeaders = [
 
 const nextConfig = {
   poweredByHeader: false,
-  async redirects() {
-    return [
-      {
-        source: "/about",
-        destination: "/",
-        permanent: false,
-      },
-    ];
-  },
   serverExternalPackages: ["resend"],
   async headers() {
     return [

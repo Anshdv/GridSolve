@@ -5,7 +5,7 @@ export const PRIVACY_EMAIL = "adevlekar@grid-solve.com";
 export const DMCA_EMAIL = "adevlekar@grid-solve.com";
 
 export function getLegalEntityName(): string {
-  return process.env.NEXT_PUBLIC_LEGAL_ENTITY_NAME?.trim() || "DeepSlate Labs";
+  return process.env.NEXT_PUBLIC_LEGAL_ENTITY_NAME?.trim() || "DeepSlate Labs LLC";
 }
 
 /** Street address when configured. Empty until NEXT_PUBLIC_LEGAL_MAILING_ADDRESS is set. */

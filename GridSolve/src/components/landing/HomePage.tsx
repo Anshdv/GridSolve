@@ -83,7 +83,7 @@ function Hero({ canAnimate }: { canAnimate: boolean }) {
           >
             GridSolve applies{" "}
             <span className="text-neutral-200">interconnection queue prediction</span>{" "}
-            to re-score every U.S. substation by{" "}
+            to re-score {datasetStats.total.toLocaleString()} U.S. substations by{" "}
             <span className="text-neutral-200">withdrawal-adjusted capacity</span>{" "}
             — the grid interconnection megawatts likely to remain once dead queue
             projects drop out.
@@ -245,8 +245,11 @@ function Problem() {
             <motion.p variants={revealItem}>
               In this data, GridSolve&apos;s model estimates a base withdrawal rate
               of <span className="text-neutral-200">{withdrawalPct}%</span>.
-              Adjust for that, and the map of where the model still sees room
-              looks very different.
+              The two numbers measure different things: LBNL&apos;s covers every
+              project that has ever entered a queue, while ours applies each
+              region&apos;s observed withdrawal rate to the projects active today,
+              weighted by capacity. Adjust for that, and the map of where the
+              model still sees room looks very different.
             </motion.p>
           </RevealGroup>
 

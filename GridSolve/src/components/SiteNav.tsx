@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 import UserMenu from "@/components/auth/UserMenu";
 
 const LINKS = [
-  { href: "/", label: "About" },
+  { href: "/about", label: "About" },
   { href: "/interconnection-queue", label: "Queue" },
   { href: "/explorer", label: "Explorer" },
   { href: "/methodology", label: "Methodology" },

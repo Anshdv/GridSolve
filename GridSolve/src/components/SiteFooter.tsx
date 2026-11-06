@@ -6,7 +6,7 @@ import {
 } from "@/lib/legal";
 
 const PRODUCT = [
-  ["/", "About"],
+  ["/about", "About"],
   ["/interconnection-queue", "Queue"],
   ["/faqs", "FAQs"],
   ["/pricing", "Pricing"],
@@ -23,48 +23,78 @@ const LEGAL = [
   ["/unsubscribe", "Email preferences"],
 ] as const;
 
+function LinkColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: readonly (readonly [string, string])[];
+}) {
+  return (
+    <div>
+      <h2 className="font-tele text-[11px] uppercase tracking-[0.14em] text-neutral-400">
+        {title}
+      </h2>
+      <ul className="mt-3 flex flex-col">
+        {links.map(([href, label]) => (
+          <li key={href}>
+            <Link
+              href={href}
+              className="inline-flex py-1.5 text-[13px] leading-snug text-neutral-300 transition-colors duration-150 hover:text-white"
+            >
+              {label}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
 export function SiteFooter() {
   const entity = getLegalEntityName();
   const address = getLegalMailingAddress();
 
   return (
     <footer className="no-print border-t border-white/[0.06]">
-      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-6 py-8 text-xs leading-relaxed text-neutral-400">
-        <p>
-          © {new Date().getFullYear()} {entity}. GridSolve is operated by{" "}
-          {entity}.
-          {address ? ` ${address}.` : ""}{" "}
-          <a
-            href={`mailto:${LEGAL_EMAIL}`}
-            className="underline decoration-white/20 underline-offset-2 hover:text-white"
+      <div className="mx-auto max-w-6xl px-6 py-10 md:py-14">
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-12 lg:gap-8">
+          <div className="max-w-md text-xs leading-relaxed text-neutral-400 sm:col-span-2 lg:col-span-6">
+            <p className="font-display text-sm font-semibold tracking-tight text-white">
+              GridSolve
+            </p>
+            <p className="mt-3">
+              © {new Date().getFullYear()} {entity}. GridSolve is operated by{" "}
+              {entity}.
+              {address ? ` ${address}.` : ""}
+            </p>
+            <p className="mt-2">
+              <a
+                href={`mailto:${LEGAL_EMAIL}`}
+                className="text-neutral-300 underline decoration-white/20 underline-offset-2 transition-colors duration-150 hover:text-white"
+              >
+                {LEGAL_EMAIL}
+              </a>
+            </p>
+          </div>
+
+          <nav
+            aria-label="Footer"
+            className="grid grid-cols-2 gap-x-10 sm:col-span-2 sm:max-w-sm lg:col-span-6 lg:max-w-none lg:grid-cols-2 lg:gap-x-8"
           >
-            {LEGAL_EMAIL}
-          </a>
-        </p>
-        <p>
-          Archivo and Martian Mono are self-hosted under the SIL Open Font
-          License. The site does not load fonts or images from a third-party
-          CDN.
-        </p>
-        <p className="font-tele text-[11px] text-neutral-400">
-          Withdrawal benchmark: LBNL, Queued Up
-        </p>
-        <nav aria-label="Footer" className="flex flex-wrap gap-x-5 gap-y-2">
-          {PRODUCT.map(([href, label]) => (
-            <Link
-              key={href}
-              href={href}
-              className="hover:text-white"
-            >
-              {label}
-            </Link>
-          ))}
-          {LEGAL.map(([href, label]) => (
-            <Link key={href} href={href} className="hover:text-white">
-              {label}
-            </Link>
-          ))}
-        </nav>
+            <LinkColumn title="Product" links={PRODUCT} />
+            <LinkColumn title="Legal" links={LEGAL} />
+          </nav>
+        </div>
+
+        <div className="mt-10 flex flex-col gap-2 border-t border-white/[0.06] pt-4 font-tele text-[11px] leading-relaxed text-neutral-400 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8">
+          <p>
+            Archivo and Martian Mono are self-hosted under the SIL Open Font
+            License. The site does not load fonts or images from a third-party
+            CDN.
+          </p>
+          <p className="shrink-0">Withdrawal benchmark: LBNL, Queued Up</p>
+        </div>
       </div>
     </footer>
   );
