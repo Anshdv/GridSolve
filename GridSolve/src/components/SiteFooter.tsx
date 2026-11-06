@@ -1,6 +1,9 @@
 import Link from "next/link";
 import {
   LEGAL_EMAIL,
+  PRIVACY_EMAIL,
+  SECURITY_EMAIL,
+  SUPPORT_EMAIL,
   getLegalEntityName,
   getLegalMailingAddress,
 } from "@/lib/legal";
@@ -68,13 +71,23 @@ export function SiteFooter() {
               {entity}.
               {address ? ` ${address}.` : ""}
             </p>
-            <p className="mt-2">
-              <a
-                href={`mailto:${LEGAL_EMAIL}`}
-                className="text-neutral-300 underline decoration-white/20 underline-offset-2 transition-colors duration-150 hover:text-white"
-              >
-                {LEGAL_EMAIL}
-              </a>
+            <p className="mt-2 flex flex-col gap-1">
+              {(
+                [
+                  ["Support", SUPPORT_EMAIL],
+                  ["Legal", LEGAL_EMAIL],
+                  ["Privacy", PRIVACY_EMAIL],
+                  ["Security", SECURITY_EMAIL],
+                ] as const
+              ).map(([label, email]) => (
+                <a
+                  key={email}
+                  href={`mailto:${email}`}
+                  className="text-neutral-300 underline decoration-white/20 underline-offset-2 transition-colors duration-150 hover:text-white"
+                >
+                  {label}: {email}
+                </a>
+              ))}
             </p>
           </div>
 

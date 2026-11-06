@@ -1,7 +1,9 @@
 import { getSiteUrl } from "@/lib/site";
 
-export const LEGAL_EMAIL = "adevlekar@grid-solve.com";
-export const PRIVACY_EMAIL = "adevlekar@grid-solve.com";
+export const LEGAL_EMAIL = "legal@grid-solve.com";
+export const PRIVACY_EMAIL = "privacy@grid-solve.com";
+export const SUPPORT_EMAIL = "support@grid-solve.com";
+export const SECURITY_EMAIL = "security@grid-solve.com";
 export const DMCA_EMAIL = "adevlekar@grid-solve.com";
 
 export function getLegalEntityName(): string {

@@ -1,10 +1,14 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import SiteNav from "@/components/SiteNav";
 import { SiteFooter } from "@/components/SiteFooter";
 import { datasetStats } from "@/lib/data";
 import {
   LEGAL_EMAIL,
+  PRIVACY_EMAIL,
+  SECURITY_EMAIL,
+  SUPPORT_EMAIL,
   getLegalEntityName,
   getLegalMailingAddress,
 } from "@/lib/legal";
@@ -67,15 +71,26 @@ export default function About() {
           <dl className="grid max-w-[70ch] grid-cols-[auto_1fr] gap-x-6 gap-y-2">
             <dt className="text-neutral-500">Company</dt>
             <dd className="text-neutral-200">{entity}</dd>
-            <dt className="text-neutral-500">Email</dt>
-            <dd>
-              <a
-                href={`mailto:${LEGAL_EMAIL}`}
-                className="text-neutral-200 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
-              >
-                {LEGAL_EMAIL}
-              </a>
-            </dd>
+            {(
+              [
+                ["Support", SUPPORT_EMAIL],
+                ["Legal", LEGAL_EMAIL],
+                ["Privacy", PRIVACY_EMAIL],
+                ["Security", SECURITY_EMAIL],
+              ] as const
+            ).map(([label, email]) => (
+              <Fragment key={email}>
+                <dt className="text-neutral-500">{label}</dt>
+                <dd>
+                  <a
+                    href={`mailto:${email}`}
+                    className="text-neutral-200 underline decoration-white/20 underline-offset-4 transition-colors hover:text-white hover:decoration-white/50"
+                  >
+                    {email}
+                  </a>
+                </dd>
+              </Fragment>
+            ))}
             {address ? (
               <>
                 <dt className="text-neutral-500">Mail</dt>
